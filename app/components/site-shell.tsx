@@ -21,6 +21,7 @@ type LanguageContextValue = {
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
 const navigation = [
+  { href: "/", sv: "Hem", en: "Home" },
   { href: "/tjanster", sv: "Tjänster", en: "Services" },
   { href: "/arbete", sv: "Arbete", en: "Work" },
   { href: "/om-mig", sv: "Om mig", en: "About" },
@@ -163,7 +164,7 @@ function SiteFooter() {
         © {new Date().getFullYear()} Birdbrain IT.{" "}
         {lang === "sv" ? "Byggt med omtanke i Alingsås." : "Thoughtfully built in Alingsås."}
       </p>
-      <a href="mailto:adam@birdbrain.it">adam@birdbrain.it</a>
+      <a href="mailto:Hello@birdbrain.it">Hello@birdbrain.it</a>
     </footer>
   );
 }
@@ -192,10 +193,45 @@ export function Eyebrow({ children }: { children: ReactNode }) {
   );
 }
 
+const sparkles = [
+  ["8%", "28%", "-0.2s", "2.8s"],
+  ["17%", "62%", "-1.4s", "3.4s"],
+  ["27%", "17%", "-2.1s", "3.1s"],
+  ["36%", "72%", "-0.8s", "2.6s"],
+  ["44%", "39%", "-1.9s", "3.6s"],
+  ["54%", "12%", "-0.5s", "2.9s"],
+  ["61%", "61%", "-2.5s", "3.3s"],
+  ["69%", "29%", "-1.1s", "2.7s"],
+  ["77%", "76%", "-0.4s", "3.8s"],
+  ["84%", "46%", "-2.2s", "3s"],
+  ["92%", "18%", "-1.6s", "3.5s"],
+  ["96%", "67%", "-0.9s", "2.6s"],
+];
+
+export function WireframeField() {
+  return (
+    <div className="wireframe-field" aria-hidden="true">
+      <span className="wireframe-grid" />
+      {sparkles.map(([left, top, delay, duration], index) => (
+        <span
+          className="wireframe-spark"
+          key={`${left}-${top}`}
+          style={{ left, top, animationDelay: delay, animationDuration: duration }}
+        >
+          {index % 3 === 0 ? <i /> : null}
+        </span>
+      ))}
+    </div>
+  );
+}
+
 export function Raven({ compact = false }: { compact?: boolean }) {
   return (
     <div className={compact ? "raven-art raven-art-compact" : "raven-art"}>
+      <WireframeField />
+      <span className="raven-draw-tracer" aria-hidden="true" />
       <img
+        className="raven-draw-image"
         src="/images/wireframe-raven.webp"
         alt=""
         width="1245"
@@ -296,7 +332,7 @@ export function ContactForm() {
     const subject = encodeURIComponent(`Projektförfrågan från ${name}`);
     const body = encodeURIComponent(`${message}\n\nNamn: ${name}\nE-post: ${email}`);
     setSent(true);
-    window.location.href = `mailto:adam@birdbrain.it?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:Hello@birdbrain.it?subject=${subject}&body=${body}`;
   }
 
   return (

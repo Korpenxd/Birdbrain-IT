@@ -24,7 +24,7 @@ export default function ContactPage() {
             <div>
               <dt>{sv ? "E-post" : "Email"}</dt>
               <dd>
-                <a href="mailto:adam@birdbrain.it">adam@birdbrain.it</a>
+                <a href="mailto:Hello@birdbrain.it">Hello@birdbrain.it</a>
               </dd>
             </div>
             <div>

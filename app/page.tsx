@@ -6,6 +6,7 @@ import {
   CtaStrip,
   Eyebrow,
   ProjectCard,
+  WireframeField,
   useLanguage,
 } from "./components/site-shell";
 
@@ -66,7 +67,10 @@ export default function Home() {
         </div>
 
         <div className="hero-raven" aria-label={sv ? "Neonfärgad wireframe-korp" : "Neon wireframe raven"}>
+          <WireframeField />
+          <span className="raven-draw-tracer" aria-hidden="true" />
           <img
+            className="raven-draw-image"
             src="/images/wireframe-raven.webp"
             alt=""
             width="1245"
