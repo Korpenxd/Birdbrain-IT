@@ -194,18 +194,30 @@ export function Eyebrow({ children }: { children: ReactNode }) {
 }
 
 const sparkles = [
+  ["3%", "48%", "-1.7s", "3.2s"],
   ["8%", "28%", "-0.2s", "2.8s"],
+  ["11%", "81%", "-2.6s", "3.7s"],
   ["17%", "62%", "-1.4s", "3.4s"],
+  ["22%", "43%", "-0.7s", "2.5s"],
   ["27%", "17%", "-2.1s", "3.1s"],
+  ["31%", "89%", "-1.2s", "3.9s"],
   ["36%", "72%", "-0.8s", "2.6s"],
+  ["39%", "5%", "-2.8s", "3.4s"],
   ["44%", "39%", "-1.9s", "3.6s"],
+  ["49%", "84%", "-1.3s", "2.8s"],
   ["54%", "12%", "-0.5s", "2.9s"],
+  ["57%", "47%", "-2.4s", "3.7s"],
   ["61%", "61%", "-2.5s", "3.3s"],
+  ["65%", "91%", "-0.6s", "2.6s"],
   ["69%", "29%", "-1.1s", "2.7s"],
+  ["73%", "7%", "-2.9s", "3.5s"],
   ["77%", "76%", "-0.4s", "3.8s"],
+  ["81%", "59%", "-1.8s", "2.9s"],
   ["84%", "46%", "-2.2s", "3s"],
+  ["88%", "88%", "-0.3s", "3.4s"],
   ["92%", "18%", "-1.6s", "3.5s"],
   ["96%", "67%", "-0.9s", "2.6s"],
+  ["99%", "35%", "-2.7s", "3.8s"],
 ];
 
 export function WireframeField() {
@@ -225,9 +237,19 @@ export function WireframeField() {
   );
 }
 
-export function Raven({ compact = false }: { compact?: boolean }) {
+type RavenVariant = "home" | "services" | "process" | "lost";
+
+export function Raven({
+  compact = false,
+  variant = "home",
+}: {
+  compact?: boolean;
+  variant?: RavenVariant;
+}) {
   return (
-    <div className={compact ? "raven-art raven-art-compact" : "raven-art"}>
+    <div
+      className={`${compact ? "raven-art raven-art-compact" : "raven-art"} raven-variant-${variant}`}
+    >
       <WireframeField />
       <span className="raven-draw-tracer" aria-hidden="true" />
       <img

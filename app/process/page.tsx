@@ -56,7 +56,7 @@ export default function ProcessPage() {
             );
           })}
         </ol>
-        <Raven />
+        <Raven variant="process" />
       </section>
       <CtaStrip
         title={{ sv: "Vill du komma igång?", en: "Ready to get started?" }}

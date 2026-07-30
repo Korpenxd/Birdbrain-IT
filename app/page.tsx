@@ -66,7 +66,10 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="hero-raven" aria-label={sv ? "Neonfärgad wireframe-korp" : "Neon wireframe raven"}>
+        <div
+          className="hero-raven raven-variant-home"
+          aria-label={sv ? "Neonfärgad wireframe-korp" : "Neon wireframe raven"}
+        >
           <WireframeField />
           <span className="raven-draw-tracer" aria-hidden="true" />
           <img
