@@ -223,6 +223,12 @@ const sparkles = [
 export function WireframeField() {
   return (
     <div className="wireframe-field" aria-hidden="true">
+      <span className="wireframe-room">
+        <i className="room-plane room-back" />
+        <i className="room-plane room-left" />
+        <i className="room-plane room-right" />
+        <i className="room-plane room-ceiling" />
+      </span>
       <span className="wireframe-grid" />
       {sparkles.map(([left, top, delay, duration], index) => (
         <span
