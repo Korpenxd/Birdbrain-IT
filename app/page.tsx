@@ -2,6 +2,7 @@
 "use client";
 
 import Link from "next/link";
+import { type PointerEvent as ReactPointerEvent } from "react";
 
 import {
   Arrow,
@@ -39,8 +40,51 @@ export default function Home() {
   const { lang } = useLanguage();
   const sv = lang === "sv";
 
+  function handleLandingPointer(event: ReactPointerEvent<HTMLElement>) {
+    if (event.pointerType === "touch") return;
+
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const horizontal = (event.clientX - bounds.left) / bounds.width - 0.5;
+    const vertical = (event.clientY - bounds.top) / Math.min(bounds.height, window.innerHeight) - 0.5;
+
+    event.currentTarget.style.setProperty("--page-x", `${horizontal * 22}px`);
+    event.currentTarget.style.setProperty("--page-y", `${vertical * 18}px`);
+    event.currentTarget.style.setProperty("--page-rx", `${vertical * -0.45}deg`);
+    event.currentTarget.style.setProperty("--page-ry", `${horizontal * 0.65}deg`);
+  }
+
+  function resetLandingPointer(event: ReactPointerEvent<HTMLElement>) {
+    event.currentTarget.style.setProperty("--page-x", "0px");
+    event.currentTarget.style.setProperty("--page-y", "0px");
+    event.currentTarget.style.setProperty("--page-rx", "0deg");
+    event.currentTarget.style.setProperty("--page-ry", "0deg");
+  }
+
+  function pulseLanding(event: ReactPointerEvent<HTMLElement>) {
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const x = ((event.clientX - bounds.left) / bounds.width) * 100;
+    const y = ((event.clientY - bounds.top) / bounds.height) * 100;
+
+    event.currentTarget.style.setProperty("--pulse-x", `${x}%`);
+    event.currentTarget.style.setProperty("--pulse-y", `${y}%`);
+    event.currentTarget.classList.remove("is-pulsing");
+    requestAnimationFrame(() => event.currentTarget.classList.add("is-pulsing"));
+    window.setTimeout(() => event.currentTarget.classList.remove("is-pulsing"), 900);
+  }
+
   return (
-    <main>
+    <main
+      className="landing-page"
+      onPointerMove={handleLandingPointer}
+      onPointerLeave={resetLandingPointer}
+      onPointerDown={pulseLanding}
+    >
+      <div className="landing-environment" aria-hidden="true">
+        <span className="landing-star-map" />
+        <span className="landing-room-lines" />
+        <span className="landing-floor-grid" />
+        <span className="landing-pulse" />
+      </div>
       <section className="hero page-shell">
         <div className="hero-copy">
           <Eyebrow>

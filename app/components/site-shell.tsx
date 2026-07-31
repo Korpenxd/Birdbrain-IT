@@ -548,7 +548,6 @@ export function Raven({
     >
       <WireframeField variant={variant} />
       <RavenNetwork variant={variant} />
-      <span className="raven-energy-sweep" aria-hidden="true" />
       <RavenImage priority={priority} />
     </div>
   );
