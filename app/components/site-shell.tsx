@@ -240,7 +240,6 @@ export function WireframeField({ variant = "home" }: { variant?: RavenVariant })
         <i className="room-plane room-left" />
         <i className="room-plane room-right" />
         <i className="room-plane room-ceiling" />
-        <span className="room-frame" />
         <span className="chamber-vault">
           <i className="chamber-ring chamber-ring-outer" />
           <i className="chamber-ring chamber-ring-middle" />
@@ -499,6 +498,18 @@ export function RavenImage({ priority = false }: { priority?: boolean }) {
         fetchPriority={priority ? "high" : "auto"}
       />
     </picture>
+  );
+}
+
+export function RavenPageEnvironment({ variant }: { variant: RavenVariant }) {
+  return (
+    <div className={`raven-page-environment raven-page-environment-${variant}`} aria-hidden="true">
+      <span className="raven-page-stars" />
+      <span className="raven-page-architecture" />
+      <span className="raven-page-floor" />
+      <span className="raven-page-signal raven-page-signal-one" />
+      <span className="raven-page-signal raven-page-signal-two" />
+    </div>
   );
 }
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { CtaStrip, Eyebrow, Raven, useLanguage } from "../components/site-shell";
+import { CtaStrip, Eyebrow, Raven, RavenPageEnvironment, useLanguage } from "../components/site-shell";
 
 const steps = [
   {
@@ -25,7 +25,9 @@ export default function ProcessPage() {
   const { lang } = useLanguage();
   const sv = lang === "sv";
   return (
-    <main className="page-shell inner-page">
+    <main className="raven-page raven-page-process">
+      <RavenPageEnvironment variant="process" />
+      <div className="page-shell inner-page raven-page-content">
       <section className="inner-hero">
         <Eyebrow>{sv ? "Process" : "Process"}</Eyebrow>
         <h1>
@@ -65,6 +67,7 @@ export default function ProcessPage() {
           en: "Book a free conversation and let’s see if we’re a good fit.",
         }}
       />
+      </div>
     </main>
   );
 }

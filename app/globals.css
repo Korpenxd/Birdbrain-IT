@@ -565,15 +565,6 @@ img {
   opacity: 0.62;
 }
 
-.field-variant-home .room-frame {
-  top: 9%;
-  right: 14%;
-  bottom: 35%;
-  left: 14%;
-  border-color: rgba(104, 143, 245, 0.32);
-  opacity: 0.56;
-}
-
 .room-plane {
   position: absolute;
   display: block;
@@ -639,50 +630,6 @@ img {
   transform: perspective(650px) rotateX(-68deg);
   transform-origin: center bottom;
   animation-duration: 13s;
-}
-
-.room-frame {
-  position: absolute;
-  z-index: 2;
-  top: 15%;
-  right: 21%;
-  bottom: 38%;
-  left: 21%;
-  border: 1px solid rgba(111, 145, 255, 0.52);
-  background:
-    radial-gradient(circle at 50% 60%, rgba(68, 76, 196, 0.11), transparent 54%),
-    linear-gradient(rgba(67, 115, 223, 0.15) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(166, 70, 221, 0.14) 1px, transparent 1px);
-  background-size:
-    auto,
-    48px 40px,
-    48px 40px;
-  box-shadow:
-    inset 0 0 45px rgba(48, 70, 172, 0.14),
-    0 0 18px rgba(73, 105, 239, 0.14);
-  transform: translateZ(-78px);
-  animation: room-frame-pulse 4.8s ease-in-out infinite;
-}
-
-.room-frame::before,
-.room-frame::after {
-  position: absolute;
-  top: -1px;
-  bottom: -1px;
-  width: 1px;
-  background: linear-gradient(transparent, rgba(92, 157, 255, 0.9), transparent);
-  box-shadow: 0 0 9px rgba(88, 133, 255, 0.48);
-  content: "";
-}
-
-.room-frame::before {
-  left: -1px;
-}
-
-.room-frame::after {
-  right: -1px;
-  background: linear-gradient(transparent, rgba(224, 83, 242, 0.82), transparent);
-  box-shadow: 0 0 9px rgba(207, 69, 236, 0.45);
 }
 
 .chamber-vault {
@@ -1844,15 +1791,50 @@ img {
   }
 }
 
-@keyframes room-frame-pulse {
-  0%,
-  100% {
-    border-color: rgba(102, 137, 245, 0.38);
-    opacity: 0.68;
+@keyframes raven-page-stars {
+  from {
+    background-position: 17px 21px, 94px 62px, 163px 3px;
   }
-  50% {
-    border-color: rgba(180, 91, 237, 0.64);
-    opacity: 0.94;
+  to {
+    background-position: 96px 109px, 18px 3px, 222px 91px;
+  }
+}
+
+@keyframes raven-page-architecture {
+  from {
+    opacity: 0.42;
+    transform: translate3d(-1.4%, 0.6%, 0) scale(0.99);
+  }
+  to {
+    opacity: 0.76;
+    transform: translate3d(1.5%, -0.8%, 0) scale(1.02);
+  }
+}
+
+@keyframes raven-page-floor {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 66px 52px;
+  }
+}
+
+@keyframes raven-page-signal {
+  0%,
+  18% {
+    opacity: 0;
+    transform: translateX(-24%);
+  }
+  36% {
+    opacity: 0.7;
+  }
+  74% {
+    opacity: 0.22;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(48%);
   }
 }
 
@@ -2308,6 +2290,115 @@ img {
   align-self: center;
   width: min(100%, 590px);
   justify-self: end;
+}
+
+.raven-page {
+  position: relative;
+  isolation: isolate;
+  min-height: calc(100svh - 78px);
+  overflow: clip;
+}
+
+.raven-page-content {
+  position: relative;
+  z-index: 1;
+}
+
+.raven-page-environment {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 54% 26% at 74% 8%, rgba(33, 95, 214, 0.11), transparent 100%),
+    radial-gradient(ellipse 44% 30% at 16% 52%, rgba(114, 50, 197, 0.06), transparent 100%),
+    #03050b;
+  pointer-events: none;
+}
+
+.raven-page-stars,
+.raven-page-architecture,
+.raven-page-floor,
+.raven-page-signal {
+  position: absolute;
+  display: block;
+}
+
+.raven-page-stars {
+  inset: 0;
+  background-image:
+    radial-gradient(circle, rgba(121, 187, 255, 0.62) 0 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(229, 105, 245, 0.46) 0 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(150, 208, 255, 0.44) 0 1px, transparent 1.5px);
+  background-position: 17px 21px, 94px 62px, 163px 3px;
+  background-size: 193px 181px, 277px 249px, 331px 304px;
+  mask-image: linear-gradient(to bottom, black, rgba(0, 0, 0, 0.5) 65%, transparent 96%);
+  opacity: 0.46;
+  animation: raven-page-stars 14s linear infinite;
+}
+
+.raven-page-architecture {
+  inset: -6% -12% 0;
+  background-image:
+    linear-gradient(104deg, transparent 24%, rgba(67, 129, 241, 0.11) 24.08%, transparent 24.16%),
+    linear-gradient(76deg, transparent 76%, rgba(213, 77, 235, 0.1) 76.08%, transparent 76.16%),
+    repeating-linear-gradient(90deg, transparent 0 142px, rgba(104, 131, 225, 0.052) 143px 144px);
+  mask-image: linear-gradient(to bottom, black, rgba(0, 0, 0, 0.54) 54%, transparent 92%);
+  opacity: 0.7;
+  animation: raven-page-architecture 12s ease-in-out infinite alternate;
+}
+
+.raven-page-floor {
+  right: -25%;
+  bottom: -20%;
+  left: -25%;
+  height: min(48rem, 72%);
+  border-top: 1px solid rgba(104, 151, 255, 0.24);
+  background-image:
+    linear-gradient(rgba(64, 122, 241, 0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(192, 69, 232, 0.12) 1px, transparent 1px);
+  background-size: 66px 52px;
+  box-shadow: 0 -16px 74px rgba(43, 88, 215, 0.07);
+  opacity: 0.34;
+  transform: perspective(540px) rotateX(68deg) scaleX(1.42);
+  transform-origin: center top;
+  animation: raven-page-floor 12s linear infinite;
+}
+
+.raven-page-signal {
+  width: 38%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(82, 155, 255, 0.8), transparent);
+  box-shadow: 0 0 8px rgba(79, 137, 255, 0.42);
+  opacity: 0;
+  animation: raven-page-signal 7.2s ease-in-out infinite;
+}
+
+.raven-page-signal-one {
+  top: 22%;
+  left: 2%;
+  rotate: 14deg;
+}
+
+.raven-page-signal-two {
+  top: 43%;
+  right: 1%;
+  background: linear-gradient(90deg, transparent, rgba(227, 87, 239, 0.78), transparent);
+  box-shadow: 0 0 8px rgba(217, 75, 235, 0.4);
+  rotate: -14deg;
+  animation-delay: -3.5s;
+}
+
+.raven-page-process .raven-page-environment {
+  background:
+    radial-gradient(ellipse 56% 29% at 66% 21%, rgba(35, 97, 219, 0.12), transparent 100%),
+    radial-gradient(ellipse 40% 24% at 12% 62%, rgba(175, 48, 205, 0.07), transparent 100%),
+    #03050b;
+}
+
+.raven-page-lost .raven-page-environment {
+  filter: hue-rotate(22deg) saturate(0.86);
+  opacity: 0.8;
 }
 
 .raven-art-compact {
@@ -3357,7 +3448,6 @@ img {
   .wireframe-grid,
   .wireframe-room,
   .room-plane,
-  .room-frame,
   .room-depth,
   .room-scan,
   .room-column,
@@ -3399,5 +3489,12 @@ img {
 
   .landing-pulse {
     display: none;
+  }
+
+  .raven-page-stars,
+  .raven-page-architecture,
+  .raven-page-floor,
+  .raven-page-signal {
+    animation: none !important;
   }
 }
