@@ -8,9 +8,7 @@ import {
   CtaStrip,
   Eyebrow,
   ProjectCard,
-  RavenImage,
-  RavenNetwork,
-  WireframeField,
+  Raven,
   useLanguage,
 } from "./components/site-shell";
 
@@ -70,15 +68,12 @@ export default function Home() {
           </div>
         </div>
 
-        <div
-          className="hero-raven raven-variant-home"
-          aria-label={sv ? "Neonfärgad wireframe-korp" : "Neon wireframe raven"}
-        >
-          <WireframeField variant="home" />
-          <RavenNetwork variant="home" />
-          <span className="raven-energy-sweep" aria-hidden="true" />
-          <RavenImage priority />
-        </div>
+        <Raven
+          hero
+          priority
+          variant="home"
+          label={sv ? "Neonfärgad wireframe-korp" : "Neon wireframe raven"}
+        />
       </section>
 
       <section className="page-shell section-block projects-section">

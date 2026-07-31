@@ -7,6 +7,7 @@ import {
   createContext,
   type CSSProperties,
   type FormEvent,
+  type PointerEvent as ReactPointerEvent,
   type ReactNode,
   useContext,
   useEffect,
@@ -219,6 +220,14 @@ const sparkles = [
   ["88%", "88%", "-0.3s", "3.4s"],
   ["92%", "18%", "-1.6s", "3.5s"],
   ["96%", "67%", "-0.9s", "2.6s"],
+  ["12%", "84%", "-3.2s", "4.1s"],
+  ["19%", "9%", "-1.1s", "3.9s"],
+  ["31%", "91%", "-2.5s", "4.3s"],
+  ["47%", "82%", "-0.6s", "3.2s"],
+  ["64%", "88%", "-3.4s", "4.4s"],
+  ["71%", "46%", "-1.9s", "3.1s"],
+  ["84%", "34%", "-2.8s", "3.9s"],
+  ["98%", "42%", "-0.4s", "4.2s"],
 ];
 
 type RavenVariant = "home" | "services" | "process" | "lost";
@@ -249,6 +258,13 @@ export function WireframeField({ variant = "home" }: { variant?: RavenVariant })
         <span className="room-beam room-beam-three" />
         <span className="room-scan" />
       </span>
+      <span className="observatory-arc observatory-arc-one" />
+      <span className="observatory-arc observatory-arc-two" />
+      <span className="observatory-arc observatory-arc-three" />
+      <span className="constellation-trace constellation-trace-one" />
+      <span className="constellation-trace constellation-trace-two" />
+      <span className="constellation-trace constellation-trace-three" />
+      <span className="aurora-fog" />
       <span className="room-horizon" />
       <span className="wireframe-grid wireframe-floor" />
       <span className="data-stream data-stream-one" />
@@ -382,8 +398,8 @@ function nodeOrigin(index: number, variant: RavenVariant) {
     };
   }
   return {
-    x: ((index * 47) % 260) - 130,
-    y: 210 + (index % 5) * 34,
+    x: index % 4 < 2 ? -360 - (index % 5) * 38 : 360 + (index % 6) * 34,
+    y: ((index * 97) % 560) - 280,
   };
 }
 
@@ -404,6 +420,24 @@ export function RavenNetwork({ variant = "home" }: { variant?: RavenVariant }) {
           <stop offset="100%" stopColor="#ef55f5" />
         </linearGradient>
       </defs>
+      <g className="raven-convergence-routes" stroke={`url(#${gradientId})`}>
+        {ravenPoints.map(([x2, y2], index) => {
+          const origin = nodeOrigin(index, variant);
+          const order = sequenceIndex(index, variant, ravenPoints.length);
+          return (
+            <line
+              className="raven-convergence-route"
+              key={`route-${x2}-${y2}`}
+              x1={x2 + origin.x}
+              y1={y2 + origin.y}
+              x2={x2}
+              y2={y2}
+              pathLength="1"
+              style={{ animationDelay: `${0.02 + order * 0.034}s` }}
+            />
+          );
+        })}
+      </g>
       <g className="raven-network-edges" stroke={`url(#${gradientId})`}>
         {ravenEdges.map(([from, to], index) => {
           const [x1, y1] = ravenPoints[from];
@@ -471,18 +505,51 @@ export function RavenImage({ priority = false }: { priority?: boolean }) {
 export function Raven({
   compact = false,
   variant = "home",
+  hero = false,
+  priority = false,
+  label,
 }: {
   compact?: boolean;
   variant?: RavenVariant;
+  hero?: boolean;
+  priority?: boolean;
+  label?: string;
 }) {
+  function handlePointerMove(event: ReactPointerEvent<HTMLDivElement>) {
+    if (event.pointerType === "touch") return;
+
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const horizontal = (event.clientX - bounds.left) / bounds.width - 0.5;
+    const vertical = (event.clientY - bounds.top) / bounds.height - 0.5;
+
+    event.currentTarget.style.setProperty("--scene-x", `${horizontal * 10}px`);
+    event.currentTarget.style.setProperty("--scene-y", `${vertical * 8}px`);
+    event.currentTarget.style.setProperty("--scene-rx", `${vertical * -2.2}deg`);
+    event.currentTarget.style.setProperty("--scene-ry", `${horizontal * 3.2}deg`);
+  }
+
+  function resetPointer(event: ReactPointerEvent<HTMLDivElement>) {
+    event.currentTarget.style.setProperty("--scene-x", "0px");
+    event.currentTarget.style.setProperty("--scene-y", "0px");
+    event.currentTarget.style.setProperty("--scene-rx", "0deg");
+    event.currentTarget.style.setProperty("--scene-ry", "0deg");
+  }
+
+  const sceneClass = hero ? "hero-raven" : compact ? "raven-art raven-art-compact" : "raven-art";
+
   return (
     <div
-      className={`${compact ? "raven-art raven-art-compact" : "raven-art"} raven-variant-${variant}`}
+      className={`${sceneClass} raven-scene raven-variant-${variant}`}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={resetPointer}
+      role={label ? "img" : undefined}
+      aria-label={label}
+      aria-hidden={label ? undefined : true}
     >
       <WireframeField variant={variant} />
       <RavenNetwork variant={variant} />
       <span className="raven-energy-sweep" aria-hidden="true" />
-      <RavenImage />
+      <RavenImage priority={priority} />
     </div>
   );
 }
