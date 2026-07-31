@@ -1,6 +1,47 @@
 "use client";
 
+import type { ReactNode } from "react";
+
 import { ContactForm, Eyebrow, useLanguage } from "../components/site-shell";
+
+type ContactIconType = "mail" | "location" | "availability" | "reply";
+
+function ContactIcon({ type }: { type: ContactIconType }) {
+  const paths: Record<ContactIconType, ReactNode> = {
+    mail: (
+      <>
+        <rect x="3.5" y="5" width="17" height="14" rx="2.5" />
+        <path d="m5 7 7 5.5L19 7" />
+      </>
+    ),
+    location: (
+      <>
+        <path d="M12 21s7-5.9 7-12a7 7 0 1 0-14 0c0 6.1 7 12 7 12Z" />
+        <circle cx="12" cy="9" r="2.3" />
+      </>
+    ),
+    availability: (
+      <>
+        <rect x="3.5" y="5.5" width="17" height="15" rx="2.5" />
+        <path d="M8 3.5v4M16 3.5v4M3.5 10h17m-12 4.5 2.2 2.2 4.8-5" />
+      </>
+    ),
+    reply: (
+      <>
+        <circle cx="12" cy="12" r="8.5" />
+        <path d="M12 7.5V12l3.2 2M4.5 4.5 3 8l3.6-.5" />
+      </>
+    ),
+  };
+
+  return (
+    <span className={`contact-icon contact-icon-${type}`} aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.55">
+        {paths[type]}
+      </svg>
+    </span>
+  );
+}
 
 export default function ContactPage() {
   const { lang } = useLanguage();
@@ -22,25 +63,34 @@ export default function ContactPage() {
           </p>
           <dl className="contact-details">
             <div>
-              <dt>{sv ? "E-post" : "Email"}</dt>
-              <dd>
-                <a href="mailto:Hello@birdbrain.it">Hello@birdbrain.it</a>
-              </dd>
+              <ContactIcon type="mail" />
+              <span>
+                <dt>{sv ? "E-post" : "Email"}</dt>
+                <dd>
+                  <a href="mailto:Hello@birdbrain.it">Hello@birdbrain.it</a>
+                </dd>
+              </span>
             </div>
             <div>
-              <dt>{sv ? "Plats" : "Location"}</dt>
-              <dd>Alingsås, Sverige</dd>
+              <ContactIcon type="location" />
+              <span>
+                <dt>{sv ? "Plats" : "Location"}</dt>
+                <dd>Alingsås, Sverige</dd>
+              </span>
             </div>
             <div>
-              <dt>{sv ? "Tillgänglig" : "Availability"}</dt>
-              <dd>{sv ? "För nya projekt" : "Open for new projects"}</dd>
+              <ContactIcon type="availability" />
+              <span>
+                <dt>{sv ? "Tillgänglig" : "Availability"}</dt>
+                <dd>{sv ? "För nya projekt" : "Open for new projects"}</dd>
+              </span>
             </div>
           </dl>
         </div>
         <ContactForm />
       </section>
       <section className="reply-note">
-        <span aria-hidden="true">✉</span>
+        <ContactIcon type="reply" />
         <div>
           <h2>{sv ? "Svarar vanligtvis inom 24 timmar" : "Usually replies within 24 hours"}</h2>
           <p>

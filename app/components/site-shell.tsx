@@ -229,7 +229,7 @@ export function WireframeField() {
         <i className="room-plane room-right" />
         <i className="room-plane room-ceiling" />
       </span>
-      <span className="wireframe-grid" />
+      <span className="wireframe-grid wireframe-floor" />
       {sparkles.map(([left, top, delay, duration], index) => (
         <span
           className="wireframe-spark"
@@ -245,6 +245,154 @@ export function WireframeField() {
 
 type RavenVariant = "home" | "services" | "process" | "lost";
 
+const ravenPoints = [
+  [118, 125],
+  [208, 80],
+  [296, 43],
+  [382, 58],
+  [453, 169],
+  [599, 260],
+  [606, 329],
+  [758, 385],
+  [883, 482],
+  [708, 438],
+  [583, 381],
+  [543, 382],
+  [443, 524],
+  [390, 527],
+  [456, 401],
+  [360, 315],
+  [325, 346],
+  [251, 242],
+  [290, 212],
+  [208, 119],
+  [246, 99],
+  [321, 118],
+  [393, 175],
+  [362, 315],
+  [505, 301],
+  [493, 398],
+  [611, 375],
+  [324, 509],
+] as const;
+
+const ravenEdges = [
+  [0, 19],
+  [0, 1],
+  [1, 2],
+  [2, 3],
+  [3, 4],
+  [4, 5],
+  [5, 6],
+  [6, 7],
+  [7, 8],
+  [8, 9],
+  [9, 10],
+  [10, 11],
+  [11, 12],
+  [12, 13],
+  [11, 14],
+  [14, 27],
+  [14, 15],
+  [15, 16],
+  [16, 17],
+  [17, 18],
+  [18, 19],
+  [19, 1],
+  [19, 20],
+  [20, 1],
+  [20, 21],
+  [21, 2],
+  [21, 3],
+  [21, 22],
+  [22, 3],
+  [22, 4],
+  [18, 21],
+  [18, 22],
+  [17, 23],
+  [23, 22],
+  [23, 24],
+  [24, 5],
+  [24, 6],
+  [23, 15],
+  [15, 24],
+  [24, 25],
+  [25, 10],
+  [25, 26],
+  [26, 6],
+  [26, 7],
+  [26, 9],
+  [10, 14],
+  [15, 25],
+  [16, 23],
+  [4, 24],
+  [5, 25],
+] as const;
+
+function sequenceIndex(index: number, variant: RavenVariant, total: number) {
+  if (variant === "services") return total - index - 1;
+  if (variant === "process") {
+    const [from, to] = ravenEdges[index];
+    return Math.min(Math.abs(from - 20), Math.abs(to - 20));
+  }
+  if (variant === "lost") return (index * 17) % total;
+  return index;
+}
+
+export function RavenNetwork({ variant = "home" }: { variant?: RavenVariant }) {
+  const gradientId = `raven-network-gradient-${variant}`;
+
+  return (
+    <svg
+      className="raven-network"
+      viewBox="0 0 1245 548"
+      preserveAspectRatio="xMidYMid meet"
+      aria-hidden="true"
+    >
+      <defs>
+        <linearGradient id={gradientId} x1="8%" y1="10%" x2="78%" y2="88%">
+          <stop offset="0%" stopColor="#62c6ff" />
+          <stop offset="48%" stopColor="#536cff" />
+          <stop offset="100%" stopColor="#ef55f5" />
+        </linearGradient>
+      </defs>
+      <g className="raven-network-edges" stroke={`url(#${gradientId})`}>
+        {ravenEdges.map(([from, to], index) => {
+          const [x1, y1] = ravenPoints[from];
+          const [x2, y2] = ravenPoints[to];
+          const order = sequenceIndex(index, variant, ravenEdges.length);
+          return (
+            <line
+              className="raven-network-edge"
+              key={`${from}-${to}`}
+              x1={x1}
+              y1={y1}
+              x2={x2}
+              y2={y2}
+              pathLength="1"
+              style={{ animationDelay: `${0.16 + order * 0.035}s` }}
+            />
+          );
+        })}
+      </g>
+      <g className="raven-network-nodes" fill={`url(#${gradientId})`}>
+        {ravenPoints.map(([cx, cy], index) => (
+          <circle
+            className="raven-network-node"
+            key={`${cx}-${cy}`}
+            cx={cx}
+            cy={cy}
+            r={index === 20 ? 5.5 : 3.5}
+            style={{
+              animationDelay: `${0.08 + sequenceIndex(index, variant, ravenPoints.length) * 0.045}s`,
+            }}
+          />
+        ))}
+      </g>
+    </svg>
+  );
+}
+
 export function Raven({
   compact = false,
   variant = "home",
@@ -257,7 +405,7 @@ export function Raven({
       className={`${compact ? "raven-art raven-art-compact" : "raven-art"} raven-variant-${variant}`}
     >
       <WireframeField />
-      <span className="raven-draw-tracer" aria-hidden="true" />
+      <RavenNetwork variant={variant} />
       <img
         className="raven-draw-image"
         src="/images/wireframe-raven.webp"

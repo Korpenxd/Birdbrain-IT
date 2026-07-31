@@ -480,21 +480,49 @@ img {
 
 .wireframe-grid {
   position: absolute;
-  right: -8%;
-  bottom: -7%;
-  left: -8%;
-  height: 58%;
+  z-index: 0;
+  right: -15%;
+  bottom: -12%;
+  left: -15%;
+  height: 66%;
+  border-top: 1px solid rgba(105, 143, 255, 0.6);
   background-image:
-    linear-gradient(rgba(43, 106, 236, 0.28) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(134, 63, 235, 0.24) 1px, transparent 1px);
-  background-position: center bottom;
-  background-size: 38px 30px;
-  filter: drop-shadow(0 0 6px rgba(79, 75, 245, 0.22));
-  transform: perspective(320px) rotateX(62deg) scaleX(1.2);
-  transform-origin: center bottom;
+    linear-gradient(rgba(64, 128, 255, 0.54) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(176, 74, 241, 0.48) 1px, transparent 1px);
+  background-position: center top;
+  background-size: 42px 34px;
+  box-shadow: 0 -10px 40px rgba(59, 84, 225, 0.13);
+  filter:
+    drop-shadow(0 0 5px rgba(73, 120, 255, 0.48))
+    drop-shadow(0 0 12px rgba(197, 64, 236, 0.2));
+  transform: perspective(430px) rotateX(66deg) scaleX(1.35);
+  transform-origin: center top;
   animation:
     wireframe-drift 8s linear infinite,
     grid-breathe 3.6s ease-in-out infinite;
+}
+
+.wireframe-floor::before {
+  position: absolute;
+  top: -2px;
+  right: 4%;
+  left: 4%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #4e8cff 28%, #af5be8 70%, transparent);
+  box-shadow:
+    0 0 10px rgba(79, 135, 255, 0.75),
+    0 0 28px rgba(181, 70, 236, 0.42);
+  content: "";
+}
+
+.wireframe-floor::after {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 34% 32%, rgba(58, 126, 255, 0.22), transparent 28%),
+    radial-gradient(ellipse at 69% 46%, rgba(219, 60, 237, 0.16), transparent 31%);
+  content: "";
+  animation: floor-reflection 4.4s ease-in-out infinite alternate;
 }
 
 .wireframe-spark {
@@ -536,20 +564,61 @@ img {
   transform: translate(-50%, -50%);
 }
 
-.raven-draw-tracer {
+.raven-network {
   position: absolute;
-  z-index: 2;
-  top: 11%;
-  bottom: 9%;
-  left: 2%;
-  width: 2px;
-  background: linear-gradient(to bottom, transparent, #68bfff 23%, #fff 51%, #dc5cf0 77%, transparent);
-  box-shadow:
-    0 0 9px rgba(88, 178, 255, 0.92),
-    0 0 22px rgba(209, 69, 235, 0.72);
-  opacity: 0;
-  animation: raven-tracer 2.55s cubic-bezier(0.52, 0.05, 0.22, 1) 0.22s forwards;
+  z-index: 3;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter:
+    drop-shadow(0 0 4px rgba(78, 151, 255, 0.82))
+    drop-shadow(0 0 9px rgba(205, 67, 240, 0.46));
+  mix-blend-mode: screen;
+  animation: raven-network-settle 0.9s ease-in-out 2.25s forwards;
   pointer-events: none;
+}
+
+.raven-network-edge {
+  fill: none;
+  stroke-width: 1.55;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0;
+  animation: raven-connect-edge 0.28s ease-out forwards;
+}
+
+.raven-network-node {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: raven-connect-node 0.28s cubic-bezier(0.18, 0.8, 0.28, 1.5) forwards;
+}
+
+.raven-variant-services .raven-network {
+  animation-delay: 2.2s;
+}
+
+.raven-variant-services .raven-network-edge {
+  stroke-width: 1.7;
+}
+
+.raven-variant-process .raven-network {
+  animation-delay: 1.45s;
+}
+
+.raven-variant-process .raven-network-edge {
+  animation-duration: 0.34s;
+}
+
+.raven-variant-lost .raven-network {
+  animation: raven-network-glitch-settle 0.8s steps(2, end) 2.05s forwards;
+}
+
+.raven-variant-lost .raven-network-edge,
+.raven-variant-lost .raven-network-node {
+  animation-timing-function: steps(2, end);
 }
 
 .hero-raven::after,
@@ -568,74 +637,50 @@ img {
 
 .hero-raven img,
 .raven-art img {
+  position: relative;
+  z-index: 2;
+  display: block;
   width: 100%;
   mix-blend-mode: screen;
 }
 
 .raven-draw-image {
-  clip-path: inset(0 100% 0 0);
+  clip-path: inset(0);
   opacity: 0;
+  transform: scale(0.985);
   filter:
     drop-shadow(0 0 4px rgba(61, 133, 255, 0.28))
     drop-shadow(0 0 12px rgba(198, 54, 229, 0.16));
   animation:
-    raven-line-draw 2.55s cubic-bezier(0.52, 0.05, 0.22, 1) 0.22s forwards,
+    raven-image-resolve 0.82s ease-out 2.05s forwards,
     raven-settle 1.1s ease-out 2.55s forwards;
 }
 
 .raven-variant-services .raven-draw-image {
-  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  clip-path: inset(0);
   opacity: 0;
-  transform: translate3d(70px, -22px, 0) scale(0.88) rotate(2deg);
-  filter: blur(5px) drop-shadow(0 0 15px rgba(84, 117, 255, 0.45));
+  transform: translate3d(18px, -7px, 0) scale(0.97) rotate(0.7deg);
+  filter: blur(2px) drop-shadow(0 0 15px rgba(84, 117, 255, 0.45));
   animation:
-    raven-service-assemble 2.15s cubic-bezier(0.2, 0.75, 0.25, 1) 0.12s forwards,
-    raven-settle 0.9s ease-out 2.2s forwards;
-}
-
-.raven-variant-services .raven-draw-tracer {
-  top: 25%;
-  right: auto;
-  bottom: auto;
-  left: 5%;
-  width: 40%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, #7ccaff, #e767f1, transparent);
-  transform: rotate(-10deg);
-  animation: raven-service-tracer 1.7s ease-in-out 0.22s forwards;
+    raven-service-resolve 0.75s cubic-bezier(0.2, 0.75, 0.25, 1) 2.02s forwards,
+    raven-settle 0.9s ease-out 2.35s forwards;
 }
 
 .raven-variant-services .wireframe-grid {
   background-size: 44px 36px;
-  transform: perspective(320px) rotateX(65deg) rotateZ(-4deg) scaleX(1.25);
+  transform: perspective(430px) rotateX(67deg) rotateZ(-3deg) scaleX(1.38);
   animation:
     wireframe-drift 10s linear infinite reverse,
     grid-breathe 3.1s ease-in-out infinite;
 }
 
 .raven-variant-process .raven-draw-image {
-  clip-path: circle(0% at 22% 28%);
+  clip-path: inset(0);
   opacity: 0;
-  transform: scale(0.94);
+  transform: scale(0.97);
   animation:
-    raven-process-ripple 2.7s cubic-bezier(0.22, 0.66, 0.24, 1) 0.1s forwards,
-    raven-settle 1s ease-out 2.6s forwards;
-}
-
-.raven-variant-process .raven-draw-tracer {
-  top: 24%;
-  right: auto;
-  bottom: auto;
-  left: 19%;
-  width: 34px;
-  height: 34px;
-  border: 1px solid rgba(111, 197, 255, 0.9);
-  border-radius: 50%;
-  background: transparent;
-  box-shadow:
-    0 0 12px rgba(77, 159, 255, 0.65),
-    inset 0 0 10px rgba(211, 85, 239, 0.25);
-  animation: raven-process-ring 2.45s ease-out 0.1s forwards;
+    raven-process-resolve 0.78s cubic-bezier(0.22, 0.66, 0.24, 1) 1.25s forwards,
+    raven-settle 1s ease-out 1.7s forwards;
 }
 
 .raven-variant-process .wireframe-field {
@@ -646,6 +691,7 @@ img {
 
 .raven-variant-process .wireframe-grid {
   background-size: 32px 32px;
+  transform: perspective(410px) rotateX(65deg) scaleX(1.32);
   animation:
     wireframe-drift 7s linear infinite,
     grid-breathe 4.2s ease-in-out infinite;
@@ -654,11 +700,7 @@ img {
 .raven-variant-lost .raven-draw-image {
   clip-path: inset(0);
   opacity: 0;
-  animation: raven-lost-signal 1.65s steps(1, end) 0.1s forwards;
-}
-
-.raven-variant-lost .raven-draw-tracer {
-  display: none;
+  animation: raven-lost-signal 1.2s steps(1, end) 1.75s forwards;
 }
 
 .raven-variant-lost .wireframe-field {
@@ -679,6 +721,110 @@ img {
   100% {
     clip-path: inset(0 0 0 0);
     opacity: 1;
+  }
+}
+
+@keyframes raven-connect-edge {
+  0% {
+    stroke-dashoffset: 1;
+    opacity: 0;
+  }
+  16% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.92;
+  }
+}
+
+@keyframes raven-connect-node {
+  0% {
+    opacity: 0;
+    scale: 0.2;
+  }
+  55% {
+    opacity: 1;
+    scale: 1.8;
+  }
+  100% {
+    opacity: 0.95;
+    scale: 1;
+  }
+}
+
+@keyframes raven-network-settle {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.38;
+    filter:
+      drop-shadow(0 0 2px rgba(78, 151, 255, 0.5))
+      drop-shadow(0 0 6px rgba(205, 67, 240, 0.28));
+  }
+}
+
+@keyframes raven-network-glitch-settle {
+  0% {
+    opacity: 1;
+    translate: 0;
+  }
+  35% {
+    opacity: 0.2;
+    translate: -5px 1px;
+  }
+  52% {
+    opacity: 0.9;
+    translate: 4px -1px;
+  }
+  100% {
+    opacity: 0.32;
+    translate: 0;
+  }
+}
+
+@keyframes raven-image-resolve {
+  from {
+    opacity: 0;
+    transform: scale(0.985);
+    filter:
+      blur(1.5px)
+      drop-shadow(0 0 12px rgba(71, 145, 255, 0.46))
+      drop-shadow(0 0 20px rgba(204, 64, 235, 0.28));
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter:
+      drop-shadow(0 0 4px rgba(61, 133, 255, 0.28))
+      drop-shadow(0 0 12px rgba(198, 54, 229, 0.16));
+  }
+}
+
+@keyframes raven-service-resolve {
+  from {
+    opacity: 0;
+    transform: translate3d(18px, -7px, 0) scale(0.97) rotate(0.7deg);
+    filter: blur(2px) drop-shadow(0 0 15px rgba(84, 117, 255, 0.45));
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1) rotate(0);
+    filter: blur(0) drop-shadow(0 0 6px rgba(84, 117, 255, 0.25));
+  }
+}
+
+@keyframes raven-process-resolve {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+    filter: brightness(1.7) blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: brightness(1) blur(0);
   }
 }
 
@@ -853,10 +999,21 @@ img {
 @keyframes grid-breathe {
   0%,
   100% {
-    opacity: 0.22;
+    opacity: 0.38;
   }
   50% {
-    opacity: 0.48;
+    opacity: 0.72;
+  }
+}
+
+@keyframes floor-reflection {
+  from {
+    opacity: 0.38;
+    translate: -2% 0;
+  }
+  to {
+    opacity: 0.82;
+    translate: 2% 0;
   }
 }
 
@@ -1561,19 +1718,45 @@ img {
 }
 
 .contact-details div {
-  position: relative;
-  padding-left: 38px;
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  align-items: center;
+  gap: 14px;
 }
 
-.contact-details div::before {
-  position: absolute;
-  top: 4px;
-  left: 2px;
+.contact-icon {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid rgba(83, 120, 239, 0.48);
+  border-radius: 9px;
+  background:
+    linear-gradient(145deg, rgba(47, 102, 218, 0.15), rgba(178, 57, 214, 0.08)),
+    rgba(7, 10, 19, 0.72);
+  box-shadow:
+    inset 0 0 14px rgba(58, 104, 224, 0.08),
+    0 0 17px rgba(63, 82, 220, 0.08);
+  color: #72adff;
+}
+
+.contact-icon svg {
   width: 18px;
   height: 18px;
-  border: 1px solid #447eeb;
-  border-radius: 4px;
-  content: "";
+  filter: drop-shadow(0 0 5px rgba(82, 142, 255, 0.45));
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.contact-icon-location {
+  border-color: rgba(133, 79, 233, 0.48);
+  color: #a97aff;
+}
+
+.contact-icon-availability,
+.contact-icon-reply {
+  border-color: rgba(202, 66, 226, 0.45);
+  color: #df68ed;
 }
 
 .contact-details dt {
@@ -1659,8 +1842,10 @@ img {
   background: rgba(7, 10, 18, 0.68);
 }
 
-.reply-note > span {
-  color: #aeb7c7;
+.reply-note > .contact-icon {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
 }
 
 .reply-note h2 {
@@ -2157,6 +2342,23 @@ img {
     display: none;
   }
 
+  .raven-network {
+    opacity: 0.38;
+    animation: none !important;
+  }
+
+  .raven-network-edge {
+    stroke-dashoffset: 0;
+    opacity: 0.9;
+    animation: none !important;
+  }
+
+  .raven-network-node {
+    opacity: 0.95;
+    scale: 1;
+    animation: none !important;
+  }
+
   .wireframe-field {
     opacity: 0.62;
     animation: none !important;
@@ -2168,6 +2370,10 @@ img {
   .wireframe-spark,
   .wireframe-field::before,
   .wireframe-field::after {
+    animation: none !important;
+  }
+
+  .wireframe-floor::after {
     animation: none !important;
   }
 }

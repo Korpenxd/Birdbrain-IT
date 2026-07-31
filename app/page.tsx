@@ -6,6 +6,7 @@ import {
   CtaStrip,
   Eyebrow,
   ProjectCard,
+  RavenNetwork,
   WireframeField,
   useLanguage,
 } from "./components/site-shell";
@@ -71,7 +72,7 @@ export default function Home() {
           aria-label={sv ? "Neonfärgad wireframe-korp" : "Neon wireframe raven"}
         >
           <WireframeField />
-          <span className="raven-draw-tracer" aria-hidden="true" />
+          <RavenNetwork variant="home" />
           <img
             className="raven-draw-image"
             src="/images/wireframe-raven.webp"
