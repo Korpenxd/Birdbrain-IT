@@ -1,11 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
+import Link from "next/link";
+
 import {
   Arrow,
   CtaStrip,
   Eyebrow,
   ProjectCard,
+  RavenImage,
   RavenNetwork,
   WireframeField,
   useLanguage,
@@ -58,12 +61,12 @@ export default function Home() {
               : "Websites, web apps and tailored digital solutions for people who want something that simply works — properly."}
           </p>
           <div className="button-row">
-            <a className="button button-primary" href="/arbete">
+            <Link className="button button-primary" href="/arbete">
               {sv ? "Se mina projekt" : "View my work"} <Arrow />
-            </a>
-            <a className="text-link" href="/process">
+            </Link>
+            <Link className="text-link" href="/process">
               {sv ? "Hur jag jobbar" : "How I work"} <Arrow />
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -73,14 +76,7 @@ export default function Home() {
         >
           <WireframeField />
           <RavenNetwork variant="home" />
-          <img
-            className="raven-draw-image"
-            src="/images/wireframe-raven.webp"
-            alt=""
-            width="1245"
-            height="548"
-            fetchPriority="high"
-          />
+          <RavenImage priority />
         </div>
       </section>
 
@@ -90,9 +86,9 @@ export default function Home() {
             <Eyebrow>{sv ? "Utvalda projekt" : "Selected work"}</Eyebrow>
             <h2>{sv ? "Några saker jag har byggt" : "A few things I’ve built"}</h2>
           </div>
-          <a className="text-link section-link" href="/arbete">
+          <Link className="text-link section-link" href="/arbete">
             {sv ? "Se alla projekt" : "View all projects"} <Arrow />
-          </a>
+          </Link>
         </div>
 
         <div className="project-grid">
@@ -163,6 +159,8 @@ export default function Home() {
               width="900"
               height="991"
               loading="lazy"
+              decoding="async"
+              fetchPriority="low"
             />
             <div>
               <h3>
@@ -188,9 +186,9 @@ export default function Home() {
               ? "Oavsett om du har en tydlig plan eller bara en känsla – hör av dig så pratar vi."
               : "Whether you have a clear plan or just a feeling — get in touch and we’ll talk it through."}
           </p>
-          <a className="text-link" href="/kontakt">
+          <Link className="text-link" href="/kontakt">
             {sv ? "Kontakta mig" : "Contact me"} <Arrow />
-          </a>
+          </Link>
         </div>
       </section>
 

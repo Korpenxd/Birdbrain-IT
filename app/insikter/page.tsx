@@ -1,6 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
+import Link from "next/link";
+
 import { Arrow, CtaStrip, Eyebrow, useLanguage } from "../components/site-shell";
 
 const articles = [
@@ -66,16 +68,24 @@ export default function InsightsPage() {
       <section className="article-list">
         {articles.map((article) => (
           <article key={article.title.sv}>
-            <img src={article.image} alt="" width="1500" height="920" loading="lazy" />
+            <img
+              src={article.image}
+              alt=""
+              width="1500"
+              height="920"
+              loading="lazy"
+              decoding="async"
+              fetchPriority="low"
+            />
             <div>
               <p className="article-category">{sv ? article.category.sv : article.category.en}</p>
               <h2>{sv ? article.title.sv : article.title.en}</h2>
               <p>{sv ? article.excerpt.sv : article.excerpt.en}</p>
             </div>
             <time>{article.date}</time>
-            <a className="text-link" href="/kontakt">
+            <Link className="text-link" href="/kontakt">
               {sv ? "Läs artikel" : "Read article"} <Arrow />
-            </a>
+            </Link>
           </article>
         ))}
       </section>
