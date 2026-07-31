@@ -47,20 +47,16 @@ export default function ContactPage() {
   const { lang } = useLanguage();
   const sv = lang === "sv";
   return (
-    <main className="page-shell inner-page">
+    <main className="page-shell inner-page contact-page">
+      <section className="contact-hero">
+        <Eyebrow>{sv ? "Kontakt" : "Contact"}</Eyebrow>
+        <div className="contact-hero-grid">
+          <h1>{sv ? "Låt oss bygga något bra " : "Let’s build something good "}<span>{sv ? "tillsammans" : "together"}</span></h1>
+          <p>{sv ? "Berätta om ditt projekt eller en idé så hör jag av mig så snart jag kan." : "Tell me about your project or idea and I’ll get back to you as soon as I can."}</p>
+        </div>
+      </section>
       <section className="contact-layout">
-        <div className="contact-copy">
-          <Eyebrow>{sv ? "Kontakt" : "Contact"}</Eyebrow>
-          <h1>
-            {sv ? "Låt oss bygga något" : "Let’s build something"} <br />
-            {sv ? "bra " : "good "}
-            <span>{sv ? "tillsammans" : "together"}</span>
-          </h1>
-          <p>
-            {sv
-              ? "Berätta om ditt projekt eller en idé så hör jag av mig så snart jag kan."
-              : "Tell me about your project or idea and I’ll get back to you as soon as I can."}
-          </p>
+        <aside className="contact-panel">
           <dl className="contact-details">
             <div>
               <ContactIcon type="mail" />
@@ -86,19 +82,12 @@ export default function ContactPage() {
               </span>
             </div>
           </dl>
-        </div>
+          <section className="reply-note">
+            <ContactIcon type="reply" />
+            <div><h2>{sv ? "Svarar vanligtvis inom 24 timmar" : "Usually replies within 24 hours"}</h2><p>{sv ? "Jag läser alla meddelanden och återkommer så snart jag kan." : "I read every message and reply as soon as I can."}</p></div>
+          </section>
+        </aside>
         <ContactForm />
-      </section>
-      <section className="reply-note">
-        <ContactIcon type="reply" />
-        <div>
-          <h2>{sv ? "Svarar vanligtvis inom 24 timmar" : "Usually replies within 24 hours"}</h2>
-          <p>
-            {sv
-              ? "Jag läser alla meddelanden och återkommer så snart jag kan."
-              : "I read every message and reply as soon as I can."}
-          </p>
-        </div>
       </section>
     </main>
   );

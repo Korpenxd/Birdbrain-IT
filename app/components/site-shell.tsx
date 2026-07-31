@@ -69,12 +69,15 @@ export function SiteShell({ children }: { children: ReactNode }) {
 
   return (
     <LanguageContext.Provider value={value}>
-      <a className="skip-link" href="#main-content">
-        {lang === "sv" ? "Hoppa till innehåll" : "Skip to content"}
-      </a>
-      <SiteHeader />
-      <div id="main-content">{children}</div>
-      <SiteFooter />
+      <div className="site-canvas">
+        <RavenPageEnvironment variant="process" />
+        <a className="skip-link" href="#main-content">
+          {lang === "sv" ? "Hoppa till innehåll" : "Skip to content"}
+        </a>
+        <SiteHeader />
+        <div className="site-main-content" id="main-content">{children}</div>
+        <SiteFooter />
+      </div>
     </LanguageContext.Provider>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { CtaStrip, Eyebrow, Raven, RavenPageEnvironment, useLanguage } from "../components/site-shell";
+import { CtaStrip, Eyebrow, useLanguage } from "../components/site-shell";
 
 const services = [
   {
@@ -39,10 +39,8 @@ export default function ServicesPage() {
   const { lang } = useLanguage();
   const sv = lang === "sv";
   return (
-    <main className="raven-page raven-page-services">
-      <RavenPageEnvironment variant="services" />
-      <div className="page-shell inner-page raven-page-content">
-      <section className="inner-hero with-art">
+    <main className="page-shell inner-page">
+      <section className="inner-hero">
         <div>
           <Eyebrow>{sv ? "Tjänster" : "Services"}</Eyebrow>
           <h1>
@@ -56,7 +54,6 @@ export default function ServicesPage() {
               : "Tailored solutions that solve real problems and create value for you and your users."}
           </p>
         </div>
-        <Raven compact variant="services" />
       </section>
 
       <section className="service-grid" aria-label={sv ? "Tjänster" : "Services"}>
@@ -72,7 +69,6 @@ export default function ServicesPage() {
         })}
       </section>
       <CtaStrip />
-      </div>
     </main>
   );
 }
