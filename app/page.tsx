@@ -74,8 +74,9 @@ export default function Home() {
           className="hero-raven raven-variant-home"
           aria-label={sv ? "Neonfärgad wireframe-korp" : "Neon wireframe raven"}
         >
-          <WireframeField />
+          <WireframeField variant="home" />
           <RavenNetwork variant="home" />
+          <span className="raven-energy-sweep" aria-hidden="true" />
           <RavenImage priority />
         </div>
       </section>

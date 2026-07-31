@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   createContext,
+  type CSSProperties,
   type FormEvent,
   type ReactNode,
   useContext,
@@ -220,22 +221,39 @@ const sparkles = [
   ["96%", "67%", "-0.9s", "2.6s"],
 ];
 
-export function WireframeField() {
+type RavenVariant = "home" | "services" | "process" | "lost";
+
+export function WireframeField({ variant = "home" }: { variant?: RavenVariant }) {
   return (
-    <div className="wireframe-field" aria-hidden="true">
+    <div className={`wireframe-field field-variant-${variant}`} aria-hidden="true">
       <span className="wireframe-room">
         <i className="room-plane room-back" />
         <i className="room-plane room-left" />
         <i className="room-plane room-right" />
         <i className="room-plane room-ceiling" />
         <span className="room-frame" />
+        <span className="chamber-vault">
+          <i className="chamber-ring chamber-ring-outer" />
+          <i className="chamber-ring chamber-ring-middle" />
+          <i className="chamber-ring chamber-ring-inner" />
+          <i className="chamber-core" />
+        </span>
         <span className="room-depth room-depth-top-left" />
         <span className="room-depth room-depth-top-right" />
         <span className="room-depth room-depth-bottom-left" />
         <span className="room-depth room-depth-bottom-right" />
+        <span className="room-column room-column-left" />
+        <span className="room-column room-column-right" />
+        <span className="room-beam room-beam-one" />
+        <span className="room-beam room-beam-two" />
+        <span className="room-beam room-beam-three" />
         <span className="room-scan" />
       </span>
+      <span className="room-horizon" />
       <span className="wireframe-grid wireframe-floor" />
+      <span className="data-stream data-stream-one" />
+      <span className="data-stream data-stream-two" />
+      <span className="data-stream data-stream-three" />
       {sparkles.map(([left, top, delay, duration], index) => (
         <span
           className="wireframe-spark"
@@ -248,8 +266,6 @@ export function WireframeField() {
     </div>
   );
 }
-
-type RavenVariant = "home" | "services" | "process" | "lost";
 
 const ravenPoints = [
   [118, 125],
@@ -345,6 +361,32 @@ function sequenceIndex(index: number, variant: RavenVariant, total: number) {
   return index;
 }
 
+function nodeOrigin(index: number, variant: RavenVariant) {
+  if (variant === "services") {
+    return {
+      x: index % 2 === 0 ? -420 - (index % 5) * 20 : 420 + (index % 4) * 24,
+      y: ((index * 53) % 220) - 110,
+    };
+  }
+  if (variant === "process") {
+    const angle = (index / ravenPoints.length) * Math.PI * 2;
+    return {
+      x: Math.cos(angle) * (250 + (index % 4) * 30),
+      y: Math.sin(angle) * (150 + (index % 3) * 24),
+    };
+  }
+  if (variant === "lost") {
+    return {
+      x: ((index * 137) % 680) - 340,
+      y: ((index * 83) % 420) - 210,
+    };
+  }
+  return {
+    x: ((index * 47) % 260) - 130,
+    y: 210 + (index % 5) * 34,
+  };
+}
+
 export function RavenNetwork({ variant = "home" }: { variant?: RavenVariant }) {
   const gradientId = `raven-network-gradient-${variant}`;
 
@@ -376,23 +418,32 @@ export function RavenNetwork({ variant = "home" }: { variant?: RavenVariant }) {
               x2={x2}
               y2={y2}
               pathLength="1"
-              style={{ animationDelay: `${0.16 + order * 0.035}s` }}
+              style={{ animationDelay: `${0.72 + order * 0.029}s` }}
             />
           );
         })}
       </g>
       <g className="raven-network-nodes" fill={`url(#${gradientId})`}>
         {ravenPoints.map(([cx, cy], index) => (
-          <circle
-            className="raven-network-node"
-            key={`${cx}-${cy}`}
-            cx={cx}
-            cy={cy}
-            r={index === 20 ? 5.5 : 3.5}
-            style={{
-              animationDelay: `${0.08 + sequenceIndex(index, variant, ravenPoints.length) * 0.045}s`,
-            }}
-          />
+          (() => {
+            const origin = nodeOrigin(index, variant);
+            return (
+              <circle
+                className="raven-network-node"
+                key={`${cx}-${cy}`}
+                cx={cx}
+                cy={cy}
+                r={index === 20 ? 5.5 : 3.5}
+                style={
+                  {
+                    "--node-x": `${origin.x}px`,
+                    "--node-y": `${origin.y}px`,
+                    animationDelay: `${0.08 + sequenceIndex(index, variant, ravenPoints.length) * 0.034}s`,
+                  } as CSSProperties
+                }
+              />
+            );
+          })()
         ))}
       </g>
     </svg>
@@ -428,8 +479,9 @@ export function Raven({
     <div
       className={`${compact ? "raven-art raven-art-compact" : "raven-art"} raven-variant-${variant}`}
     >
-      <WireframeField />
+      <WireframeField variant={variant} />
       <RavenNetwork variant={variant} />
+      <span className="raven-energy-sweep" aria-hidden="true" />
       <RavenImage />
     </div>
   );
