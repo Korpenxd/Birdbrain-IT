@@ -3895,3 +3895,273 @@ img {
   }
 
 }
+
+/* Reintroduced raven: a clean signal-forge reveal without a local frame or cube. */
+.hero-raven-return {
+  grid-template-columns: minmax(0, 1fr) minmax(390px, 0.72fr);
+  gap: clamp(34px, 4vw, 72px);
+  min-height: min(800px, calc(100svh - 78px));
+  padding-top: 18px;
+}
+
+.hero-raven-return .hero-copy {
+  width: min(100%, 760px);
+}
+
+.hero-raven-return .hero-raven {
+  width: min(100%, 550px);
+  margin: 12px 0 0;
+  justify-self: end;
+}
+
+.inner-hero.with-art.raven-return-section {
+  grid-template-columns: minmax(0, 1fr) minmax(210px, 290px);
+  gap: clamp(34px, 5vw, 72px);
+  min-height: 280px;
+  margin-bottom: 30px;
+}
+
+.raven-return-section .raven-art-compact {
+  width: min(100%, 255px);
+  margin: 0;
+  justify-self: end;
+}
+
+.not-found .raven-art-compact {
+  width: min(280px, 68vw);
+  margin-bottom: -22px;
+}
+
+.raven-scene {
+  position: relative;
+}
+
+.raven-scene .raven-picture {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 100%;
+}
+
+.raven-scene .raven-draw-image {
+  clip-path: inset(100% 0 0 0);
+  opacity: 0;
+  transform: translate3d(0, 18px, 0) scale(0.94);
+  filter:
+    blur(8px)
+    brightness(1.65)
+    drop-shadow(0 0 8px rgba(65, 158, 255, 0.68))
+    drop-shadow(0 0 24px rgba(221, 55, 237, 0.34));
+  animation:
+    raven-forge-reveal 1.7s cubic-bezier(0.16, 0.76, 0.2, 1) 0.16s forwards,
+    raven-forge-idle 7.2s ease-in-out 2.15s infinite;
+  transition: filter 240ms ease;
+}
+
+.raven-scene:hover .raven-draw-image {
+  filter:
+    brightness(1.08)
+    drop-shadow(0 0 9px rgba(66, 164, 255, 0.55))
+    drop-shadow(0 0 25px rgba(224, 57, 240, 0.3));
+}
+
+.raven-forge-halo {
+  position: absolute;
+  z-index: 0;
+  inset: 18% 5% 8%;
+  border: 1px solid rgba(106, 155, 255, 0.18);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 42% 43%, rgba(42, 126, 255, 0.17), transparent 39%),
+    radial-gradient(circle at 66% 62%, rgba(222, 55, 232, 0.14), transparent 47%);
+  box-shadow:
+    0 0 54px rgba(48, 104, 238, 0.11),
+    inset 0 0 46px rgba(197, 48, 224, 0.07);
+  opacity: 0;
+  transform: scale(0.72);
+  animation: raven-forge-halo 1.45s cubic-bezier(0.2, 0.72, 0.2, 1) 0.12s forwards;
+  pointer-events: none;
+}
+
+.raven-forge-scan {
+  position: absolute;
+  z-index: 3;
+  top: 91%;
+  right: 7%;
+  left: 7%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #62ddff 25%, #9280ff 58%, #f05cf3 80%, transparent);
+  box-shadow:
+    0 0 7px rgba(91, 210, 255, 0.92),
+    0 0 22px rgba(203, 68, 238, 0.64);
+  opacity: 0;
+  animation: raven-forge-scan 1.55s cubic-bezier(0.2, 0.72, 0.2, 1) 0.22s forwards;
+  pointer-events: none;
+}
+
+.raven-forge-spark {
+  --spark-x: 0px;
+  --spark-y: -20px;
+  position: absolute;
+  z-index: 4;
+  width: 5px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #8ee8ff;
+  box-shadow: 0 0 12px rgba(98, 215, 255, 0.9);
+  opacity: 0;
+  animation: raven-forge-spark 0.85s ease-out forwards;
+  pointer-events: none;
+}
+
+.raven-forge-spark-one {
+  --spark-x: -18px;
+  --spark-y: -32px;
+  top: 54%;
+  left: 29%;
+  animation-delay: 0.72s;
+}
+
+.raven-forge-spark-two {
+  --spark-x: 24px;
+  --spark-y: -24px;
+  top: 67%;
+  left: 60%;
+  background: #ef71f6;
+  box-shadow: 0 0 13px rgba(229, 74, 241, 0.9);
+  animation-delay: 1.02s;
+}
+
+.raven-forge-spark-three {
+  --spark-x: 16px;
+  --spark-y: -38px;
+  top: 37%;
+  left: 43%;
+  animation-delay: 1.28s;
+}
+
+@keyframes raven-forge-reveal {
+  0% {
+    clip-path: inset(100% 0 0 0);
+    opacity: 0;
+    transform: translate3d(0, 18px, 0) scale(0.94);
+    filter:
+      blur(8px)
+      brightness(1.65)
+      drop-shadow(0 0 8px rgba(65, 158, 255, 0.68));
+  }
+  58% {
+    opacity: 0.88;
+    filter:
+      blur(1.5px)
+      brightness(1.28)
+      drop-shadow(0 0 12px rgba(72, 164, 255, 0.58))
+      drop-shadow(0 0 24px rgba(220, 55, 237, 0.32));
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter:
+      blur(0)
+      brightness(1)
+      drop-shadow(0 0 7px rgba(64, 148, 255, 0.42))
+      drop-shadow(0 0 20px rgba(219, 52, 236, 0.22));
+  }
+}
+
+@keyframes raven-forge-scan {
+  0% { top: 91%; opacity: 0; transform: scaleX(0.35); }
+  14% { opacity: 0.95; transform: scaleX(1); }
+  82% { opacity: 0.8; }
+  100% { top: 8%; opacity: 0; transform: scaleX(0.7); }
+}
+
+@keyframes raven-forge-halo {
+  0% { opacity: 0; transform: scale(0.72); }
+  46% { opacity: 0.74; }
+  100% { opacity: 0.38; transform: scale(1); }
+}
+
+@keyframes raven-forge-spark {
+  0% { opacity: 0; transform: translate3d(0, 0, 0) scale(0.2); }
+  28% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+  100% { opacity: 0; transform: translate3d(var(--spark-x), var(--spark-y), 0) scale(0.25); }
+}
+
+@keyframes raven-forge-idle {
+  0%,
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(0, -5px, 0) scale(1.004); }
+}
+
+@media (max-width: 900px) {
+  .hero-raven-return {
+    grid-template-columns: 1fr;
+    gap: 0;
+    min-height: auto;
+    padding-top: 0;
+  }
+
+  .hero-raven-return .hero-raven {
+    width: min(78vw, 390px);
+    margin: -30px auto 8px;
+    justify-self: center;
+  }
+
+  .inner-hero.with-art.raven-return-section {
+    grid-template-columns: minmax(0, 1fr) minmax(180px, 225px);
+    gap: 26px;
+  }
+
+  .raven-return-section .raven-art-compact {
+    width: min(100%, 215px);
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-raven-return .hero-raven {
+    width: min(82vw, 330px);
+    margin-top: -12px;
+  }
+
+  .inner-hero.with-art.raven-return-section {
+    grid-template-columns: 1fr;
+    gap: 2px;
+    min-height: 0;
+  }
+
+  .raven-return-section .raven-art-compact {
+    width: min(58vw, 190px);
+    margin-top: -16px;
+    justify-self: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .raven-scene,
+  .raven-scene .raven-draw-image {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .raven-scene .raven-draw-image {
+    clip-path: inset(0);
+    opacity: 1;
+    transform: none;
+    filter:
+      drop-shadow(0 0 7px rgba(64, 148, 255, 0.42))
+      drop-shadow(0 0 20px rgba(219, 52, 236, 0.22));
+  }
+
+  .raven-forge-halo {
+    opacity: 0.38;
+    transform: scale(1);
+    animation: none !important;
+  }
+
+  .raven-forge-scan,
+  .raven-forge-spark {
+    display: none;
+  }
+}

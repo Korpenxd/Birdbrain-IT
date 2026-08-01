@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { CtaStrip, Eyebrow, useLanguage } from "../components/site-shell";
+import { CtaStrip, Eyebrow, Raven, useLanguage } from "../components/site-shell";
 
 type ProcessIconType = "conversation" | "proposal" | "build" | "launch";
 
@@ -27,10 +27,13 @@ export default function ProcessPage() {
   const sv = lang === "sv";
   return (
     <main className="page-shell inner-page process-page">
-      <section className="inner-hero">
-        <Eyebrow>Process</Eyebrow>
-        <h1>{sv ? "Så " : "How it "}<span>{sv ? "går det till" : "works"}</span></h1>
-        <p>{sv ? "En enkel och tydlig process från första samtal till färdig lösning." : "A simple, transparent process from the first conversation to the finished product."}</p>
+      <section className="inner-hero with-art raven-return-section">
+        <div>
+          <Eyebrow>Process</Eyebrow>
+          <h1>{sv ? "Så " : "How it "}<span>{sv ? "går det till" : "works"}</span></h1>
+          <p>{sv ? "En enkel och tydlig process från första samtal till färdig lösning." : "A simple, transparent process from the first conversation to the finished product."}</p>
+        </div>
+        <Raven compact variant="process" priority />
       </section>
       <section className="process-layout">
         <ol className="process-list">

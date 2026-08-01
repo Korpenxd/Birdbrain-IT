@@ -1,6 +1,6 @@
 "use client";
 
-import { CtaStrip, Eyebrow, useLanguage } from "../components/site-shell";
+import { CtaStrip, Eyebrow, Raven, useLanguage } from "../components/site-shell";
 
 const services = [
   {
@@ -40,7 +40,7 @@ export default function ServicesPage() {
   const sv = lang === "sv";
   return (
     <main className="page-shell inner-page">
-      <section className="inner-hero">
+      <section className="inner-hero with-art raven-return-section">
         <div>
           <Eyebrow>{sv ? "Tjänster" : "Services"}</Eyebrow>
           <h1>
@@ -54,6 +54,7 @@ export default function ServicesPage() {
               : "Tailored solutions that solve real problems and create value for you and your users."}
           </p>
         </div>
+        <Raven compact variant="services" priority />
       </section>
 
       <section className="service-grid" aria-label={sv ? "Tjänster" : "Services"}>

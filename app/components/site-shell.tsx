@@ -489,13 +489,13 @@ export function RavenNetwork({ variant = "home" }: { variant?: RavenVariant }) {
 export function RavenImage({ priority = false }: { priority?: boolean }) {
   return (
     <picture className="raven-picture">
-      <source media="(max-width: 760px)" srcSet="/images/wireframe-raven-720.webp" />
+      <source media="(max-width: 760px)" srcSet="/images/raven-mark-640.webp" />
       <img
         className="raven-draw-image"
-        src="/images/wireframe-raven.webp"
+        src="/images/raven-mark.webp"
         alt=""
-        width="1245"
-        height="548"
+        width="1204"
+        height="1306"
         loading={priority ? "eager" : "lazy"}
         decoding="async"
         fetchPriority={priority ? "high" : "auto"}
@@ -560,9 +560,12 @@ export function Raven({
       aria-label={label}
       aria-hidden={label ? undefined : true}
     >
-      <WireframeField variant={variant} />
-      <RavenNetwork variant={variant} />
+      <span className="raven-forge-halo" aria-hidden="true" />
       <RavenImage priority={priority} />
+      <span className="raven-forge-scan" aria-hidden="true" />
+      <span className="raven-forge-spark raven-forge-spark-one" aria-hidden="true" />
+      <span className="raven-forge-spark raven-forge-spark-two" aria-hidden="true" />
+      <span className="raven-forge-spark raven-forge-spark-three" aria-hidden="true" />
     </div>
   );
 }

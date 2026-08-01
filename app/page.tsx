@@ -8,6 +8,7 @@ import {
   CtaStrip,
   Eyebrow,
   ProjectCard,
+  Raven,
   useLanguage,
 } from "./components/site-shell";
 
@@ -40,7 +41,7 @@ export default function Home() {
 
   return (
     <main>
-      <section className="hero hero-raven-free page-shell">
+      <section className="hero hero-raven-return page-shell">
         <div className="hero-copy">
           <Eyebrow>
             {sv
@@ -66,7 +67,7 @@ export default function Home() {
             </Link>
           </div>
         </div>
-
+        <Raven hero priority />
       </section>
 
       <section className="page-shell section-block projects-section">

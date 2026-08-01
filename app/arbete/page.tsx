@@ -1,29 +1,32 @@
 "use client";
 
-import { CtaStrip, Eyebrow, ProjectCard, useLanguage } from "../components/site-shell";
+import { CtaStrip, Eyebrow, ProjectCard, Raven, useLanguage } from "../components/site-shell";
 
 export default function WorkPage() {
   const { lang } = useLanguage();
   const sv = lang === "sv";
   return (
     <main className="page-shell inner-page">
-      <section className="inner-hero">
-        <Eyebrow>{sv ? "Arbete" : "Work"}</Eyebrow>
-        <h1>
-          {sv ? "Projekt jag är " : "Projects I’m "}
-          <span>{sv ? "stolt över" : "proud of"}</span>
-        </h1>
-        <p>
-          {sv
-            ? "Här är ett urval av webbplatser och digitala lösningar jag har byggt för kunder."
-            : "A selection of websites and digital products I’ve built for clients."}
-        </p>
-        <div className="filter-pills" aria-label={sv ? "Projektkategorier" : "Project categories"}>
-          <span>{sv ? "Alla" : "All"}</span>
-          <span>{sv ? "Webbplatser" : "Websites"}</span>
-          <span>{sv ? "Webbappar" : "Web apps"}</span>
-          <span>{sv ? "E-handel" : "E-commerce"}</span>
+      <section className="inner-hero with-art raven-return-section">
+        <div>
+          <Eyebrow>{sv ? "Arbete" : "Work"}</Eyebrow>
+          <h1>
+            {sv ? "Projekt jag är " : "Projects I’m "}
+            <span>{sv ? "stolt över" : "proud of"}</span>
+          </h1>
+          <p>
+            {sv
+              ? "Här är ett urval av webbplatser och digitala lösningar jag har byggt för kunder."
+              : "A selection of websites and digital products I’ve built for clients."}
+          </p>
+          <div className="filter-pills" aria-label={sv ? "Projektkategorier" : "Project categories"}>
+            <span>{sv ? "Alla" : "All"}</span>
+            <span>{sv ? "Webbplatser" : "Websites"}</span>
+            <span>{sv ? "Webbappar" : "Web apps"}</span>
+            <span>{sv ? "E-handel" : "E-commerce"}</span>
+          </div>
         </div>
+        <Raven compact priority />
       </section>
 
       <section className="work-list">

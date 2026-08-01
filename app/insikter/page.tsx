@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 
-import { Arrow, CtaStrip, Eyebrow, useLanguage } from "../components/site-shell";
+import { Arrow, CtaStrip, Eyebrow, Raven, useLanguage } from "../components/site-shell";
 
 const articles = [
   {
@@ -52,17 +52,20 @@ export default function InsightsPage() {
   const sv = lang === "sv";
   return (
     <main className="page-shell inner-page">
-      <section className="inner-hero">
-        <Eyebrow>{sv ? "Insikter" : "Insights"}</Eyebrow>
-        <h1>
-          {sv ? "Tankar, tips och " : "Thoughts, tips and "}
-          <span>{sv ? "lärdomar" : "lessons"}</span>
-        </h1>
-        <p>
-          {sv
-            ? "Jag delar med mig av insikter om utveckling, design och entreprenörskap."
-            : "Notes and lessons from my work in development, design and entrepreneurship."}
-        </p>
+      <section className="inner-hero with-art raven-return-section">
+        <div>
+          <Eyebrow>{sv ? "Insikter" : "Insights"}</Eyebrow>
+          <h1>
+            {sv ? "Tankar, tips och " : "Thoughts, tips and "}
+            <span>{sv ? "lärdomar" : "lessons"}</span>
+          </h1>
+          <p>
+            {sv
+              ? "Jag delar med mig av insikter om utveckling, design och entreprenörskap."
+              : "Notes and lessons from my work in development, design and entrepreneurship."}
+          </p>
+        </div>
+        <Raven compact variant="services" priority />
       </section>
 
       <section className="article-list">
