@@ -3697,7 +3697,7 @@ img {
 .process-step-heading {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: flex-end;
   margin-bottom: 26px;
 }
 
@@ -3871,7 +3871,8 @@ img {
   position: absolute;
   z-index: 2;
   top: 22px;
-  right: 22px;
+  right: auto;
+  left: 22px;
   display: grid;
   width: 42px;
   height: 30px;
