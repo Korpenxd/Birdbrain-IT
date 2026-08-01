@@ -539,7 +539,6 @@ export function Raven({
     >
       <span className="raven-forge-halo" aria-hidden="true" />
       <RavenNetwork variant={variant} />
-      <span className="raven-forge-scan" aria-hidden="true" />
       <span className="raven-forge-spark raven-forge-spark-one" aria-hidden="true" />
       <span className="raven-forge-spark raven-forge-spark-two" aria-hidden="true" />
       <span className="raven-forge-spark raven-forge-spark-three" aria-hidden="true" />

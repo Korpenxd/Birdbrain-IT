@@ -3948,22 +3948,6 @@ img {
   pointer-events: none;
 }
 
-.raven-forge-scan {
-  position: absolute;
-  z-index: 3;
-  top: 91%;
-  right: 7%;
-  left: 7%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #62ddff 25%, #9280ff 58%, #f05cf3 80%, transparent);
-  box-shadow:
-    0 0 7px rgba(91, 210, 255, 0.92),
-    0 0 22px rgba(203, 68, 238, 0.64);
-  opacity: 0;
-  animation: raven-forge-scan 1.55s cubic-bezier(0.2, 0.72, 0.2, 1) 0.22s forwards;
-  pointer-events: none;
-}
-
 .raven-forge-spark {
   --spark-x: 0px;
   --spark-y: -20px;
@@ -4037,13 +4021,6 @@ img {
 @keyframes code-raven-eye-pulse {
   0%, 100% { opacity: 0.82; transform: scale(0.92); }
   50% { opacity: 1; transform: scale(1.18); }
-}
-
-@keyframes raven-forge-scan {
-  0% { top: 91%; opacity: 0; transform: scaleX(0.35); }
-  14% { opacity: 0.95; transform: scaleX(1); }
-  82% { opacity: 0.8; }
-  100% { top: 8%; opacity: 0; transform: scaleX(0.7); }
 }
 
 @keyframes raven-forge-halo {
@@ -4152,7 +4129,6 @@ img {
     animation: none !important;
   }
 
-  .raven-forge-scan,
   .raven-forge-spark {
     display: none;
   }
