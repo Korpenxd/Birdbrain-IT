@@ -2,24 +2,16 @@
 "use client";
 
 import { CtaStrip, Eyebrow, useLanguage } from "../components/site-shell";
-import {
-  siFigma,
-  siNextdotjs,
-  siPostgresql,
-  siSupabase,
-  siTailwindcss,
-  siTypescript,
-  siVercel,
-} from "simple-icons";
+import { brandIcons } from "../components/brand-icons";
 
 const tools = [
-  { name: "Next.js", icon: siNextdotjs, color: "#f5f7fb" },
-  { name: "TypeScript", icon: siTypescript, color: `#${siTypescript.hex}` },
-  { name: "Tailwind CSS", icon: siTailwindcss, color: `#${siTailwindcss.hex}` },
-  { name: "Supabase", icon: siSupabase, color: `#${siSupabase.hex}` },
-  { name: "PostgreSQL", icon: siPostgresql, color: `#${siPostgresql.hex}` },
-  { name: "Vercel", icon: siVercel, color: "#f5f7fb" },
-  { name: "Figma", icon: siFigma, color: `#${siFigma.hex}` },
+  { name: "Next.js", icon: brandIcons.nextjs, color: "#f5f7fb" },
+  { name: "TypeScript", icon: brandIcons.typescript, color: `#${brandIcons.typescript.hex}` },
+  { name: "Tailwind CSS", icon: brandIcons.tailwindcss, color: `#${brandIcons.tailwindcss.hex}` },
+  { name: "Supabase", icon: brandIcons.supabase, color: `#${brandIcons.supabase.hex}` },
+  { name: "PostgreSQL", icon: brandIcons.postgresql, color: `#${brandIcons.postgresql.hex}` },
+  { name: "Vercel", icon: brandIcons.vercel, color: "#f5f7fb" },
+  { name: "Figma", icon: brandIcons.figma, color: `#${brandIcons.figma.hex}` },
 ];
 
 export default function AboutPage() {
