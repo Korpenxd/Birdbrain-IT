@@ -3866,68 +3866,59 @@ img {
 
 .raven-scene {
   position: relative;
-  aspect-ratio: 9 / 10;
+  aspect-ratio: 602 / 653;
   isolation: isolate;
 }
 
-.raven-scene .raven-network {
+.raven-vector-art {
+  position: absolute;
   z-index: 2;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
   opacity: 0;
-  transform: translate3d(0, 16px, 0) scale(0.96);
+  mix-blend-mode: screen;
   filter:
-    drop-shadow(0 0 5px rgba(69, 167, 255, 0.72))
-    drop-shadow(0 0 17px rgba(220, 59, 238, 0.34));
+    blur(2px)
+    drop-shadow(0 0 5px rgba(48, 145, 255, 0.5))
+    drop-shadow(0 0 15px rgba(217, 52, 238, 0.25));
   animation:
-    code-raven-arrive 0.72s cubic-bezier(0.16, 0.76, 0.2, 1) 0.04s forwards,
-    code-raven-idle 7.2s ease-in-out 2.35s infinite;
+    raven-vector-resolve 0.9s ease-out 1.2s forwards,
+    raven-vector-idle 7.2s ease-in-out 2.35s infinite;
+  transition: filter 240ms ease;
+  pointer-events: none;
+  user-select: none;
+}
+
+.raven-scene .raven-network {
+  z-index: 3;
+  opacity: 1;
+  transform: none;
+  filter:
+    drop-shadow(0 0 5px rgba(69, 167, 255, 0.9))
+    drop-shadow(0 0 14px rgba(220, 59, 238, 0.48));
+  animation:
+    raven-trace-settle 0.72s ease-out 1.92s forwards,
+    raven-trace-pulse 4.8s ease-in-out 2.72s infinite;
   transition: filter 240ms ease;
 }
 
-.raven-scene:hover .raven-network {
+.raven-scene .raven-network-edge {
+  stroke-width: 2.15;
+  animation-duration: 0.34s;
+}
+
+.raven-scene .raven-network-node {
+  animation: raven-node-ignite 0.42s cubic-bezier(0.16, 0.76, 0.2, 1.15) forwards;
+}
+
+.raven-scene:hover .raven-network,
+.raven-scene:hover .raven-vector-art {
   filter:
     drop-shadow(0 0 8px rgba(77, 183, 255, 0.82))
     drop-shadow(0 0 25px rgba(225, 65, 243, 0.44));
-}
-
-.code-raven-facet {
-  opacity: 0;
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: code-raven-facet-in 0.72s ease-out forwards;
-}
-
-.code-raven-outline {
-  stroke-width: 2.35;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  opacity: 0;
-  animation: code-raven-outline-in 1.25s cubic-bezier(0.2, 0.74, 0.2, 1) 0.78s forwards;
-}
-
-.code-raven-leg {
-  stroke-width: 2.1;
-  animation-delay: 1.06s;
-}
-
-.code-raven-eye {
-  opacity: 0;
-  transform-box: fill-box;
-  transform-origin: center;
-  animation:
-    code-raven-eye-in 0.48s ease-out 1.38s forwards,
-    code-raven-eye-pulse 2.8s ease-in-out 1.95s infinite;
-}
-
-.code-raven-eye-ring {
-  fill: none;
-  stroke: rgba(116, 238, 255, 0.92);
-  stroke-width: 2.2;
-}
-
-.code-raven-eye-core {
-  fill: #a4f8ff;
 }
 
 .raven-forge-halo {
@@ -3989,38 +3980,44 @@ img {
   animation-delay: 1.28s;
 }
 
-@keyframes code-raven-arrive {
+@keyframes raven-vector-resolve {
   0% {
     opacity: 0;
-    transform: translate3d(0, 16px, 0) scale(0.96);
+    filter:
+      blur(2px)
+      brightness(1.45)
+      drop-shadow(0 0 11px rgba(63, 171, 255, 0.7))
+      drop-shadow(0 0 24px rgba(220, 53, 239, 0.38));
   }
   100% {
     opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1);
+    filter:
+      blur(0)
+      brightness(1)
+      drop-shadow(0 0 5px rgba(48, 145, 255, 0.5))
+      drop-shadow(0 0 15px rgba(217, 52, 238, 0.25));
   }
 }
 
-@keyframes code-raven-facet-in {
-  0% { opacity: 0; transform: scale(0.72); }
-  65% { opacity: 0.34; }
-  100% { opacity: 1; transform: scale(1); }
+@keyframes raven-vector-idle {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(0, -5px, 0) scale(1.003); }
 }
 
-@keyframes code-raven-outline-in {
-  0% { stroke-dashoffset: 1; opacity: 0; }
-  16% { opacity: 0.92; }
-  100% { stroke-dashoffset: 0; opacity: 0.96; }
+@keyframes raven-node-ignite {
+  0% { opacity: 0; transform: scale(0.15); filter: blur(3px); }
+  58% { opacity: 1; transform: scale(1.75); filter: blur(0); }
+  100% { opacity: 0.96; transform: scale(1); filter: blur(0); }
 }
 
-@keyframes code-raven-eye-in {
-  0% { opacity: 0; transform: scale(0.15); }
-  68% { opacity: 1; transform: scale(1.45); }
-  100% { opacity: 1; transform: scale(1); }
+@keyframes raven-trace-settle {
+  from { opacity: 1; }
+  to { opacity: 0.2; }
 }
 
-@keyframes code-raven-eye-pulse {
-  0%, 100% { opacity: 0.82; transform: scale(0.92); }
-  50% { opacity: 1; transform: scale(1.18); }
+@keyframes raven-trace-pulse {
+  0%, 100% { opacity: 0.16; }
+  50% { opacity: 0.28; }
 }
 
 @keyframes raven-forge-halo {
@@ -4033,12 +4030,6 @@ img {
   0% { opacity: 0; transform: translate3d(0, 0, 0) scale(0.2); }
   28% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
   100% { opacity: 0; transform: translate3d(var(--spark-x), var(--spark-y), 0) scale(0.25); }
-}
-
-@keyframes code-raven-idle {
-  0%,
-  100% { opacity: 0.92; transform: translate3d(0, 0, 0) scale(1); }
-  50% { opacity: 1; transform: translate3d(0, -5px, 0) scale(1.004); }
 }
 
 @media (max-width: 900px) {
@@ -4086,40 +4077,23 @@ img {
 
 @media (prefers-reduced-motion: reduce) {
   .raven-scene,
+  .raven-vector-art,
   .raven-scene .raven-network,
   .raven-network-edge,
-  .raven-convergence-route,
-  .raven-network-node,
-  .code-raven-facet,
-  .code-raven-outline,
-  .code-raven-eye {
+  .raven-network-node {
     animation: none !important;
     transition: none !important;
   }
 
-  .raven-scene .raven-network {
+  .raven-vector-art {
     opacity: 1;
     transform: none;
     filter:
-      drop-shadow(0 0 7px rgba(64, 148, 255, 0.42))
-      drop-shadow(0 0 20px rgba(219, 52, 236, 0.22));
+      drop-shadow(0 0 5px rgba(48, 145, 255, 0.5))
+      drop-shadow(0 0 15px rgba(217, 52, 238, 0.25));
   }
 
-  .raven-network-edge,
-  .raven-network-node,
-  .code-raven-outline,
-  .code-raven-eye {
-    opacity: 0.94;
-    stroke-dashoffset: 0;
-    transform: none;
-  }
-
-  .code-raven-facet {
-    opacity: 1;
-    transform: none;
-  }
-
-  .raven-convergence-route {
+  .raven-scene .raven-network {
     display: none;
   }
 
