@@ -145,8 +145,8 @@ export default function Home() {
             <img
               src="/images/adam-strom.webp"
               alt="Adam Ström"
-              width="900"
-              height="991"
+              width="338"
+              height="554"
               loading="lazy"
               decoding="async"
               fetchPriority="low"

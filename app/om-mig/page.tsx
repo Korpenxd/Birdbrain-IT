@@ -37,7 +37,7 @@ export default function AboutPage() {
           </ul>
         </div>
         <figure className="portrait-frame">
-          <img src="/images/adam-strom.webp" alt="Adam Ström" width="900" height="991" />
+          <img src="/images/adam-strom.webp" alt="Adam Ström" width="338" height="554" />
         </figure>
       </section>
 

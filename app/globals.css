@@ -384,7 +384,7 @@ img {
   gap: 12px;
   min-height: 48px;
   padding: 0 22px;
-  border: 0;
+  border: 1px solid transparent;
   border-radius: 8px;
   font-size: 0.82rem;
   font-weight: 580;
@@ -404,11 +404,16 @@ img {
 }
 
 .button-primary {
-  background: var(--gradient);
+  background:
+    var(--gradient) padding-box,
+    linear-gradient(100deg, #63c9ff 0%, #6b64ff 24%, #e24ae8 49%, #8a5cff 74%, #63c9ff 100%) border-box;
+  background-position: 0 0, 0% 50%;
+  background-size: 100% 100%, 300% 100%;
   box-shadow:
     0 8px 25px rgba(39, 109, 255, 0.2),
     0 8px 28px rgba(221, 50, 225, 0.15);
   color: white;
+  animation: button-outline-slide 6.5s linear infinite;
 }
 
 .button-primary:hover {
@@ -418,21 +423,24 @@ img {
 }
 
 .button-outline {
-  background: linear-gradient(110deg, rgba(35, 94, 236, 0.08), rgba(213, 41, 223, 0.08));
+  background:
+    linear-gradient(110deg, rgba(35, 94, 236, 0.08), rgba(213, 41, 223, 0.08)) padding-box,
+    linear-gradient(100deg, #4b8cff 0%, #8867ff 25%, #e64be4 50%, #785fff 75%, #4b8cff 100%) border-box;
+  background-position: 0 0, 0% 50%;
+  background-size: 100% 100%, 300% 100%;
   box-shadow:
-    inset 0 0 0 1px #4649d7,
     0 0 20px rgba(74, 67, 219, 0.11);
+  animation: button-outline-slide 6.5s linear infinite;
 }
 
 .button-outline:hover {
   box-shadow:
-    inset 0 0 0 1px #d83ada,
     0 0 25px rgba(205, 42, 213, 0.16);
 }
 
 .button-full {
   width: 100%;
-  border: 0;
+  border: 1px solid transparent;
   cursor: pointer;
 }
 
@@ -3816,14 +3824,15 @@ img {
 }
 
 .portrait-frame img {
-  object-position: 62% 34%;
+  object-position: 50% 28%;
 }
 
 .about-summary-content img {
-  object-position: 62% 34%;
+  object-position: 50% 30%;
 }
 
 .tool-list .tool-logo {
+  position: relative;
   width: 44px;
   height: 44px;
   border: 1px solid color-mix(in srgb, currentColor 34%, transparent);
@@ -3832,12 +3841,49 @@ img {
   box-shadow:
     inset 0 0 14px color-mix(in srgb, currentColor 8%, transparent),
     0 0 18px color-mix(in srgb, currentColor 8%, transparent);
+  animation: tool-icon-glow 4.8s ease-in-out infinite;
+  transition: transform 180ms ease;
+}
+
+.tool-list > div:nth-child(2) .tool-logo { animation-delay: -0.7s; }
+.tool-list > div:nth-child(3) .tool-logo { animation-delay: -1.4s; }
+.tool-list > div:nth-child(4) .tool-logo { animation-delay: -2.1s; }
+.tool-list > div:nth-child(5) .tool-logo { animation-delay: -2.8s; }
+.tool-list > div:nth-child(6) .tool-logo { animation-delay: -3.5s; }
+.tool-list > div:nth-child(7) .tool-logo { animation-delay: -4.2s; }
+
+.tool-list > div:hover .tool-logo {
+  transform: translateY(-2px) scale(1.04);
 }
 
 .tool-logo svg {
+  position: relative;
+  z-index: 1;
   width: 23px;
   height: 23px;
   filter: drop-shadow(0 0 6px color-mix(in srgb, currentColor 32%, transparent));
+}
+
+@keyframes tool-icon-glow {
+  0%,
+  100% {
+    border-color: color-mix(in srgb, currentColor 28%, transparent);
+    box-shadow:
+      inset 0 0 12px color-mix(in srgb, currentColor 7%, transparent),
+      0 0 11px color-mix(in srgb, currentColor 7%, transparent);
+  }
+  48% {
+    border-color: color-mix(in srgb, currentColor 68%, transparent);
+    box-shadow:
+      inset 0 0 18px color-mix(in srgb, currentColor 15%, transparent),
+      0 0 10px color-mix(in srgb, currentColor 26%, transparent),
+      0 0 27px color-mix(in srgb, currentColor 18%, transparent);
+  }
+}
+
+@keyframes button-outline-slide {
+  0% { background-position: 0 0, 0% 50%; }
+  100% { background-position: 0 0, 150% 50%; }
 }
 
 .step-index {
@@ -3864,5 +3910,11 @@ img {
   .site-canvas > .raven-page-environment .raven-page-stars {
     animation: none !important;
     opacity: 0.62;
+  }
+
+  .tool-list .tool-logo,
+  .button-primary,
+  .button-outline {
+    animation: none !important;
   }
 }
