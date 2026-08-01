@@ -286,95 +286,57 @@ export function WireframeField({ variant = "home" }: { variant?: RavenVariant })
 }
 
 const ravenPoints = [
-  [118, 125],
-  [208, 80],
-  [296, 43],
-  [382, 58],
-  [453, 169],
-  [599, 260],
-  [606, 329],
-  [758, 385],
-  [883, 482],
-  [708, 438],
-  [583, 381],
-  [543, 382],
-  [443, 524],
-  [390, 527],
-  [456, 401],
-  [360, 315],
-  [325, 346],
-  [251, 242],
-  [290, 212],
-  [208, 119],
-  [246, 99],
-  [321, 118],
-  [393, 175],
-  [362, 315],
-  [505, 301],
-  [493, 398],
-  [611, 375],
-  [324, 509],
+  [70, 250], [170, 210], [235, 165], [320, 155], [370, 190],
+  [230, 230], [180, 255], [190, 320], [205, 420], [235, 500],
+  [300, 610], [390, 670], [420, 300], [500, 365], [580, 430],
+  [540, 540], [470, 635], [650, 500], [760, 585], [875, 660],
+  [845, 715], [745, 655], [380, 460], [320, 390], [300, 280],
+  [290, 220], [455, 400], [500, 485], [430, 550], [600, 540],
+  [570, 600], [470, 665], [365, 755], [340, 835], [325, 875],
+  [235, 900], [310, 905], [365, 895], [455, 755], [445, 845],
+  [455, 885], [380, 920], [460, 925], [540, 910], [360, 320],
+  [380, 610], [590, 575], [660, 610], [700, 590], [820, 740],
+  [125, 255], [260, 300], [245, 455], [270, 560],
 ] as const;
 
 const ravenEdges = [
-  [0, 19],
-  [0, 1],
-  [1, 2],
-  [2, 3],
-  [3, 4],
-  [4, 5],
-  [5, 6],
-  [6, 7],
-  [7, 8],
-  [8, 9],
-  [9, 10],
-  [10, 11],
-  [11, 12],
-  [12, 13],
-  [11, 14],
-  [14, 27],
-  [14, 15],
-  [15, 16],
-  [16, 17],
-  [17, 18],
-  [18, 19],
-  [19, 1],
-  [19, 20],
-  [20, 1],
-  [20, 21],
-  [21, 2],
-  [21, 3],
-  [21, 22],
-  [22, 3],
-  [22, 4],
-  [18, 21],
-  [18, 22],
-  [17, 23],
-  [23, 22],
-  [23, 24],
-  [24, 5],
-  [24, 6],
-  [23, 15],
-  [15, 24],
-  [24, 25],
-  [25, 10],
-  [25, 26],
-  [26, 6],
-  [26, 7],
-  [26, 9],
-  [10, 14],
-  [15, 25],
-  [16, 23],
-  [4, 24],
-  [5, 25],
+  [0, 1], [0, 50], [50, 1], [50, 6], [0, 6], [1, 2], [1, 5], [1, 25],
+  [2, 3], [2, 25], [3, 4], [3, 25], [4, 12], [4, 44], [25, 5], [25, 24],
+  [25, 4], [5, 6], [5, 24], [6, 7], [6, 24], [7, 24], [7, 51], [24, 51],
+  [24, 44], [51, 44], [51, 7], [7, 8], [7, 23], [23, 24], [23, 44], [44, 12],
+  [8, 23], [8, 52], [23, 52], [23, 22], [44, 22], [44, 26], [12, 26], [12, 13],
+  [52, 9], [52, 22], [9, 53], [9, 22], [53, 10], [53, 45], [10, 45], [10, 11],
+  [22, 45], [22, 28], [22, 26], [26, 13], [26, 27], [26, 28], [13, 14], [13, 27],
+  [14, 17], [14, 27], [27, 15], [27, 29], [27, 28], [15, 29], [15, 30], [15, 16],
+  [28, 15], [28, 16], [28, 45], [16, 30], [16, 31], [16, 45], [45, 11], [45, 31],
+  [11, 31], [17, 18], [17, 29], [17, 48], [29, 46], [29, 48], [29, 30], [46, 30],
+  [46, 47], [46, 48], [30, 47], [30, 31], [47, 48], [47, 21], [47, 49], [48, 18],
+  [48, 21], [18, 19], [18, 20], [18, 21], [19, 20], [20, 49], [20, 21], [21, 49],
+  [11, 32], [11, 38], [31, 38], [32, 33], [32, 38], [33, 34], [34, 35], [34, 36],
+  [34, 37], [35, 36], [36, 37], [38, 39], [39, 40], [40, 41], [40, 42], [40, 43],
+  [41, 42], [42, 43],
+] as const;
+
+const ravenFacets = [
+  [1, 2, 25], [2, 3, 25], [3, 4, 25], [5, 6, 24], [7, 23, 24],
+  [23, 44, 22], [8, 52, 23], [52, 9, 22], [9, 53, 22], [53, 10, 45],
+  [22, 26, 28], [26, 27, 28], [26, 13, 27], [13, 14, 27], [27, 15, 28],
+  [28, 15, 16], [28, 16, 45], [15, 29, 30], [14, 17, 29], [17, 18, 48],
+  [29, 46, 48], [46, 47, 48], [30, 47, 46], [47, 21, 49], [18, 20, 21],
+  [11, 32, 38], [31, 11, 38],
+] as const;
+
+const ravenBodyOutline =
+  "M70 250 L170 210 L235 165 L320 155 L370 190 L420 300 L500 365 L580 430 L650 500 L760 585 L875 660 L845 715 L820 740 L745 655 L570 600 L470 665 L390 670 L300 610 L235 500 L205 420 L190 320 L180 255 Z";
+
+const ravenLegOutlines = [
+  "M390 670 L365 755 L340 835 L325 875 L235 900 L310 905 L365 895 L325 875",
+  "M470 665 L455 755 L445 845 L455 885 L380 920 L460 925 L540 910 L455 885",
 ] as const;
 
 function sequenceIndex(index: number, variant: RavenVariant, total: number) {
   if (variant === "services") return total - index - 1;
-  if (variant === "process") {
-    const [from, to] = ravenEdges[index];
-    return Math.min(Math.abs(from - 20), Math.abs(to - 20));
-  }
+  if (variant === "process") return (index * 7) % total;
   if (variant === "lost") return (index * 17) % total;
   return index;
 }
@@ -407,11 +369,13 @@ function nodeOrigin(index: number, variant: RavenVariant) {
 
 export function RavenNetwork({ variant = "home" }: { variant?: RavenVariant }) {
   const gradientId = `raven-network-gradient-${variant}`;
+  const fillGradientId = `raven-fill-gradient-${variant}`;
+  const glowId = `raven-glow-${variant}`;
 
   return (
     <svg
       className="raven-network"
-      viewBox="0 0 1245 548"
+      viewBox="0 0 900 1000"
       preserveAspectRatio="xMidYMid meet"
       aria-hidden="true"
     >
@@ -421,7 +385,29 @@ export function RavenNetwork({ variant = "home" }: { variant?: RavenVariant }) {
           <stop offset="48%" stopColor="#536cff" />
           <stop offset="100%" stopColor="#ef55f5" />
         </linearGradient>
+        <linearGradient id={fillGradientId} x1="15%" y1="14%" x2="88%" y2="76%">
+          <stop offset="0%" stopColor="#22dfff" stopOpacity="0.17" />
+          <stop offset="48%" stopColor="#536cff" stopOpacity="0.1" />
+          <stop offset="100%" stopColor="#ef55f5" stopOpacity="0.2" />
+        </linearGradient>
+        <filter id={glowId} x="-180%" y="-180%" width="460%" height="460%">
+          <feGaussianBlur stdDeviation="7" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
       </defs>
+      <g className="code-raven-facets" fill={`url(#${fillGradientId})`}>
+        {ravenFacets.map((facet, index) => (
+          <polygon
+            className="code-raven-facet"
+            key={facet.join("-")}
+            points={facet.map((point) => ravenPoints[point].join(",")).join(" ")}
+            style={{ animationDelay: `${1.05 + sequenceIndex(index, variant, ravenFacets.length) * 0.025}s` }}
+          />
+        ))}
+      </g>
       <g className="raven-convergence-routes" stroke={`url(#${gradientId})`}>
         {ravenPoints.map(([x2, y2], index) => {
           const origin = nodeOrigin(index, variant);
@@ -454,7 +440,7 @@ export function RavenNetwork({ variant = "home" }: { variant?: RavenVariant }) {
               x2={x2}
               y2={y2}
               pathLength="1"
-              style={{ animationDelay: `${0.72 + order * 0.029}s` }}
+              style={{ animationDelay: `${0.62 + order * 0.014}s` }}
             />
           );
         })}
@@ -469,7 +455,7 @@ export function RavenNetwork({ variant = "home" }: { variant?: RavenVariant }) {
                 key={`${cx}-${cy}`}
                 cx={cx}
                 cy={cy}
-                r={index === 20 ? 5.5 : 3.5}
+                r={index === 5 ? 5.5 : 3.2}
                 style={
                   {
                     "--node-x": `${origin.x}px`,
@@ -482,25 +468,17 @@ export function RavenNetwork({ variant = "home" }: { variant?: RavenVariant }) {
           })()
         ))}
       </g>
+      <g className="code-raven-silhouette" fill="none" stroke={`url(#${gradientId})`}>
+        <path className="code-raven-outline" d={ravenBodyOutline} pathLength="1" />
+        {ravenLegOutlines.map((path) => (
+          <path className="code-raven-outline code-raven-leg" d={path} pathLength="1" key={path} />
+        ))}
+      </g>
+      <g className="code-raven-eye" filter={`url(#${glowId})`}>
+        <circle className="code-raven-eye-ring" cx="230" cy="230" r="15" />
+        <circle className="code-raven-eye-core" cx="230" cy="230" r="6.5" />
+      </g>
     </svg>
-  );
-}
-
-export function RavenImage({ priority = false }: { priority?: boolean }) {
-  return (
-    <picture className="raven-picture">
-      <source media="(max-width: 760px)" srcSet="/images/raven-mark-640.webp" />
-      <img
-        className="raven-draw-image"
-        src="/images/raven-mark.webp"
-        alt=""
-        width="1204"
-        height="1306"
-        loading={priority ? "eager" : "lazy"}
-        decoding="async"
-        fetchPriority={priority ? "high" : "auto"}
-      />
-    </picture>
   );
 }
 
@@ -520,7 +498,6 @@ export function Raven({
   compact = false,
   variant = "home",
   hero = false,
-  priority = false,
   label,
 }: {
   compact?: boolean;
@@ -561,7 +538,7 @@ export function Raven({
       aria-hidden={label ? undefined : true}
     >
       <span className="raven-forge-halo" aria-hidden="true" />
-      <RavenImage priority={priority} />
+      <RavenNetwork variant={variant} />
       <span className="raven-forge-scan" aria-hidden="true" />
       <span className="raven-forge-spark raven-forge-spark-one" aria-hidden="true" />
       <span className="raven-forge-spark raven-forge-spark-two" aria-hidden="true" />

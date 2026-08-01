@@ -27,7 +27,6 @@ export const metadata: Metadata = {
       "Digitala lösningar som gör idéer verkliga. Personlig webbutveckling från Alingsås.",
     type: "website",
     locale: "sv_SE",
-    images: ["/images/raven-mark.webp"],
   },
   icons: {
     icon: "/favicon.svg",
