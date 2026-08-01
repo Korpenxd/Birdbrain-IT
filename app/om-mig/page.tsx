@@ -2,8 +2,25 @@
 "use client";
 
 import { CtaStrip, Eyebrow, useLanguage } from "../components/site-shell";
+import {
+  siFigma,
+  siNextdotjs,
+  siPostgresql,
+  siSupabase,
+  siTailwindcss,
+  siTypescript,
+  siVercel,
+} from "simple-icons";
 
-const tools = ["Next.js", "TypeScript", "Tailwind CSS", "Supabase", "PostgreSQL", "Vercel", "Figma"];
+const tools = [
+  { name: "Next.js", icon: siNextdotjs, color: "#f5f7fb" },
+  { name: "TypeScript", icon: siTypescript, color: `#${siTypescript.hex}` },
+  { name: "Tailwind CSS", icon: siTailwindcss, color: `#${siTailwindcss.hex}` },
+  { name: "Supabase", icon: siSupabase, color: `#${siSupabase.hex}` },
+  { name: "PostgreSQL", icon: siPostgresql, color: `#${siPostgresql.hex}` },
+  { name: "Vercel", icon: siVercel, color: "#f5f7fb" },
+  { name: "Figma", icon: siFigma, color: `#${siFigma.hex}` },
+];
 
 export default function AboutPage() {
   const { lang } = useLanguage();
@@ -48,10 +65,14 @@ export default function AboutPage() {
       <section className="toolbox">
         <Eyebrow>{sv ? "Teknik jag jobbar med" : "Tools I work with"}</Eyebrow>
         <div className="tool-list">
-          {tools.map((tool, index) => (
-            <div key={tool}>
-              <span aria-hidden="true">{["◉", "TS", "≋", "◆", "⌘", "▲", "●"][index]}</span>
-              <p>{tool}</p>
+          {tools.map((tool) => (
+            <div key={tool.name}>
+              <span className="tool-logo" style={{ color: tool.color }} aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor" focusable="false">
+                  <path d={tool.icon.path} />
+                </svg>
+              </span>
+              <p>{tool.name}</p>
             </div>
           ))}
         </div>

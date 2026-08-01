@@ -37,7 +37,7 @@ export default function ProcessPage() {
           {steps.map((step, index) => {
             const [title, description] = sv ? step.sv : step.en;
             return <li key={title}>
-              <div className="process-step-heading"><span className="step-icon" aria-hidden="true"><ProcessIcon type={step.icon} /></span><span className="step-index">0{index + 1}</span></div>
+              <div className="process-step-heading"><span className="step-icon" aria-hidden="true"><ProcessIcon type={step.icon} /></span><span className="step-index">{String(index + 1).padStart(2, "0")}</span></div>
               <div><h2>{title}</h2><p>{description}</p></div>
             </li>;
           })}
