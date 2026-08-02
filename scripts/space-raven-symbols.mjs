@@ -3,7 +3,9 @@ import { join } from "node:path";
 
 const publicImages = join(process.cwd(), "public", "images");
 
-const processCycleIcon = '<g transform="translate(115 720) scale(.88)" fill="none" stroke="url(#raven-symbol-gradient)" stroke-linecap="round" stroke-linejoin="round"><path d="M130 36L224 130L130 224L36 130Z" stroke-width="5"/><path d="M130 57L203 130L130 203L57 130Z" stroke-width="2" opacity=".62"/><path d="M130 36L130 92M224 130H168M130 224V168M36 130H92" stroke-width="2.5"/><path d="M130 92L168 130L130 168L92 130Z" stroke-width="4"/><path d="M130 92L130 168M92 130H168M111 111L149 149M149 111L111 149" stroke-width="1.8" opacity=".78"/><path d="M174 73L190 79L184 95M187 174L181 190L165 184M86 187L70 181L76 165M73 86L79 70L95 76" stroke-width="5"/><polygon points="130,17 150,28 150,50 130,61 110,50 110,28" stroke-width="4"/><polygon points="221,106 242,118 242,142 221,154 200,142 200,118" stroke-width="4"/><polygon points="130,199 150,210 150,232 130,243 110,232 110,210" stroke-width="4"/><polygon points="39,106 60,118 60,142 39,154 18,142 18,118" stroke-width="4"/><g fill="#d9fbff" stroke="none"><circle cx="130" cy="39" r="5"/><circle cx="221" cy="130" r="5"/><circle cx="130" cy="221" r="5"/><circle cx="39" cy="130" r="5"/><circle cx="130" cy="130" r="5.5"/></g></g>';
+const processGears = await readFile(join(publicImages, "process-gears-neon.png"));
+const processGearsDataUri = `data:image/png;base64,${processGears.toString("base64")}`;
+const processGearsIcon = `<image x="0" y="735" width="260" height="260" preserveAspectRatio="xMidYMid meet" href="${processGearsDataUri}"/>`;
 
 const variants = {
   "raven-services-question.svg": {
@@ -20,8 +22,8 @@ const variants = {
   },
   "raven-process-progress.svg": {
     maskShape: '<path d="M150 932L232 843L286 840L345 760" fill="none" stroke="black" stroke-width="42" stroke-linecap="round" stroke-linejoin="round"/><circle cx="150" cy="932" r="29"/><circle cx="232" cy="843" r="29"/><circle cx="286" cy="840" r="27"/><path d="M304 742h70v70z"/>',
-    transform: "translate(-100 35)",
-    replacement: processCycleIcon,
+    transform: "translate(-5 0)",
+    replacement: processGearsIcon,
   },
   "raven-insights-brain.svg": {
     shape: '<rect x="70" y="590" width="285" height="290" rx="70"/>',
