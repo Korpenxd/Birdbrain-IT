@@ -469,20 +469,11 @@ img {
 }
 
 .raven-scene {
-  --scene-x: 0px;
-  --scene-y: 0px;
-  --scene-rx: 0deg;
-  --scene-ry: 0deg;
   contain: layout style;
   overflow: visible;
   border: 0;
   background: transparent;
   box-shadow: none;
-  transform: perspective(1100px) translate3d(var(--scene-x), var(--scene-y), 0)
-    rotateX(var(--scene-rx)) rotateY(var(--scene-ry));
-  transform-style: preserve-3d;
-  transition: transform 420ms cubic-bezier(0.16, 0.75, 0.2, 1);
-  touch-action: pan-y;
 }
 
 .wireframe-field {
@@ -3482,7 +3473,10 @@ img {
 /* Shared Process-page environment and raven-free page refinements. */
 .site-canvas {
   position: relative;
+  display: flex;
   isolation: isolate;
+  flex-direction: column;
+  min-height: 100vh;
   min-height: 100svh;
 }
 
@@ -3499,6 +3493,14 @@ img {
 .site-footer {
   position: relative;
   z-index: 1;
+}
+
+.site-main-content {
+  flex: 1 0 auto;
+}
+
+.site-footer {
+  flex: 0 0 auto;
 }
 
 .hero-raven-free {
@@ -3991,14 +3993,6 @@ img {
   user-select: none;
 }
 
-.raven-scene:hover .raven-emote-art {
-  filter:
-    brightness(1.16)
-    saturate(1.16)
-    drop-shadow(0 0 10px rgba(77, 183, 255, 0.78))
-    drop-shadow(0 0 26px rgba(225, 65, 243, 0.42));
-}
-
 .raven-custom-asset.raven-variant-insights .raven-vector-art {
   animation-name: raven-custom-resolve, raven-insights-emote-idle;
 }
@@ -4042,13 +4036,6 @@ img {
 
 .raven-custom-asset .raven-network-custom .raven-network-node {
   animation-duration: 0.46s;
-}
-
-.raven-scene:hover .raven-network,
-.raven-scene:hover .raven-vector-art {
-  filter:
-    drop-shadow(0 0 8px rgba(77, 183, 255, 0.82))
-    drop-shadow(0 0 25px rgba(225, 65, 243, 0.44));
 }
 
 .raven-forge-spark {
@@ -4308,6 +4295,25 @@ img {
 }
 
 @media (max-width: 640px) {
+  .hero-copy > h1,
+  .inner-hero.with-art.raven-return-section > div:first-child > h1,
+  .about-raven-hero > div:first-child > h1,
+  .contact-raven-hero .contact-hero-grid > div:first-child > h1 {
+    width: 100%;
+    margin-inline: auto;
+    text-align: center;
+    text-wrap: balance;
+  }
+
+  .hero-copy > .eyebrow,
+  .inner-hero.with-art.raven-return-section > div:first-child > .eyebrow,
+  .about-raven-hero > div:first-child > .eyebrow,
+  .contact-raven-hero .contact-hero-grid > div:first-child > .eyebrow {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
   .hero-raven-return .hero-raven {
     width: min(88vw, 390px);
     margin-top: -12px;

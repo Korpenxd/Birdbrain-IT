@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 import {
   createContext,
   type FormEvent,
-  type PointerEvent as ReactPointerEvent,
   type ReactNode,
   useContext,
   useEffect,
@@ -473,34 +472,12 @@ export function Raven({
   emoteAsset?: string;
   label?: string;
 }) {
-  function handlePointerMove(event: ReactPointerEvent<HTMLDivElement>) {
-    if (event.pointerType === "touch") return;
-
-    const bounds = event.currentTarget.getBoundingClientRect();
-    const horizontal = (event.clientX - bounds.left) / bounds.width - 0.5;
-    const vertical = (event.clientY - bounds.top) / bounds.height - 0.5;
-
-    event.currentTarget.style.setProperty("--scene-x", `${horizontal * 10}px`);
-    event.currentTarget.style.setProperty("--scene-y", `${vertical * 8}px`);
-    event.currentTarget.style.setProperty("--scene-rx", `${vertical * -2.2}deg`);
-    event.currentTarget.style.setProperty("--scene-ry", `${horizontal * 3.2}deg`);
-  }
-
-  function resetPointer(event: ReactPointerEvent<HTMLDivElement>) {
-    event.currentTarget.style.setProperty("--scene-x", "0px");
-    event.currentTarget.style.setProperty("--scene-y", "0px");
-    event.currentTarget.style.setProperty("--scene-rx", "0deg");
-    event.currentTarget.style.setProperty("--scene-ry", "0deg");
-  }
-
   const sceneClass = hero ? "hero-raven" : compact ? "raven-art raven-art-compact" : "raven-art";
   const usesOriginalRaven = asset === "/images/ruven.svg";
 
   return (
     <div
       className={`${sceneClass} raven-scene raven-variant-${variant}${usesOriginalRaven ? "" : " raven-custom-asset"}`}
-      onPointerMove={handlePointerMove}
-      onPointerLeave={resetPointer}
       role={label ? "img" : undefined}
       aria-label={label}
       aria-hidden={label ? undefined : true}
