@@ -338,17 +338,31 @@ const ravenEdges = [
 
 function sequenceIndex(index: number, variant: RavenVariant, total: number) {
   if (variant === "services") return total - index - 1;
+  if (variant === "work") {
+    return Math.floor(index / 2) + (index % 2) * Math.ceil(total / 2);
+  }
+  if (variant === "about") {
+    return Math.min(total - 1, Math.abs(index - Math.floor(total / 2)) * 2);
+  }
   if (variant === "process") return (index * 7) % total;
+  if (variant === "insights") return (index * 11) % total;
+  if (variant === "contact") return (index * 13) % total;
   if (variant === "lost") return (index * 17) % total;
   return index;
 }
 
-export function RavenNetwork({ variant = "home" }: { variant?: RavenVariant }) {
+export function RavenNetwork({
+  variant = "home",
+  custom = false,
+}: {
+  variant?: RavenVariant;
+  custom?: boolean;
+}) {
   const gradientId = `raven-network-gradient-${variant}`;
 
   return (
     <svg
-      className="raven-network"
+      className={`raven-network${custom ? " raven-network-custom" : ""}`}
       viewBox="0 0 1204 1306"
       preserveAspectRatio="xMidYMid meet"
       aria-hidden="true"
@@ -466,7 +480,7 @@ export function Raven({
         fetchPriority={priority ? "high" : "auto"}
         draggable={false}
       />
-      {usesOriginalRaven ? <RavenNetwork variant={variant} /> : null}
+      <RavenNetwork variant={variant} custom={!usesOriginalRaven} />
       <span className="raven-forge-spark raven-forge-spark-one" aria-hidden="true" />
       <span className="raven-forge-spark raven-forge-spark-two" aria-hidden="true" />
       <span className="raven-forge-spark raven-forge-spark-three" aria-hidden="true" />

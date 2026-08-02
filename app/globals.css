@@ -3903,8 +3903,8 @@ img {
     drop-shadow(0 0 7px rgba(48, 145, 255, 0.62))
     drop-shadow(0 0 18px rgba(217, 52, 238, 0.34));
   animation:
-    raven-custom-resolve 0.92s cubic-bezier(0.16, 0.76, 0.2, 1) 0.12s forwards,
-    raven-custom-idle 7.2s ease-in-out 1.15s infinite;
+    raven-custom-resolve 0.86s cubic-bezier(0.16, 0.76, 0.2, 1) 1.12s forwards,
+    raven-custom-idle 7.2s ease-in-out 2.16s infinite;
 }
 
 .raven-custom-asset.raven-variant-services .raven-vector-art {
@@ -3951,6 +3951,23 @@ img {
 
 .raven-scene .raven-network-node {
   animation: raven-node-ignite 0.42s cubic-bezier(0.16, 0.76, 0.2, 1.15) forwards;
+}
+
+.raven-custom-asset .raven-network-custom {
+  transform: scale(0.94);
+  transform-origin: center;
+  animation:
+    raven-custom-trace-settle 0.72s ease-out 2.14s forwards,
+    raven-trace-pulse 5.4s ease-in-out 2.94s infinite;
+}
+
+.raven-custom-asset .raven-network-custom .raven-network-edge {
+  stroke-width: 2;
+  animation-duration: 0.36s;
+}
+
+.raven-custom-asset .raven-network-custom .raven-network-node {
+  animation-duration: 0.46s;
 }
 
 .raven-scene:hover .raven-network,
@@ -4046,17 +4063,15 @@ img {
 
 @keyframes raven-custom-resolve {
   0% {
-    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
     opacity: 0;
-    transform: translate3d(-8px, 5px, 0) scale(0.97);
+    transform: translate3d(0, 2px, 0) scale(0.985);
     filter:
-      blur(2px)
+      blur(2.4px)
       brightness(1.5)
       drop-shadow(0 0 15px rgba(63, 171, 255, 0.76));
   }
-  62% { opacity: 1; }
+  42% { opacity: 0.22; }
   100% {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     opacity: 1;
     transform: translate3d(0, 0, 0) scale(1);
     filter:
@@ -4064,6 +4079,16 @@ img {
       brightness(1)
       drop-shadow(0 0 5px rgba(48, 145, 255, 0.5))
       drop-shadow(0 0 15px rgba(217, 52, 238, 0.25));
+  }
+}
+
+@keyframes raven-custom-trace-settle {
+  from { opacity: 1; }
+  to {
+    opacity: 0.12;
+    filter:
+      drop-shadow(0 0 3px rgba(69, 167, 255, 0.58))
+      drop-shadow(0 0 8px rgba(220, 59, 238, 0.3));
   }
 }
 
