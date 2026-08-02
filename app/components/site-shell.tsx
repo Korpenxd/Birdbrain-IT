@@ -125,6 +125,24 @@ function SiteHeader() {
           id="site-navigation"
           aria-label={lang === "sv" ? "Huvudmeny" : "Main menu"}
         >
+          <span className="mobile-nav-kicker" aria-hidden="true">
+            Navigation / 01–07
+          </span>
+          <div className="mobile-nav-path" aria-hidden="true">
+            <svg viewBox="0 0 48 420" preserveAspectRatio="none" focusable="false">
+              <defs>
+                <linearGradient id="mobile-nav-gradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stopColor="#20d8ff" />
+                  <stop offset="0.5" stopColor="#5d7dff" />
+                  <stop offset="1" stopColor="#ef48e7" />
+                </linearGradient>
+              </defs>
+              <polyline
+                pathLength={1}
+                points="31,30 13,90 32,150 14,210 31,270 13,330 31,390"
+              />
+            </svg>
+          </div>
           {navigation.map((item) => {
             const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
             return (
@@ -139,8 +157,13 @@ function SiteHeader() {
               </Link>
             );
           })}
-          <div className="mobile-language">
-            <LanguageToggle lang={lang} setLang={setLang} />
+          <div className="mobile-nav-footer">
+            <div className="mobile-language">
+              <LanguageToggle lang={lang} setLang={setLang} />
+            </div>
+            <a className="mobile-nav-email" href="mailto:Hello@birdbrain.it">
+              Hello@birdbrain.it
+            </a>
           </div>
         </nav>
         <div className="desktop-language">
