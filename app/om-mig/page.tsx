@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { CtaStrip, Eyebrow, useLanguage } from "../components/site-shell";
+import { CtaStrip, Eyebrow, Raven, useLanguage } from "../components/site-shell";
 import { brandIcons } from "../components/brand-icons";
 
 const tools = [
@@ -19,7 +19,7 @@ export default function AboutPage() {
   const sv = lang === "sv";
   return (
     <main className="page-shell inner-page">
-      <section className="about-hero">
+      <section className="about-hero about-raven-hero">
         <div>
           <Eyebrow>{sv ? "Om mig" : "About me"}</Eyebrow>
           <h1>
@@ -36,9 +36,18 @@ export default function AboutPage() {
             <li>▱ {sv ? "Tillgänglig för nya projekt" : "Available for new projects"}</li>
           </ul>
         </div>
-        <figure className="portrait-frame">
-          <img src="/images/adam-strom.webp" alt="Adam Ström" width="338" height="554" />
-        </figure>
+        <div className="about-visuals">
+          <Raven
+            compact
+            variant="about"
+            asset="/images/raven-about-heart.svg"
+            priority
+            label={sv ? "Neonraven med ett hjärta" : "Neon raven with a heart"}
+          />
+          <figure className="portrait-frame">
+            <img src="/images/adam-strom.webp" alt="Adam Ström" width="338" height="554" />
+          </figure>
+        </div>
       </section>
 
       <section className="about-story">

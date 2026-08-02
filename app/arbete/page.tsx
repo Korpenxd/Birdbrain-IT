@@ -26,7 +26,12 @@ export default function WorkPage() {
             <span>{sv ? "E-handel" : "E-commerce"}</span>
           </div>
         </div>
-        <Raven compact priority />
+        <Raven
+          compact
+          variant="work"
+          asset="/images/raven-work-exclamation.svg"
+          priority
+        />
       </section>
 
       <section className="work-list">

@@ -3870,6 +3870,10 @@ img {
   isolation: isolate;
 }
 
+.raven-scene.raven-custom-asset {
+  aspect-ratio: 1;
+}
+
 .raven-vector-art {
   position: absolute;
   z-index: 2;
@@ -3890,6 +3894,41 @@ img {
   transition: filter 240ms ease;
   pointer-events: none;
   user-select: none;
+}
+
+.raven-custom-asset .raven-vector-art {
+  filter:
+    brightness(1.28)
+    saturate(1.14)
+    drop-shadow(0 0 7px rgba(48, 145, 255, 0.62))
+    drop-shadow(0 0 18px rgba(217, 52, 238, 0.34));
+  animation:
+    raven-custom-resolve 0.92s cubic-bezier(0.16, 0.76, 0.2, 1) 0.12s forwards,
+    raven-custom-idle 7.2s ease-in-out 1.15s infinite;
+}
+
+.raven-custom-asset.raven-variant-services .raven-vector-art {
+  animation-name: raven-custom-resolve, raven-services-emote-idle;
+}
+
+.raven-custom-asset.raven-variant-work .raven-vector-art {
+  animation-name: raven-custom-resolve, raven-work-emote-idle;
+}
+
+.raven-custom-asset.raven-variant-about .raven-vector-art {
+  animation-name: raven-custom-resolve, raven-about-emote-idle;
+}
+
+.raven-custom-asset.raven-variant-process .raven-vector-art {
+  animation-name: raven-custom-resolve, raven-process-emote-idle;
+}
+
+.raven-custom-asset.raven-variant-insights .raven-vector-art {
+  animation-name: raven-custom-resolve, raven-insights-emote-idle;
+}
+
+.raven-custom-asset.raven-variant-contact .raven-vector-art {
+  animation-name: raven-custom-resolve, raven-contact-emote-idle;
 }
 
 .raven-scene .raven-network {
@@ -3993,15 +4032,77 @@ img {
     opacity: 1;
     filter:
       blur(0)
-      brightness(1)
-      drop-shadow(0 0 5px rgba(48, 145, 255, 0.5))
-      drop-shadow(0 0 15px rgba(217, 52, 238, 0.25));
+      brightness(1.28)
+      saturate(1.14)
+      drop-shadow(0 0 7px rgba(48, 145, 255, 0.62))
+      drop-shadow(0 0 18px rgba(217, 52, 238, 0.34));
   }
 }
 
 @keyframes raven-vector-idle {
   0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
   50% { transform: translate3d(0, -5px, 0) scale(1.003); }
+}
+
+@keyframes raven-custom-resolve {
+  0% {
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+    opacity: 0;
+    transform: translate3d(-8px, 5px, 0) scale(0.97);
+    filter:
+      blur(2px)
+      brightness(1.5)
+      drop-shadow(0 0 15px rgba(63, 171, 255, 0.76));
+  }
+  62% { opacity: 1; }
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter:
+      blur(0)
+      brightness(1)
+      drop-shadow(0 0 5px rgba(48, 145, 255, 0.5))
+      drop-shadow(0 0 15px rgba(217, 52, 238, 0.25));
+  }
+}
+
+@keyframes raven-custom-idle {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0); }
+  50% { transform: translate3d(0, -4px, 0) rotate(0.2deg); }
+}
+
+@keyframes raven-services-emote-idle {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0); }
+  46% { transform: translate3d(0, -5px, 0) rotate(-0.35deg); }
+  58% { transform: translate3d(1px, -3px, 0) rotate(0.2deg); }
+}
+
+@keyframes raven-work-emote-idle {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  48% { transform: translate3d(-3px, 2px, 0) scale(1.004); }
+  55% { transform: translate3d(-1px, 0, 0) scale(1.002); }
+}
+
+@keyframes raven-about-emote-idle {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0); }
+  50% { transform: translate3d(0, -5px, 0) rotate(0.45deg); }
+}
+
+@keyframes raven-process-emote-idle {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  44% { transform: translate3d(3px, -3px, 0); }
+  62% { transform: translate3d(1px, -1px, 0); }
+}
+
+@keyframes raven-insights-emote-idle {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0); }
+  50% { transform: translate3d(0, 3px, 0) rotate(-0.3deg); }
+}
+
+@keyframes raven-contact-emote-idle {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(0, -4px, 0) scale(1.006); }
 }
 
 @keyframes raven-node-ignite {
@@ -4032,6 +4133,56 @@ img {
   100% { opacity: 0; transform: translate3d(var(--spark-x), var(--spark-y), 0) scale(0.25); }
 }
 
+.about-raven-hero {
+  grid-template-columns: minmax(0, 1fr) minmax(500px, 610px);
+  gap: clamp(38px, 5vw, 78px);
+}
+
+.about-visuals {
+  display: grid;
+  grid-template-columns: minmax(170px, 0.62fr) minmax(280px, 1fr);
+  align-items: end;
+  gap: clamp(12px, 2vw, 28px);
+}
+
+.about-visuals .raven-art-compact {
+  width: 100%;
+  margin: 0 0 10%;
+}
+
+.about-visuals .portrait-frame {
+  width: 100%;
+}
+
+.contact-raven-hero .contact-hero-grid {
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 300px);
+  align-items: center;
+  gap: clamp(30px, 5vw, 72px);
+}
+
+.contact-raven-hero .contact-hero-grid > div {
+  display: grid;
+  justify-items: start;
+}
+
+.contact-raven-hero .contact-hero-grid .eyebrow {
+  margin-bottom: 18px;
+}
+
+.contact-raven-hero .contact-hero-grid p {
+  margin-top: 20px;
+}
+
+.contact-raven-hero .raven-art-compact {
+  width: min(100%, 285px);
+  margin: 0;
+  justify-self: end;
+}
+
+.raven-return-section .raven-art-compact.raven-custom-asset {
+  width: min(100%, 280px);
+}
+
 @media (max-width: 900px) {
   .hero-raven-return {
     grid-template-columns: 1fr;
@@ -4054,6 +4205,25 @@ img {
   .raven-return-section .raven-art-compact {
     width: min(100%, 215px);
   }
+
+  .raven-return-section .raven-art-compact.raven-custom-asset {
+    width: min(100%, 230px);
+  }
+
+  .about-raven-hero {
+    grid-template-columns: minmax(0, 1fr) minmax(360px, 430px);
+    gap: 30px;
+  }
+
+  .about-visuals {
+    grid-template-columns: minmax(120px, 0.5fr) minmax(220px, 1fr);
+    gap: 14px;
+  }
+
+  .contact-raven-hero .contact-hero-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(180px, 220px);
+    gap: 24px;
+  }
 }
 
 @media (max-width: 640px) {
@@ -4071,6 +4241,41 @@ img {
   .raven-return-section .raven-art-compact {
     width: min(58vw, 190px);
     margin-top: -16px;
+    justify-self: center;
+  }
+
+  .raven-return-section .raven-art-compact.raven-custom-asset {
+    width: min(65vw, 215px);
+  }
+
+  .about-raven-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .about-raven-hero > div:first-child {
+    grid-row: 2;
+  }
+
+  .about-visuals {
+    grid-row: 1;
+    grid-template-columns: minmax(115px, 0.46fr) minmax(190px, 1fr);
+    width: 100%;
+    max-width: 440px;
+  }
+
+  .about-visuals .raven-art-compact {
+    width: 100%;
+    margin: 0 0 12%;
+  }
+
+  .contact-raven-hero .contact-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .contact-raven-hero .raven-art-compact {
+    width: min(58vw, 205px);
+    margin: -10px auto -14px;
     justify-self: center;
   }
 }

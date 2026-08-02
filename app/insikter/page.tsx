@@ -65,7 +65,12 @@ export default function InsightsPage() {
               : "Notes and lessons from my work in development, design and entrepreneurship."}
           </p>
         </div>
-        <Raven compact variant="services" priority />
+        <Raven
+          compact
+          variant="insights"
+          asset="/images/raven-insights-brain.svg"
+          priority
+        />
       </section>
 
       <section className="article-list">

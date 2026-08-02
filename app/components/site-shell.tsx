@@ -232,7 +232,15 @@ const sparkles = [
   ["98%", "42%", "-0.4s", "4.2s"],
 ];
 
-type RavenVariant = "home" | "services" | "process" | "lost";
+type RavenVariant =
+  | "home"
+  | "services"
+  | "work"
+  | "about"
+  | "process"
+  | "insights"
+  | "contact"
+  | "lost";
 
 export function WireframeField({ variant = "home" }: { variant?: RavenVariant }) {
   return (
@@ -404,12 +412,14 @@ export function Raven({
   variant = "home",
   hero = false,
   priority = false,
+  asset = "/images/ruven.svg",
   label,
 }: {
   compact?: boolean;
   variant?: RavenVariant;
   hero?: boolean;
   priority?: boolean;
+  asset?: string;
   label?: string;
 }) {
   function handlePointerMove(event: ReactPointerEvent<HTMLDivElement>) {
@@ -433,10 +443,11 @@ export function Raven({
   }
 
   const sceneClass = hero ? "hero-raven" : compact ? "raven-art raven-art-compact" : "raven-art";
+  const usesOriginalRaven = asset === "/images/ruven.svg";
 
   return (
     <div
-      className={`${sceneClass} raven-scene raven-variant-${variant}`}
+      className={`${sceneClass} raven-scene raven-variant-${variant}${usesOriginalRaven ? "" : " raven-custom-asset"}`}
       onPointerMove={handlePointerMove}
       onPointerLeave={resetPointer}
       role={label ? "img" : undefined}
@@ -446,16 +457,16 @@ export function Raven({
       <span className="raven-forge-halo" aria-hidden="true" />
       <img
         className="raven-vector-art"
-        src="/images/ruven.svg"
+        src={asset}
         alt=""
-        width="1204"
-        height="1306"
+        width={usesOriginalRaven ? "1204" : "1254"}
+        height={usesOriginalRaven ? "1306" : "1254"}
         loading={priority ? "eager" : "lazy"}
         decoding="async"
         fetchPriority={priority ? "high" : "auto"}
         draggable={false}
       />
-      <RavenNetwork variant={variant} />
+      {usesOriginalRaven ? <RavenNetwork variant={variant} /> : null}
       <span className="raven-forge-spark raven-forge-spark-one" aria-hidden="true" />
       <span className="raven-forge-spark raven-forge-spark-two" aria-hidden="true" />
       <span className="raven-forge-spark raven-forge-spark-three" aria-hidden="true" />

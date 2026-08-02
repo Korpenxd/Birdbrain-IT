@@ -54,7 +54,12 @@ export default function ServicesPage() {
               : "Tailored solutions that solve real problems and create value for you and your users."}
           </p>
         </div>
-        <Raven compact variant="services" priority />
+        <Raven
+          compact
+          variant="services"
+          asset="/images/raven-services-question.svg"
+          priority
+        />
       </section>
 
       <section className="service-grid" aria-label={sv ? "Tjänster" : "Services"}>

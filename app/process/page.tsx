@@ -33,7 +33,12 @@ export default function ProcessPage() {
           <h1>{sv ? "Så " : "How it "}<span>{sv ? "går det till" : "works"}</span></h1>
           <p>{sv ? "En enkel och tydlig process från första samtal till färdig lösning." : "A simple, transparent process from the first conversation to the finished product."}</p>
         </div>
-        <Raven compact variant="process" priority />
+        <Raven
+          compact
+          variant="process"
+          asset="/images/raven-process-progress.svg"
+          priority
+        />
       </section>
       <section className="process-layout">
         <ol className="process-list">

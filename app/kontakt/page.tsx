@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 
-import { ContactForm, Eyebrow, useLanguage } from "../components/site-shell";
+import { ContactForm, Eyebrow, Raven, useLanguage } from "../components/site-shell";
 
 type ContactIconType = "mail" | "location" | "availability" | "reply";
 
@@ -48,11 +48,20 @@ export default function ContactPage() {
   const sv = lang === "sv";
   return (
     <main className="page-shell inner-page contact-page">
-      <section className="contact-hero">
-        <Eyebrow>{sv ? "Kontakt" : "Contact"}</Eyebrow>
+      <section className="contact-hero contact-raven-hero">
         <div className="contact-hero-grid">
-          <h1>{sv ? "Låt oss bygga något bra " : "Let’s build something good "}<span>{sv ? "tillsammans" : "together"}</span></h1>
-          <p>{sv ? "Berätta om ditt projekt eller en idé så hör jag av mig så snart jag kan." : "Tell me about your project or idea and I’ll get back to you as soon as I can."}</p>
+          <div>
+            <Eyebrow>{sv ? "Kontakt" : "Contact"}</Eyebrow>
+            <h1>{sv ? "Låt oss bygga något bra " : "Let’s build something good "}<span>{sv ? "tillsammans" : "together"}</span></h1>
+            <p>{sv ? "Berätta om ditt projekt eller en idé så hör jag av mig så snart jag kan." : "Tell me about your project or idea and I’ll get back to you as soon as I can."}</p>
+          </div>
+          <Raven
+            compact
+            variant="contact"
+            asset="/images/raven-contact-message.svg"
+            priority
+            label={sv ? "Neonraven med en meddelandebubbla" : "Neon raven with a message bubble"}
+          />
         </div>
       </section>
       <section className="contact-layout">
