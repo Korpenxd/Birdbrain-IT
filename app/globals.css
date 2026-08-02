@@ -3233,7 +3233,14 @@ img {
   }
 
   .main-nav > a.active {
+    background: linear-gradient(100deg, #2bdcff 4%, #7870ff 52%, #ed54e8 96%);
+    background-clip: text;
     font-weight: 640;
+    filter:
+      drop-shadow(0 0 8px rgba(67, 151, 255, 0.28))
+      drop-shadow(0 0 12px rgba(226, 72, 231, 0.18));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   .main-nav > a.active::before {
@@ -3245,12 +3252,20 @@ img {
     animation: mobile-nav-node-pulse 2.4s ease-in-out infinite;
   }
 
-  .main-nav > a.active::after,
   .main-nav > a:hover::after,
   .main-nav > a:focus-visible::after {
     right: auto;
     left: 50%;
     width: clamp(54px, 20vw, 88px);
+  }
+
+  .main-nav > a.active::after,
+  .main-nav > a.active:hover::after,
+  .main-nav > a.active:focus-visible::after {
+    right: auto;
+    left: 50%;
+    width: 0;
+    box-shadow: none;
   }
 
   .mobile-nav-path {
