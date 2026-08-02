@@ -40,9 +40,9 @@ export default function AboutPage() {
           <Raven
             compact
             variant="about"
-            asset="/images/raven-about-heart.svg"
+            asset="/images/raven-work-exclamation.svg"
             priority
-            label={sv ? "Neonraven med ett hjärta" : "Neon raven with a heart"}
+            label={sv ? "Neonraven med ett utropstecken" : "Neon raven with an exclamation mark"}
           />
           <figure className="portrait-frame">
             <img src="/images/adam-strom.webp" alt="Adam Ström" width="338" height="554" />

@@ -149,11 +149,11 @@ const pageNetworks: Record<string, Network> = {
   services: network(servicesBird, 36, servicesQuestion, [
     [0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 7],
   ]),
-  work: network(workBird, 30, workExclamation, [
-    [0, 1], [1, 2], [2, 3], [4, 5], [5, 6], [6, 4],
-  ]),
-  about: network(aboutBird, 33, aboutHeart, [
+  work: network(aboutBird, 33, aboutHeart, [
     [0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 7], [7, 0],
+  ]),
+  about: network(workBird, 30, workExclamation, [
+    [0, 1], [1, 2], [2, 3], [4, 5], [5, 6], [6, 4],
   ]),
   process: network(processBird, 32, processGears),
   insights: network(insightsBird, 30, insightsBrain),

@@ -29,8 +29,9 @@ export default function WorkPage() {
         <Raven
           compact
           variant="work"
-          asset="/images/raven-work-exclamation.svg"
+          asset="/images/raven-about-heart.svg"
           priority
+          label={sv ? "Neonraven med ett hjärta" : "Neon raven with a heart"}
         />
       </section>
 
