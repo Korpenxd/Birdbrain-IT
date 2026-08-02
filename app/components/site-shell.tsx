@@ -13,6 +13,7 @@ import {
   useMemo,
   useState,
 } from "react";
+import { getPageRavenNetwork } from "./raven-networks";
 
 type Language = "sv" | "en";
 type LanguageContextValue = {
@@ -359,11 +360,15 @@ export function RavenNetwork({
   custom?: boolean;
 }) {
   const gradientId = `raven-network-gradient-${variant}`;
+  const customNetwork = custom ? getPageRavenNetwork(variant) : undefined;
+  const points = customNetwork?.points ?? ravenPoints;
+  const edges = customNetwork?.edges ?? ravenEdges;
+  const eyeIndex = customNetwork?.eyeIndex ?? 7;
 
   return (
     <svg
       className={`raven-network${custom ? " raven-network-custom" : ""}`}
-      viewBox="0 0 1204 1306"
+      viewBox={customNetwork ? "0 0 1254 1254" : "0 0 1204 1306"}
       preserveAspectRatio="xMidYMid meet"
       aria-hidden="true"
     >
@@ -375,10 +380,10 @@ export function RavenNetwork({
         </linearGradient>
       </defs>
       <g className="raven-network-edges" stroke={`url(#${gradientId})`}>
-        {ravenEdges.map(([from, to], index) => {
-          const [x1, y1] = ravenPoints[from];
-          const [x2, y2] = ravenPoints[to];
-          const order = sequenceIndex(index, variant, ravenEdges.length);
+        {edges.map(([from, to], index) => {
+          const [x1, y1] = points[from];
+          const [x2, y2] = points[to];
+          const order = sequenceIndex(index, variant, edges.length);
           return (
             <line
               className="raven-network-edge"
@@ -394,14 +399,14 @@ export function RavenNetwork({
         })}
       </g>
       <g className="raven-network-nodes" fill={`url(#${gradientId})`}>
-        {ravenPoints.map(([cx, cy], index) => (
+        {points.map(([cx, cy], index) => (
           <circle
             className="raven-network-node"
             key={`${cx}-${cy}`}
             cx={cx}
             cy={cy}
-            r={index === 7 ? 6 : 3.4}
-            style={{ animationDelay: `${0.04 + sequenceIndex(index, variant, ravenPoints.length) * 0.022}s` }}
+            r={index === eyeIndex ? 6 : 3.4}
+            style={{ animationDelay: `${0.04 + sequenceIndex(index, variant, points.length) * 0.022}s` }}
           />
         ))}
       </g>

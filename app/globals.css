@@ -3954,8 +3954,6 @@ img {
 }
 
 .raven-custom-asset .raven-network-custom {
-  transform: scale(0.94);
-  transform-origin: center;
   animation:
     raven-custom-trace-settle 0.72s ease-out 2.14s forwards,
     raven-trace-pulse 5.4s ease-in-out 2.94s infinite;
