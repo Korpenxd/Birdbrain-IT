@@ -3923,6 +3923,36 @@ img {
   animation-name: raven-custom-resolve, raven-process-emote-idle;
 }
 
+.raven-emote-art {
+  position: absolute;
+  z-index: 1;
+  top: 52%;
+  left: 0;
+  display: block;
+  width: 42%;
+  height: 42%;
+  object-fit: contain;
+  opacity: 0;
+  mix-blend-mode: screen;
+  filter:
+    brightness(1.08)
+    saturate(1.1)
+    drop-shadow(0 0 8px rgba(50, 158, 255, 0.58))
+    drop-shadow(0 0 20px rgba(222, 54, 239, 0.32));
+  animation: raven-emote-resolve 0.9s cubic-bezier(0.16, 0.76, 0.2, 1) 1.1s forwards;
+  transition: filter 240ms ease;
+  pointer-events: none;
+  user-select: none;
+}
+
+.raven-scene:hover .raven-emote-art {
+  filter:
+    brightness(1.16)
+    saturate(1.16)
+    drop-shadow(0 0 10px rgba(77, 183, 255, 0.78))
+    drop-shadow(0 0 26px rgba(225, 65, 243, 0.42));
+}
+
 .raven-custom-asset.raven-variant-insights .raven-vector-art {
   animation-name: raven-custom-resolve, raven-insights-emote-idle;
 }
@@ -4118,6 +4148,12 @@ img {
   62% { transform: translate3d(1px, -1px, 0); }
 }
 
+@keyframes raven-emote-resolve {
+  0% { opacity: 0; transform: translate3d(-8px, 8px, 0) scale(0.82); filter: blur(3px) brightness(1.5); }
+  62% { opacity: 0.86; }
+  100% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+
 @keyframes raven-insights-emote-idle {
   0%, 100% { transform: translate3d(0, 0, 0) rotate(0); }
   50% { transform: translate3d(0, 3px, 0) rotate(-0.3deg); }
@@ -4306,6 +4342,7 @@ img {
 @media (prefers-reduced-motion: reduce) {
   .raven-scene,
   .raven-vector-art,
+  .raven-emote-art,
   .raven-scene .raven-network,
   .raven-network-edge,
   .raven-network-node {
@@ -4319,6 +4356,11 @@ img {
     filter:
       drop-shadow(0 0 5px rgba(48, 145, 255, 0.5))
       drop-shadow(0 0 15px rgba(217, 52, 238, 0.25));
+  }
+
+  .raven-emote-art {
+    opacity: 1;
+    transform: none;
   }
 
   .raven-scene .raven-network {

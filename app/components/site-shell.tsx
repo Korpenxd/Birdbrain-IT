@@ -432,6 +432,7 @@ export function Raven({
   hero = false,
   priority = false,
   asset = "/images/ruven.svg",
+  emoteAsset,
   label,
 }: {
   compact?: boolean;
@@ -439,6 +440,7 @@ export function Raven({
   hero?: boolean;
   priority?: boolean;
   asset?: string;
+  emoteAsset?: string;
   label?: string;
 }) {
   function handlePointerMove(event: ReactPointerEvent<HTMLDivElement>) {
@@ -485,6 +487,19 @@ export function Raven({
         fetchPriority={priority ? "high" : "auto"}
         draggable={false}
       />
+      {emoteAsset ? (
+        <img
+          className="raven-emote-art"
+          src={emoteAsset}
+          alt=""
+          width="1254"
+          height="1254"
+          loading={priority ? "eager" : "lazy"}
+          decoding="async"
+          fetchPriority={priority ? "high" : "auto"}
+          draggable={false}
+        />
+      ) : null}
       <RavenNetwork variant={variant} custom={!usesOriginalRaven} />
       <span className="raven-forge-spark raven-forge-spark-one" aria-hidden="true" />
       <span className="raven-forge-spark raven-forge-spark-two" aria-hidden="true" />
