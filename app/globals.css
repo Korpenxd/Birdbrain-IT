@@ -473,7 +473,11 @@ img {
   --scene-y: 0px;
   --scene-rx: 0deg;
   --scene-ry: 0deg;
-  contain: layout paint style;
+  contain: layout style;
+  overflow: visible;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
   transform: perspective(1100px) translate3d(var(--scene-x), var(--scene-y), 0)
     rotateX(var(--scene-rx)) rotateY(var(--scene-ry));
   transform-style: preserve-3d;
@@ -3830,7 +3834,7 @@ img {
 
 /* Reintroduced raven: a clean signal-forge reveal without a local frame or cube. */
 .hero-raven-return {
-  grid-template-columns: minmax(0, 1fr) minmax(390px, 0.72fr);
+  grid-template-columns: minmax(0, 1fr) minmax(460px, 0.84fr);
   gap: clamp(34px, 4vw, 72px);
   min-height: min(800px, calc(100svh - 78px));
   padding-top: 18px;
@@ -3841,20 +3845,20 @@ img {
 }
 
 .hero-raven-return .hero-raven {
-  width: min(100%, 550px);
-  margin: 12px 0 0;
+  width: min(118%, 680px);
+  margin: 12px -9% 0 0;
   justify-self: end;
 }
 
 .inner-hero.with-art.raven-return-section {
-  grid-template-columns: minmax(0, 1fr) minmax(210px, 290px);
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
   gap: clamp(34px, 5vw, 72px);
   min-height: 280px;
   margin-bottom: 30px;
 }
 
 .raven-return-section .raven-art-compact {
-  width: min(100%, 255px);
+  width: min(100%, 340px);
   margin: 0;
   justify-self: end;
 }
@@ -4003,24 +4007,6 @@ img {
   filter:
     drop-shadow(0 0 8px rgba(77, 183, 255, 0.82))
     drop-shadow(0 0 25px rgba(225, 65, 243, 0.44));
-}
-
-.raven-forge-halo {
-  position: absolute;
-  z-index: 0;
-  inset: 18% 5% 8%;
-  border: 1px solid rgba(106, 155, 255, 0.18);
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 42% 43%, rgba(42, 126, 255, 0.17), transparent 39%),
-    radial-gradient(circle at 66% 62%, rgba(222, 55, 232, 0.14), transparent 47%);
-  box-shadow:
-    0 0 54px rgba(48, 104, 238, 0.11),
-    inset 0 0 46px rgba(197, 48, 224, 0.07);
-  opacity: 0;
-  transform: scale(0.72);
-  animation: raven-forge-halo 1.45s cubic-bezier(0.2, 0.72, 0.2, 1) 0.12s forwards;
-  pointer-events: none;
 }
 
 .raven-forge-spark {
@@ -4180,12 +4166,6 @@ img {
   50% { opacity: 0.28; }
 }
 
-@keyframes raven-forge-halo {
-  0% { opacity: 0; transform: scale(0.72); }
-  46% { opacity: 0.74; }
-  100% { opacity: 0.38; transform: scale(1); }
-}
-
 @keyframes raven-forge-spark {
   0% { opacity: 0; transform: translate3d(0, 0, 0) scale(0.2); }
   28% { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
@@ -4193,13 +4173,13 @@ img {
 }
 
 .about-raven-hero {
-  grid-template-columns: minmax(0, 1fr) minmax(500px, 610px);
+  grid-template-columns: minmax(0, 1fr) minmax(580px, 700px);
   gap: clamp(38px, 5vw, 78px);
 }
 
 .about-visuals {
   display: grid;
-  grid-template-columns: minmax(170px, 0.62fr) minmax(280px, 1fr);
+  grid-template-columns: minmax(225px, 0.82fr) minmax(280px, 1fr);
   align-items: end;
   gap: clamp(12px, 2vw, 28px);
 }
@@ -4214,7 +4194,7 @@ img {
 }
 
 .contact-raven-hero .contact-hero-grid {
-  grid-template-columns: minmax(0, 1fr) minmax(220px, 300px);
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 390px);
   align-items: center;
   gap: clamp(30px, 5vw, 72px);
 }
@@ -4233,13 +4213,13 @@ img {
 }
 
 .contact-raven-hero .raven-art-compact {
-  width: min(100%, 285px);
+  width: min(100%, 360px);
   margin: 0;
   justify-self: end;
 }
 
 .raven-return-section .raven-art-compact.raven-custom-asset {
-  width: min(100%, 280px);
+  width: min(100%, 360px);
 }
 
 @media (max-width: 900px) {
@@ -4251,43 +4231,43 @@ img {
   }
 
   .hero-raven-return .hero-raven {
-    width: min(78vw, 390px);
+    width: min(86vw, 460px);
     margin: -30px auto 8px;
     justify-self: center;
   }
 
   .inner-hero.with-art.raven-return-section {
-    grid-template-columns: minmax(0, 1fr) minmax(180px, 225px);
+    grid-template-columns: minmax(0, 1fr) minmax(235px, 290px);
     gap: 26px;
   }
 
   .raven-return-section .raven-art-compact {
-    width: min(100%, 215px);
+    width: min(100%, 265px);
   }
 
   .raven-return-section .raven-art-compact.raven-custom-asset {
-    width: min(100%, 230px);
+    width: min(100%, 285px);
   }
 
   .about-raven-hero {
-    grid-template-columns: minmax(0, 1fr) minmax(360px, 430px);
+    grid-template-columns: minmax(0, 1fr) minmax(410px, 500px);
     gap: 30px;
   }
 
   .about-visuals {
-    grid-template-columns: minmax(120px, 0.5fr) minmax(220px, 1fr);
+    grid-template-columns: minmax(160px, 0.68fr) minmax(220px, 1fr);
     gap: 14px;
   }
 
   .contact-raven-hero .contact-hero-grid {
-    grid-template-columns: minmax(0, 1fr) minmax(180px, 220px);
+    grid-template-columns: minmax(0, 1fr) minmax(240px, 290px);
     gap: 24px;
   }
 }
 
 @media (max-width: 640px) {
   .hero-raven-return .hero-raven {
-    width: min(82vw, 330px);
+    width: min(88vw, 390px);
     margin-top: -12px;
   }
 
@@ -4298,13 +4278,13 @@ img {
   }
 
   .raven-return-section .raven-art-compact {
-    width: min(58vw, 190px);
+    width: min(68vw, 240px);
     margin-top: -16px;
     justify-self: center;
   }
 
   .raven-return-section .raven-art-compact.raven-custom-asset {
-    width: min(65vw, 215px);
+    width: min(74vw, 260px);
   }
 
   .about-raven-hero {
@@ -4317,9 +4297,9 @@ img {
 
   .about-visuals {
     grid-row: 1;
-    grid-template-columns: minmax(115px, 0.46fr) minmax(190px, 1fr);
+    grid-template-columns: minmax(145px, 0.62fr) minmax(190px, 1fr);
     width: 100%;
-    max-width: 440px;
+    max-width: 480px;
   }
 
   .about-visuals .raven-art-compact {
@@ -4333,7 +4313,7 @@ img {
   }
 
   .contact-raven-hero .raven-art-compact {
-    width: min(58vw, 205px);
+    width: min(70vw, 255px);
     margin: -10px auto -14px;
     justify-self: center;
   }

@@ -475,7 +475,6 @@ export function Raven({
       aria-label={label}
       aria-hidden={label ? undefined : true}
     >
-      <span className="raven-forge-halo" aria-hidden="true" />
       <img
         className="raven-vector-art"
         src={asset}
