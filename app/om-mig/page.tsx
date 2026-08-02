@@ -19,7 +19,7 @@ export default function AboutPage() {
   const sv = lang === "sv";
   return (
     <main className="page-shell inner-page">
-      <section className="about-hero about-raven-hero">
+      <section className="about-hero about-raven-hero emote-raven-spacing">
         <div>
           <Eyebrow>{sv ? "Om mig" : "About me"}</Eyebrow>
           <h1>

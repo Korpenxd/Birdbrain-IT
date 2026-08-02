@@ -4661,6 +4661,10 @@ img {
     gap: clamp(28px, 8vw, 40px);
   }
 
+  .inner-hero.with-art.raven-return-section.emote-raven-spacing {
+    gap: clamp(42px, 11vw, 58px);
+  }
+
   .raven-return-section .raven-art-compact {
     width: min(68vw, 240px);
     margin-top: -16px;
@@ -4677,6 +4681,10 @@ img {
 
   .about-raven-hero {
     grid-template-columns: 1fr;
+  }
+
+  .about-raven-hero.emote-raven-spacing {
+    gap: clamp(38px, 10vw, 54px);
   }
 
   .about-raven-hero > div:first-child {
