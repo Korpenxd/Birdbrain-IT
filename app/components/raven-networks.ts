@@ -101,8 +101,9 @@ const processBird = [
   [270, 390], [350, 450], [266, 340],
 ] as const;
 
-const processGraph = [
-  [80, 965], [155, 875], [210, 875], [265, 805], [246, 812], [260, 828],
+const processCycle = [
+  [129, 787], [212, 869], [129, 952], [47, 869], [129, 869],
+  [170, 828], [170, 910], [88, 910], [88, 828],
 ] as const;
 
 const insightsBird = [
@@ -148,8 +149,9 @@ const pageNetworks: Record<string, Network> = {
   about: network(aboutBird, 33, aboutHeart, [
     [0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 7], [7, 0],
   ]),
-  process: network(processBird, 32, processGraph, [
-    [0, 1], [1, 2], [2, 3], [3, 4], [3, 5],
+  process: network(processBird, 32, processCycle, [
+    [0, 1], [1, 2], [2, 3], [3, 0], [0, 4], [1, 4], [2, 4], [3, 4],
+    [0, 5], [5, 1], [1, 6], [6, 2], [2, 7], [7, 3], [3, 8], [8, 0],
   ]),
   insights: network(insightsBird, 30, insightsBrain),
   contact: network(contactBird, 32, contactBubble, [
