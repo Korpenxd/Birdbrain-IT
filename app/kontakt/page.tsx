@@ -48,7 +48,7 @@ export default function ContactPage() {
   const sv = lang === "sv";
   return (
     <main className="page-shell inner-page contact-page">
-      <section className="contact-hero contact-raven-hero">
+      <section className="contact-hero contact-raven-hero mobile-raven-spacing">
         <div className="contact-hero-grid">
           <div>
             <Eyebrow>{sv ? "Kontakt" : "Contact"}</Eyebrow>

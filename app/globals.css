@@ -4657,6 +4657,10 @@ img {
     min-height: 0;
   }
 
+  .inner-hero.with-art.raven-return-section.mobile-raven-spacing {
+    gap: clamp(28px, 8vw, 40px);
+  }
+
   .raven-return-section .raven-art-compact {
     width: min(68vw, 240px);
     margin-top: -16px;
@@ -4665,6 +4669,10 @@ img {
 
   .raven-return-section .raven-art-compact.raven-custom-asset {
     width: min(74vw, 260px);
+  }
+
+  .raven-return-section.mobile-raven-spacing .raven-art-compact {
+    margin-top: 0;
   }
 
   .about-raven-hero {
@@ -4692,10 +4700,18 @@ img {
     gap: 0;
   }
 
+  .contact-raven-hero.mobile-raven-spacing .contact-hero-grid {
+    gap: clamp(28px, 8vw, 40px);
+  }
+
   .contact-raven-hero .raven-art-compact {
     width: min(70vw, 255px);
     margin: -10px auto -14px;
     justify-self: center;
+  }
+
+  .contact-raven-hero.mobile-raven-spacing .raven-art-compact {
+    margin: 0 auto -14px;
   }
 }
 

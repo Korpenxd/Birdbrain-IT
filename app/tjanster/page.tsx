@@ -40,7 +40,7 @@ export default function ServicesPage() {
   const sv = lang === "sv";
   return (
     <main className="page-shell inner-page">
-      <section className="inner-hero with-art raven-return-section">
+      <section className="inner-hero with-art raven-return-section mobile-raven-spacing">
         <div>
           <Eyebrow>{sv ? "Tjänster" : "Services"}</Eyebrow>
           <h1>
