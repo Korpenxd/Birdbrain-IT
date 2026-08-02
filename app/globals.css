@@ -3126,12 +3126,16 @@ img {
     left: 31%;
     height: 72%;
     background-image:
-      repeating-linear-gradient(90deg, rgba(77, 107, 205, 0.15) 0 1px, transparent 1px 56px),
-      repeating-linear-gradient(0deg, rgba(77, 107, 205, 0.14) 0 1px, transparent 1px 48px);
+      linear-gradient(rgba(64, 122, 241, 0.15) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(192, 69, 232, 0.13) 1px, transparent 1px);
+    background-position: 0 0;
+    background-size: 66px 52px;
     mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 78%, transparent 100%);
     opacity: 0.55;
     transform: perspective(560px) rotateX(62deg);
     transform-origin: 50% 0;
+    animation: raven-page-floor 12s linear infinite;
+    will-change: background-position;
   }
 
   .main-nav::after {
@@ -3688,6 +3692,10 @@ img {
   }
 
   .menu-button {
+    animation: none !important;
+  }
+
+  .main-nav::before {
     animation: none !important;
   }
 
