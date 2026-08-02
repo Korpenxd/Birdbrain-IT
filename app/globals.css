@@ -2961,12 +2961,24 @@ img {
 }
 
 @media (max-width: 900px) {
+  body.mobile-menu-open {
+    overflow: hidden;
+  }
+
   .page-shell {
     width: min(100% - 32px, 760px);
   }
 
   .site-header {
+    background: rgba(3, 5, 11, 0.94);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
     border-bottom-color: var(--line);
+  }
+
+  .site-header.menu-open {
+    border-bottom-color: transparent;
+    background: #03050b;
   }
 
   .header-inner {
@@ -2977,6 +2989,11 @@ img {
 
   .desktop-language {
     display: none;
+  }
+
+  .header-inner > .wordmark {
+    position: relative;
+    z-index: 54;
   }
 
   .menu-button {
@@ -2992,22 +3009,31 @@ img {
   }
 
   .menu-button span {
+    position: absolute;
+    left: 12px;
     display: block;
-    width: 100%;
+    width: 20px;
     height: 1px;
-    margin: auto;
     background: white;
     transition:
       transform 180ms ease,
       opacity 180ms ease;
   }
 
+  .menu-button span:first-child {
+    top: 17px;
+  }
+
+  .menu-button span:last-child {
+    top: 25px;
+  }
+
   .menu-button.is-open span:first-child {
-    transform: translateY(5px) rotate(45deg);
+    transform: translateY(4px) rotate(45deg);
   }
 
   .menu-button.is-open span:last-child {
-    transform: translateY(-5px) rotate(-45deg);
+    transform: translateY(-4px) rotate(-45deg);
   }
 
   .main-nav {
@@ -3019,24 +3045,40 @@ img {
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    gap: 4px;
+    gap: 2px;
+    width: 100%;
+    min-height: 100dvh;
+    padding:
+      calc(76px + env(safe-area-inset-top))
+      24px
+      calc(24px + env(safe-area-inset-bottom));
+    overflow-y: auto;
     background:
-      radial-gradient(circle at 50% 30%, rgba(64, 53, 176, 0.16), transparent 42%),
-      rgba(3, 5, 11, 0.98);
+      radial-gradient(circle at 50% 28%, rgba(62, 72, 190, 0.2), transparent 40%),
+      radial-gradient(circle at 68% 78%, rgba(188, 45, 211, 0.1), transparent 36%),
+      #03050b;
     opacity: 0;
+    overscroll-behavior: contain;
+    pointer-events: none;
+    transform: translateY(-8px);
     transition:
       opacity 200ms ease,
+      transform 200ms ease,
       visibility 200ms ease;
   }
 
   .main-nav.is-open {
     visibility: visible;
     opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
   }
 
   .main-nav > a {
-    padding: 12px 20px;
-    font-size: 1.4rem;
+    width: min(100%, 320px);
+    padding: 10px 20px;
+    font-size: clamp(1.08rem, 5vw, 1.3rem);
+    text-align: center;
   }
 
   .main-nav > a::after {
@@ -3045,7 +3087,7 @@ img {
 
   .mobile-language {
     display: block;
-    margin-top: 20px;
+    margin-top: 18px;
   }
 
   .hero {

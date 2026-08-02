@@ -87,8 +87,31 @@ function SiteHeader() {
   const { lang, setLang } = useLanguage();
   const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    if (!open) return;
+
+    function closeOnEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") setOpen(false);
+    }
+
+    function closeOnDesktop(event: MediaQueryListEvent) {
+      if (event.matches) setOpen(false);
+    }
+
+    const desktopQuery = window.matchMedia("(min-width: 901px)");
+    document.body.classList.add("mobile-menu-open");
+    window.addEventListener("keydown", closeOnEscape);
+    desktopQuery.addEventListener("change", closeOnDesktop);
+
+    return () => {
+      document.body.classList.remove("mobile-menu-open");
+      window.removeEventListener("keydown", closeOnEscape);
+      desktopQuery.removeEventListener("change", closeOnDesktop);
+    };
+  }, [open]);
+
   return (
-    <header className="site-header">
+    <header className={`site-header${open ? " menu-open" : ""}`}>
       <div className="header-inner page-shell">
         <Link
           className="wordmark"
@@ -98,7 +121,11 @@ function SiteHeader() {
         >
           Birdbrain IT
         </Link>
-        <nav className={`main-nav ${open ? "is-open" : ""}`} aria-label="Huvudmeny">
+        <nav
+          className={`main-nav ${open ? "is-open" : ""}`}
+          id="site-navigation"
+          aria-label={lang === "sv" ? "Huvudmeny" : "Main menu"}
+        >
           {navigation.map((item) => {
             const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
             return (
@@ -125,7 +152,10 @@ function SiteHeader() {
           type="button"
           onClick={() => setOpen((current) => !current)}
           aria-expanded={open}
-          aria-label={lang === "sv" ? "Öppna meny" : "Open menu"}
+          aria-controls="site-navigation"
+          aria-label={open
+            ? (lang === "sv" ? "Stäng meny" : "Close menu")
+            : (lang === "sv" ? "Öppna meny" : "Open menu")}
         >
           <span />
           <span />
