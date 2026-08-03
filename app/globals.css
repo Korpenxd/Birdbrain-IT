@@ -4688,6 +4688,10 @@ img {
     width: min(74vw, 260px);
   }
 
+  .process-page .raven-return-section .raven-art-compact.raven-variant-process {
+    transform: translateX(25px);
+  }
+
   .raven-return-section.mobile-raven-spacing .raven-art-compact {
     margin-top: 0;
   }
