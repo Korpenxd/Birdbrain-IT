@@ -9,5 +9,5 @@
   </mask>
 </defs>
 <use href="#raven-source-art" mask="url(#raven-body-mask)"/>
-<g transform="translate(55 -74)"><use href="#raven-source-art" clip-path="url(#raven-symbol-clip)"/></g>
+<g transform="translate(55 -110)"><use href="#raven-source-art" clip-path="url(#raven-symbol-clip)"/></g>
 </svg>
