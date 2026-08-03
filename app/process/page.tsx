@@ -37,7 +37,7 @@ export default function ProcessPage() {
           compact
           variant="process"
           asset="/images/raven-process-progress.svg"
-          emoteAsset="/images/process-gears-animated.svg"
+          processGears
           priority
         />
       </section>

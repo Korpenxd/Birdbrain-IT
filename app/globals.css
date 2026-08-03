@@ -4136,6 +4136,23 @@ img {
     site-star-twinkle 4.8s ease-in-out infinite;
 }
 
+@media (max-width: 640px) {
+  .site-canvas.is-process-route > .raven-page-environment .raven-page-stars {
+    opacity: 0.5;
+    filter: none;
+    animation: raven-page-stars 20s linear infinite;
+  }
+
+  .site-canvas.is-process-route > .raven-page-environment .raven-page-architecture {
+    opacity: 0.56;
+    animation: none;
+  }
+
+  .site-canvas.is-process-route > .raven-page-environment .raven-page-signal-two {
+    display: none;
+  }
+}
+
 .portrait-frame img {
   object-position: 50% 28%;
 }
@@ -4340,6 +4357,54 @@ img {
   left: -73px;
 }
 
+.raven-custom-asset.raven-variant-process .process-gears-art {
+  contain: layout paint;
+  overflow: hidden;
+  mix-blend-mode: normal;
+  filter: none;
+  animation: process-gears-resolve 0.82s cubic-bezier(0.16, 0.76, 0.2, 1) 1.1s forwards;
+}
+
+.process-gear-layer,
+.process-gear-layer img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.process-gear-layer {
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.process-gear-layer img {
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+
+.process-gear-layer-large {
+  transform-origin: 30.7018% 55.8214%;
+  animation: process-gear-clockwise 32s linear infinite;
+}
+
+.process-gear-layer-medium {
+  transform-origin: 61.563% 28.4689%;
+  animation: process-gear-counter 24s linear infinite;
+}
+
+.process-gear-layer-small {
+  transform-origin: 82.1372% 51.2759%;
+  animation: process-gear-clockwise 16s linear infinite;
+}
+
+.process-gears-art.is-paused .process-gear-layer {
+  animation-play-state: paused;
+}
+
 .raven-custom-asset.raven-variant-insights .raven-vector-art {
   right: auto;
   left: -20px;
@@ -4511,6 +4576,19 @@ img {
   0%, 100% { transform: translate3d(0, 0, 0); }
   44% { transform: translate3d(3px, -3px, 0); }
   62% { transform: translate3d(1px, -1px, 0); }
+}
+
+@keyframes process-gears-resolve {
+  from { opacity: 0; transform: translate3d(-8px, 8px, 0) scale(0.86); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@keyframes process-gear-clockwise {
+  to { transform: translateZ(0) rotate(360deg); }
+}
+
+@keyframes process-gear-counter {
+  to { transform: translateZ(0) rotate(-360deg); }
 }
 
 @keyframes raven-emote-resolve {
@@ -4767,6 +4845,11 @@ img {
   .raven-emote-art {
     opacity: 1;
     transform: none;
+  }
+
+  .process-gear-layer {
+    animation: none !important;
+    transform: none !important;
   }
 
   .raven-scene .raven-network {

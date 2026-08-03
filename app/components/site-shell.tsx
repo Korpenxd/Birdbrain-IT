@@ -10,6 +10,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 import { getPageRavenNetwork } from "./raven-networks";
@@ -42,6 +43,8 @@ export function useLanguage() {
 
 export function SiteShell({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState<Language>("sv");
+  const pathname = usePathname();
+  const isProcessRoute = pathname === "/process" || pathname.startsWith("/process/");
 
   useEffect(() => {
     const saved = window.localStorage.getItem("birdbrain-language");
@@ -68,7 +71,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
 
   return (
     <LanguageContext.Provider value={value}>
-      <div className="site-canvas">
+      <div className={`site-canvas${isProcessRoute ? " is-process-route" : ""}`}>
         <RavenPageEnvironment variant="process" />
         <a className="skip-link" href="#main-content">
           {lang === "sv" ? "Hoppa till innehåll" : "Skip to content"}
@@ -478,6 +481,44 @@ export function RavenPageEnvironment({ variant }: { variant: RavenVariant }) {
   );
 }
 
+function ProcessGears({ priority }: { priority: boolean }) {
+  const gearsRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const gears = gearsRef.current;
+    if (!gears || typeof IntersectionObserver === "undefined") return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => gears.classList.toggle("is-paused", !entry.isIntersecting),
+      { rootMargin: "120px" },
+    );
+    observer.observe(gears);
+    return () => observer.disconnect();
+  }, []);
+
+  const loading = priority ? "eager" : "lazy";
+  const fetchPriority = priority ? "high" : "auto";
+
+  return (
+    <span className="raven-emote-art process-gears-art" ref={gearsRef} aria-hidden="true">
+      {(["large", "medium", "small"] as const).map((gear) => (
+        <span className={`process-gear-layer process-gear-layer-${gear}`} key={gear}>
+          <img
+            src={`/images/process-gear-${gear}.webp`}
+            alt=""
+            width="768"
+            height="768"
+            loading={loading}
+            decoding="async"
+            fetchPriority={fetchPriority}
+            draggable={false}
+          />
+        </span>
+      ))}
+    </span>
+  );
+}
+
 export function Raven({
   compact = false,
   variant = "home",
@@ -485,6 +526,7 @@ export function Raven({
   priority = false,
   asset = "/images/ruven.svg",
   emoteAsset,
+  processGears = false,
   label,
 }: {
   compact?: boolean;
@@ -493,6 +535,7 @@ export function Raven({
   priority?: boolean;
   asset?: string;
   emoteAsset?: string;
+  processGears?: boolean;
   label?: string;
 }) {
   const sceneClass = hero ? "hero-raven" : compact ? "raven-art raven-art-compact" : "raven-art";
@@ -516,7 +559,9 @@ export function Raven({
         fetchPriority={priority ? "high" : "auto"}
         draggable={false}
       />
-      {emoteAsset ? (
+      {processGears ? (
+        <ProcessGears priority={priority} />
+      ) : emoteAsset ? (
         <img
           className="raven-emote-art"
           src={emoteAsset}
