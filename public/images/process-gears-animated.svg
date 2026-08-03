@@ -44,5 +44,7 @@
     <path d="M1033.9 567.1L973.09 482.81M1086.43 592.09L1103.03 489.48M1105.9 646.9L1190.19 586.09M1080.91 699.43L1183.52 716.03M1026.1 718.9L1086.91 803.19M973.57 693.91L956.97 796.52M954.1 639.1L869.81 699.91M979.09 586.57L876.48 569.97" stroke-width="2.2" opacity=".82"/>
     <g fill="#dffbff" stroke="none"><circle cx="973.09" cy="482.81" r="4.8"/><circle cx="1103.03" cy="489.48" r="4.8"/><circle cx="1190.19" cy="586.09" r="4.8"/><circle cx="1183.52" cy="716.03" r="4.8"/><circle cx="1086.91" cy="803.19" r="4.8"/><circle cx="956.97" cy="796.52" r="4.8"/><circle cx="869.81" cy="699.91" r="4.8"/><circle cx="876.48" cy="569.97" r="4.8"/><circle cx="1033.9" cy="567.1" r="3.1"/><circle cx="1086.43" cy="592.09" r="3.1"/><circle cx="1105.9" cy="646.9" r="3.1"/><circle cx="1080.91" cy="699.43" r="3.1"/><circle cx="1026.1" cy="718.9" r="3.1"/><circle cx="973.57" cy="693.91" r="3.1"/><circle cx="954.1" cy="639.1" r="3.1"/><circle cx="979.09" cy="586.57" r="3.1"/></g>
   </g>
-<g transform="translate(-35 50)" mask="url(#process-brain-mask)"><use href="#process-gears-source-art"/></g>
+<g class="process-gear process-gear-large">
+  <g transform="translate(-35 50)" mask="url(#process-brain-mask)"><use href="#process-gears-source-art"/></g>
+</g>
 </svg>
