@@ -30,6 +30,7 @@ const navigation = [
   { href: "/om-mig", sv: "Om mig", en: "About" },
   { href: "/process", sv: "Process", en: "Process" },
   { href: "/insikter", sv: "Insikter", en: "Insights" },
+  { href: "/verktyg", sv: "Verktyg", en: "Tools" },
   { href: "/kontakt", sv: "Kontakt", en: "Contact" },
 ];
 
@@ -129,10 +130,10 @@ function SiteHeader() {
           aria-label={lang === "sv" ? "Huvudmeny" : "Main menu"}
         >
           <span className="mobile-nav-kicker" aria-hidden="true">
-            Navigation / 01–07
+            Navigation / 01–08
           </span>
           <div className="mobile-nav-path" aria-hidden="true">
-            <svg viewBox="0 0 48 420" preserveAspectRatio="none" focusable="false">
+            <svg viewBox="0 0 48 480" preserveAspectRatio="none" focusable="false">
               <defs>
                 <linearGradient id="mobile-nav-gradient" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0" stopColor="#20d8ff" />
@@ -142,7 +143,7 @@ function SiteHeader() {
               </defs>
               <polyline
                 pathLength={1}
-                points="31,30 13,90 32,150 14,210 31,270 13,330 31,390"
+                points="31,30 13,90 32,150 14,210 31,270 13,330 31,390 14,450"
               />
             </svg>
           </div>
