@@ -4803,6 +4803,10 @@ img {
     margin: 0 0 12%;
   }
 
+  .about-visuals .portrait-frame {
+    transform: translateY(-30px);
+  }
+
   .contact-raven-hero .contact-hero-grid {
     grid-template-columns: 1fr;
     gap: 0;
