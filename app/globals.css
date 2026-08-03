@@ -2193,6 +2193,11 @@ img {
   padding: 64px 0 32px;
 }
 
+.inner-page:not(.contact-page) > .inner-hero:first-child .eyebrow,
+.inner-page:not(.contact-page) > .about-hero:first-child .eyebrow {
+  transform: translateY(-6px);
+}
+
 .inner-hero {
   max-width: 780px;
   margin-bottom: 38px;
