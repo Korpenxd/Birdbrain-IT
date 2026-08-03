@@ -4326,10 +4326,13 @@ img {
 }
 
 .raven-custom-asset.raven-variant-process .raven-emote-art {
-  left: -23px;
+  left: -43px;
 }
 
 .raven-custom-asset.raven-variant-insights .raven-vector-art {
+  right: auto;
+  left: -20px;
+  width: calc(100% + 20px);
   animation-name: raven-custom-resolve, raven-insights-emote-idle;
 }
 
