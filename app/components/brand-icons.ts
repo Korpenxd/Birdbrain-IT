@@ -1,7 +1,11 @@
 export type BrandIcon = {
   title: string;
+  slug: string;
+  svg: string;
   hex: string;
   path: string;
+  source: string;
+  guidelines?: string;
 };
 
 export const brandIcons: Record<string, BrandIcon> = {
@@ -68,4 +72,3 @@ export const brandIcons: Record<string, BrandIcon> = {
     "guidelines": "https://vercel.com/geist/brands"
   }
 };
-
