@@ -132,17 +132,19 @@ export default function ToolsPage() {
 
         <article className="tools-card tools-card-audit">
           <div className="tools-card-copy">
-            <p className="tools-card-kicker">{sv ? "Under utveckling" : "In development"}</p>
-            <h2>{sv ? "Hastighetsanalys" : "Site audit"}</h2>
+            <p className="tools-card-kicker">{sv ? "Tillgänglig nu" : "Available now"}</p>
+            <h2>{sv ? "Webbplatsanalys" : "Website audit"}</h2>
             <p>
               {sv
-                ? "Se hur snabbt din webbplats laddar och vad som är värt att förbättra."
-                : "See how quickly your website loads and what is worth improving."}
+                ? "Kontrollera prestanda, SEO, tillgänglighet och teknik — med tydliga råd om vad du bör förbättra först."
+                : "Check performance, SEO, accessibility and technical quality — with clear advice on what to improve first."}
             </p>
-            <span className="tools-card-status" aria-label={sv ? "Kommer snart" : "Coming soon"}>
-              <span aria-hidden="true" />
-              {sv ? "Kommer snart" : "Coming soon"}
-            </span>
+            <a
+              className="button button-outline tools-card-action"
+              href="https://birdbrain-website-audit.korpenxd.chatgpt.site"
+            >
+              {sv ? "Analysera webbplats" : "Audit website"} <Arrow />
+            </a>
           </div>
           <AuditIllustration />
         </article>
