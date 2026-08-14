@@ -3,6 +3,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { MoonStar, SunMedium } from "lucide-react";
 import {
   createContext,
   type FormEvent,
@@ -242,8 +243,8 @@ function ThemeToggle({
       }
     >
       <span className="theme-toggle-thumb" aria-hidden="true" />
-      <span className="theme-icon theme-icon-sun" aria-hidden="true">{"\u263c"}</span>
-      <span className="theme-icon theme-icon-moon" aria-hidden="true">{"\u25d4"}</span>
+      <span className="theme-icon theme-icon-sun" aria-hidden="true"><SunMedium /></span>
+      <span className="theme-icon theme-icon-moon" aria-hidden="true"><MoonStar /></span>
     </button>
   );
 }
