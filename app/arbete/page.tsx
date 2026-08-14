@@ -40,7 +40,7 @@ export default function WorkPage() {
           <ProjectCard
             wide
             accent="blue"
-            href="#btc"
+            href="/arbete/btc-backtest-hub"
             image="/images/btc-backtest-hub.webp"
             type={sv ? "Webbapp" : "Web app"}
             title="BTC Backtest Hub"
@@ -61,7 +61,7 @@ export default function WorkPage() {
           <ProjectCard
             wide
             accent="purple"
-            href="https://pixelmani-5sm4.vercel.app/"
+            href="/arbete/pixelmani"
             image="/images/pixelmani.webp"
             type={sv ? "Webbplats" : "Website"}
             title="Pixelmani"
@@ -82,7 +82,7 @@ export default function WorkPage() {
           <ProjectCard
             wide
             accent="pink"
-            href="https://pixelmagi-v2-fv56lsfwr-korpenxds-projects.vercel.app/"
+            href="/arbete/pixelmagi"
             image="/images/pixelmagi.webp"
             type={sv ? "Webbplats" : "Website"}
             title="Pixelmagi"

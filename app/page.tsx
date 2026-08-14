@@ -89,7 +89,7 @@ export default function Home() {
         <div className="project-grid">
           <ProjectCard
             accent="blue"
-            href="/arbete#btc"
+            href="/arbete/btc-backtest-hub"
             image="/images/btc-backtest-hub.webp"
             type={sv ? "Webbapp" : "Web app"}
             title="BTC Backtest Hub"
@@ -101,7 +101,7 @@ export default function Home() {
           />
           <ProjectCard
             accent="purple"
-            href="/arbete#pixelmani"
+            href="/arbete/pixelmani"
             image="/images/pixelmani.webp"
             type={sv ? "Webbplats" : "Website"}
             title="Pixelmani"
@@ -113,7 +113,7 @@ export default function Home() {
           />
           <ProjectCard
             accent="pink"
-            href="/arbete#pixelmagi"
+            href="/arbete/pixelmagi"
             image="/images/pixelmagi.webp"
             type={sv ? "Webbplats" : "Website"}
             title="Pixelmagi"
