@@ -255,25 +255,21 @@ function LanguageToggle({
   lang: Language;
   setLang: (language: Language) => void;
 }) {
+  const nextLanguage: Language = lang === "sv" ? "en" : "sv";
+
   return (
-    <div className="language-toggle" aria-label="Language">
-      <button
-        type="button"
-        className={lang === "sv" ? "active" : ""}
-        onClick={() => setLang("sv")}
-        aria-pressed={lang === "sv"}
-      >
-        SV
-      </button>
-      <button
-        type="button"
-        className={lang === "en" ? "active" : ""}
-        onClick={() => setLang("en")}
-        aria-pressed={lang === "en"}
-      >
-        EN
-      </button>
-    </div>
+    <button
+      type="button"
+      className={`language-toggle is-${lang}`}
+      onClick={() => setLang(nextLanguage)}
+      aria-label={lang === "sv" ? "Engelska" : "English language"}
+      aria-pressed={lang === "en"}
+      title={lang === "sv" ? "Byt till engelska" : "Switch to Swedish"}
+    >
+      <span className="language-toggle-thumb" aria-hidden="true" />
+      <span className="language-option" aria-hidden="true">SV</span>
+      <span className="language-option" aria-hidden="true">EN</span>
+    </button>
   );
 }
 
