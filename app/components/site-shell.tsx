@@ -226,29 +226,25 @@ function ThemeToggle({
   setTheme: (theme: Theme) => void;
   lang: Language;
 }) {
+  const nextTheme: Theme = theme === "light" ? "dark" : "light";
+
   return (
-    <div className="theme-toggle" aria-label={lang === "sv" ? "Färgtema" : "Color theme"}>
-      <button
-        type="button"
-        className={theme === "light" ? "active" : ""}
-        onClick={() => setTheme("light")}
-        aria-label={lang === "sv" ? "Använd ljust läge" : "Use light mode"}
-        aria-pressed={theme === "light"}
-        title={lang === "sv" ? "Ljust läge" : "Light mode"}
-      >
-        <span className="theme-icon theme-icon-sun" aria-hidden="true">☼</span>
-      </button>
-      <button
-        type="button"
-        className={theme === "dark" ? "active" : ""}
-        onClick={() => setTheme("dark")}
-        aria-label={lang === "sv" ? "Använd mörkt läge" : "Use dark mode"}
-        aria-pressed={theme === "dark"}
-        title={lang === "sv" ? "Mörkt läge" : "Dark mode"}
-      >
-        <span className="theme-icon theme-icon-moon" aria-hidden="true">◔</span>
-      </button>
-    </div>
+    <button
+      type="button"
+      className={`theme-toggle is-${theme}`}
+      onClick={() => setTheme(nextTheme)}
+      aria-label={lang === "sv" ? "M\u00f6rkt l\u00e4ge" : "Dark mode"}
+      aria-pressed={theme === "dark"}
+      title={
+        lang === "sv"
+          ? nextTheme === "dark" ? "Byt till m\u00f6rkt l\u00e4ge" : "Byt till ljust l\u00e4ge"
+          : nextTheme === "dark" ? "Switch to dark mode" : "Switch to light mode"
+      }
+    >
+      <span className="theme-toggle-thumb" aria-hidden="true" />
+      <span className="theme-icon theme-icon-sun" aria-hidden="true">{"\u263c"}</span>
+      <span className="theme-icon theme-icon-moon" aria-hidden="true">{"\u25d4"}</span>
+    </button>
   );
 }
 
