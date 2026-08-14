@@ -1,35 +1,42 @@
 "use client";
 
 import { CtaStrip, Eyebrow, Raven, useLanguage } from "../components/site-shell";
+import { Braces, LayoutTemplate, MessagesSquare, ShoppingCart, WandSparkles, Waypoints } from "lucide-react";
 
 const services = [
   {
-    icon: "◎",
+    icon: LayoutTemplate,
+    iconTone: "blue",
     sv: ["Webbplatser", "Snygga, snabba och responsiva webbplatser som är enkla att uppdatera och anpassade för dina behov."],
     en: ["Websites", "Polished, fast and responsive websites that are easy to update and tailored to your needs."],
   },
   {
-    icon: "◇",
+    icon: Braces,
+    iconTone: "purple",
     sv: ["Webbappar", "Interaktiva applikationer för webben som effektiviserar processer och skapar bättre användarupplevelser."],
     en: ["Web apps", "Interactive web applications that streamline processes and create better user experiences."],
   },
   {
-    icon: "⌁",
+    icon: ShoppingCart,
+    iconTone: "purple",
     sv: ["E-handel", "Butiker online som är enkla att hantera och optimerade för en säker och smidig köpresa."],
     en: ["E-commerce", "Online stores that are simple to manage and optimized for a safe, smooth buying journey."],
   },
   {
-    icon: "◌",
+    icon: WandSparkles,
+    iconTone: "pink",
     sv: ["Design & UX", "Tydlig och genomtänkt design med fokus på användarvänlighet och en stark visuell identitet."],
     en: ["Design & UX", "Clear, thoughtful design focused on usability and a strong visual identity."],
   },
   {
-    icon: "⌘",
+    icon: Waypoints,
+    iconTone: "blue",
     sv: ["Integrationer", "Kopplingar mellan system och tjänster som sparar tid och minskar manuellt arbete."],
     en: ["Integrations", "Connections between systems and services that save time and reduce manual work."],
   },
   {
-    icon: "⌬",
+    icon: MessagesSquare,
+    iconTone: "purple",
     sv: ["Rådgivning", "Teknisk rådgivning och bollplank för att hitta rätt lösning och väg framåt."],
     en: ["Consulting", "Technical guidance and a practical sounding board for finding the right way forward."],
   },
@@ -65,9 +72,12 @@ export default function ServicesPage() {
       <section className="service-grid" aria-label={sv ? "Tjänster" : "Services"}>
         {services.map((service) => {
           const [title, description] = sv ? service.sv : service.en;
+          const ServiceIcon = service.icon;
           return (
             <article className="service-card" key={title}>
-              <span aria-hidden="true">{service.icon}</span>
+              <span className={`service-card-icon service-card-icon-${service.iconTone}`} aria-hidden="true">
+                <ServiceIcon />
+              </span>
               <h2>{title}</h2>
               <p>{description}</p>
             </article>
