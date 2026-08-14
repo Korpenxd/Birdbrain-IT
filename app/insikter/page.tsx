@@ -4,48 +4,7 @@
 import Link from "next/link";
 
 import { Arrow, CtaStrip, Eyebrow, Raven, useLanguage } from "../components/site-shell";
-
-const articles = [
-  {
-    category: { sv: "Webbutveckling", en: "Web development" },
-    title: {
-      sv: "5 saker jag tänker på innan jag börjar ett nytt projekt",
-      en: "5 things I consider before starting a new project",
-    },
-    excerpt: {
-      sv: "En checklista som hjälper mig att starta rätt från början.",
-      en: "A practical checklist that helps every project start on solid ground.",
-    },
-    date: "12 maj 2026",
-    image: "/images/pixelmani.webp",
-  },
-  {
-    category: { sv: "Design", en: "Design" },
-    title: {
-      sv: "Därför är enkel design oftast den bästa",
-      en: "Why simple design is usually the strongest",
-    },
-    excerpt: {
-      sv: "Om värdet av fokus, hierarki och att ta bort istället för att lägga till.",
-      en: "On focus, hierarchy and the value of removing instead of adding.",
-    },
-    date: "2 apr. 2026",
-    image: "/images/pixelmagi.webp",
-  },
-  {
-    category: { sv: "Entreprenörskap", en: "Entrepreneurship" },
-    title: {
-      sv: "Att driva eget som utvecklare",
-      en: "Building a small business as a developer",
-    },
-    excerpt: {
-      sv: "Mina tankar om frihet, ansvar och att bygga något eget.",
-      en: "Thoughts on freedom, responsibility and building something of your own.",
-    },
-    date: "18 mars 2026",
-    image: "/images/btc-backtest-hub.webp",
-  },
-];
+import { insightArticles } from "./articles";
 
 export default function InsightsPage() {
   const { lang } = useLanguage();
@@ -74,7 +33,7 @@ export default function InsightsPage() {
       </section>
 
       <section className="article-list">
-        {articles.map((article) => (
+        {insightArticles.map((article) => (
           <article key={article.title.sv}>
             <img
               src={article.image}
@@ -90,8 +49,8 @@ export default function InsightsPage() {
               <h2>{sv ? article.title.sv : article.title.en}</h2>
               <p>{sv ? article.excerpt.sv : article.excerpt.en}</p>
             </div>
-            <time>{article.date}</time>
-            <Link className="text-link" href="/kontakt">
+            <time>{sv ? article.date.sv : article.date.en}</time>
+            <Link className="text-link" href={`/insikter/${article.slug}`}>
               {sv ? "Läs artikel" : "Read article"} <Arrow />
             </Link>
           </article>
