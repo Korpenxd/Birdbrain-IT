@@ -24,7 +24,7 @@ type CaseStudy = {
   next: { href: string; title: string };
 };
 
-export const caseStudies: Record<string, CaseStudy> = {
+const caseStudies = {
   btc: {
     slug: "btc-backtest-hub",
     accent: "blue",
@@ -108,11 +108,12 @@ export const caseStudies: Record<string, CaseStudy> = {
     statement: { sv: "Nära, personligt och byggt för minnen.", en: "Intimate, personal and made for memories." },
     next: { href: "/arbete/btc-backtest-hub", title: "BTC Backtest Hub" },
   },
-};
+} satisfies Record<string, CaseStudy>;
 
-export function CaseStudyPage({ project }: { project: CaseStudy }) {
+export function CaseStudyPage({ projectKey }: { projectKey: keyof typeof caseStudies }) {
   const { lang } = useLanguage();
   const sv = lang === "sv";
+  const project: CaseStudy = caseStudies[projectKey];
   const localize = (text: LocalizedText) => (sv ? text.sv : text.en);
 
   return (

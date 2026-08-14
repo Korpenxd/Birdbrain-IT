@@ -1,5 +1,5 @@
-import { CaseStudyPage, caseStudies } from "../case-page";
+import { CaseStudyPage } from "../case-page";
 
 export default function PixelmagiCasePage() {
-  return <CaseStudyPage project={caseStudies.pixelmagi} />;
+  return <CaseStudyPage projectKey="pixelmagi" />;
 }

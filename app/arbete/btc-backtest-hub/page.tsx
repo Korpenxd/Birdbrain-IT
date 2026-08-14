@@ -1,5 +1,5 @@
-import { CaseStudyPage, caseStudies } from "../case-page";
+import { CaseStudyPage } from "../case-page";
 
 export default function BtcBacktestHubCasePage() {
-  return <CaseStudyPage project={caseStudies.btc} />;
+  return <CaseStudyPage projectKey="btc" />;
 }
