@@ -2159,12 +2159,31 @@ img {
 
 .mini-service-icon {
   display: grid;
-  width: 42px;
-  height: 42px;
+  width: 46px;
+  height: 46px;
   place-items: center;
-  margin-bottom: 11px;
-  color: #8d58ff;
-  font-size: 1.8rem;
+  margin-bottom: 16px;
+  border: 1px solid rgba(111, 148, 255, 0.28);
+  border-radius: 11px;
+  color: #8bb9ff;
+  background: linear-gradient(145deg, rgba(35, 112, 242, 0.14), rgba(207, 51, 224, 0.1));
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.045), 0 8px 22px rgba(25, 78, 188, 0.12);
+}
+
+.mini-service-icon svg {
+  width: 23px;
+  height: 23px;
+  stroke-width: 1.7;
+}
+
+.mini-service-icon-purple {
+  border-color: rgba(164, 125, 255, 0.28);
+  color: #b39aff;
+}
+
+.mini-service-icon-pink {
+  border-color: rgba(232, 83, 219, 0.27);
+  color: #f476e7;
 }
 
 .mini-service h3,
@@ -4244,6 +4263,23 @@ html[data-theme="light"] .language-toggle.is-sv .language-option:first-of-type,
 html[data-theme="light"] .language-toggle.is-en .language-option:last-of-type {
   color: #6c40db;
   filter: none;
+}
+
+html[data-theme="light"] .mini-service-icon {
+  border-color: rgba(63, 124, 238, 0.23);
+  color: #3978f1;
+  background: linear-gradient(145deg, rgba(46, 139, 255, 0.1), rgba(203, 55, 225, 0.07));
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.9), 0 8px 22px rgba(43, 85, 156, 0.09);
+}
+
+html[data-theme="light"] .mini-service-icon-purple {
+  border-color: rgba(125, 69, 224, 0.22);
+  color: #7945df;
+}
+
+html[data-theme="light"] .mini-service-icon-pink {
+  border-color: rgba(207, 54, 193, 0.2);
+  color: #cc38c1;
 }
 
 html[data-theme="light"] .site-footer {

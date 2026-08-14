@@ -2,6 +2,7 @@
 "use client";
 
 import Link from "next/link";
+import { Braces, LayoutTemplate, ShoppingCart, WandSparkles } from "lucide-react";
 
 import {
   Arrow,
@@ -14,22 +15,26 @@ import {
 
 const services = [
   {
-    icon: "◎",
+    icon: LayoutTemplate,
+    iconTone: "blue",
     sv: ["Webbplatser", "Snygga, snabba och anpassade för dig."],
     en: ["Websites", "Polished, fast and tailored to you."],
   },
   {
-    icon: "◇",
+    icon: Braces,
+    iconTone: "purple",
     sv: ["Webbappar", "Skräddarsydda lösningar som förenklar arbetet."],
     en: ["Web apps", "Tailored solutions that simplify your work."],
   },
   {
-    icon: "⌁",
+    icon: ShoppingCart,
+    iconTone: "purple",
     sv: ["E-handel", "Butiker som är enkla att driva och växer med dig."],
     en: ["E-commerce", "Stores that are easy to run and grow with you."],
   },
   {
-    icon: "◌",
+    icon: WandSparkles,
+    iconTone: "pink",
     sv: ["Design & UX", "Tydlig design som känns rätt och används lätt."],
     en: ["Design & UX", "Clear design that feels right and works naturally."],
   },
@@ -127,10 +132,14 @@ export default function Home() {
           <div className="mini-service-grid">
             {services.map((service) => {
               const [title, description] = sv ? service.sv : service.en;
+              const ServiceIcon = service.icon;
               return (
                 <div className="mini-service" key={title}>
-                  <span className="mini-service-icon" aria-hidden="true">
-                    {service.icon}
+                  <span
+                    className={`mini-service-icon mini-service-icon-${service.iconTone}`}
+                    aria-hidden="true"
+                  >
+                    <ServiceIcon />
                   </span>
                   <h3>{title}</h3>
                   <p>{description}</p>
