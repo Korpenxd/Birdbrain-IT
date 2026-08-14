@@ -187,13 +187,12 @@ img {
   box-shadow: inset 0 1px rgba(255, 255, 255, 0.035);
   color: #70798d;
   cursor: pointer;
-  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
 }
 
 .language-toggle:hover {
   border-color: rgba(124, 108, 237, 0.5);
   box-shadow: inset 0 1px rgba(255, 255, 255, 0.045), 0 0 14px rgba(91, 93, 240, 0.1);
-  transform: translateY(-1px);
 }
 
 .language-toggle:focus-visible {
@@ -3942,13 +3941,12 @@ img {
   box-shadow: inset 0 1px rgba(255, 255, 255, 0.035);
   color: #7f89a0;
   cursor: pointer;
-  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
 }
 
 .theme-toggle:hover {
   border-color: rgba(124, 108, 237, 0.5);
   box-shadow: inset 0 1px rgba(255, 255, 255, 0.045), 0 0 14px rgba(91, 93, 240, 0.1);
-  transform: translateY(-1px);
 }
 
 .theme-toggle:focus-visible {
