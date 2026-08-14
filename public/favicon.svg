@@ -1,11 +1,144 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Birdbrain IT neon wireframe raven on dark background</title>
+  <desc id="desc">Editable vector recreation of a neon wireframe raven on a deep navy-black square.</desc>
   <defs>
-    <linearGradient id="g" x1="8" y1="8" x2="56" y2="56">
-      <stop stop-color="#2984ff"/>
-      <stop offset=".5" stop-color="#775cff"/>
-      <stop offset="1" stop-color="#e641d7"/>
-    </linearGradient>
+    <radialGradient id="bg" cx="48%" cy="42%" r="72%">
+      <stop offset="0" stop-color="#071027"/>
+      <stop offset=".62" stop-color="#030711"/>
+      <stop offset="1" stop-color="#01030a"/>
+    </radialGradient>
   </defs>
-  <rect width="64" height="64" rx="14" fill="#050711"/>
-  <path d="M12 18h23c9 0 15 4 15 11 0 4-2 7-6 9 5 2 8 5 8 10 0 8-7 12-17 12H12V18Zm12 9v8h10c3 0 5-2 5-4s-2-4-5-4H24Zm0 16v8h11c4 0 6-1 6-4 0-2-2-4-6-4H24Z" fill="url(#g)"/>
+  <rect width="512" height="512" fill="url(#bg)"/>
+
+  <title id="title">Birdbrain IT neon wireframe raven</title>
+  <desc id="desc">Editable vector recreation of a neon cyan, blue, purple and pink wireframe raven.</desc>
+  <defs>
+    <linearGradient id="neon" gradientUnits="userSpaceOnUse" x1="46" y1="95" x2="468" y2="418">
+      <stop offset="0" stop-color="#12fff7"/>
+      <stop offset="0.26" stop-color="#00c8ff"/>
+      <stop offset="0.52" stop-color="#3168ff"/>
+      <stop offset="0.76" stop-color="#a83cff"/>
+      <stop offset="1" stop-color="#ff2ec8"/>
+    </linearGradient>
+    <radialGradient id="eye" cx="40%" cy="35%" r="70%">
+      <stop offset="0" stop-color="#54ffff"/>
+      <stop offset="0.52" stop-color="#00e8ff"/>
+      <stop offset="1" stop-color="#00a8ff"/>
+    </radialGradient>
+    <filter id="lineGlow" x="-60%" y="-60%" width="220%" height="220%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="4.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="nodeGlow" x="-140%" y="-140%" width="380%" height="380%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="eyeGlow" x="-150%" y="-150%" width="400%" height="400%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Soft glow underlay -->
+  <g fill="none" stroke="url(#neon)" stroke-linecap="round" stroke-linejoin="round" opacity=".48" filter="url(#lineGlow)">
+    <path stroke-width="6" d="M39 171 Q68 126 127 112 Q183 92 256 69 Q302 76 341 95 Q374 126 391 168"/>
+    <path stroke-width="5" d="M39 171 Q83 143 166 131 Q191 143 218 163"/>
+    <path stroke-width="4" d="M39 171 Q94 165 140 180 Q169 190 178 263"/>
+  </g>
+
+  <!-- Main wireframe -->
+  <g fill="none" stroke="url(#neon)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Beak and silhouette -->
+    <path stroke-width="4.2" d="M39 171 Q64 132 127 112"/>
+    <path stroke-width="3.2" d="M39 171 Q82 144 166 131 Q191 144 218 163"/>
+    <path stroke-width="3.1" d="M39 171 Q92 164 140 180 Q170 193 178 263"/>
+    <path stroke-width="2.3" d="M48 161 Q109 140 166 131"/>
+    <path stroke-width="1.5" d="M45 170 Q97 174 140 180"/>
+    <path stroke-width="1.5" d="M140 180 Q175 175 218 163"/>
+    <path stroke-width="1.6" d="M140 180 Q180 204 178 263"/>
+    <path stroke-width="1.4" d="M153 183 Q176 213 169 255" opacity=".8"/>
+
+    <!-- Crown / head -->
+    <path d="M127 112 L187 87 L256 69 L341 95 L315 126 L391 168"/>
+    <path d="M127 112 L215 111 L256 69"/>
+    <path d="M187 87 L215 111 L166 131 L127 112"/>
+    <path d="M215 111 L315 126 L256 69"/>
+    <path d="M215 111 L218 163 L166 131"/>
+    <path d="M166 131 L218 163 L140 180"/>
+    <path d="M218 163 L315 126 L326 206"/>
+    <path d="M315 126 L391 168 L326 206"/>
+    <path d="M341 95 L391 168"/>
+
+    <!-- Neck and central mesh -->
+    <path d="M218 163 L212 215 L178 263 L141 318 L123 389 L131 437 L175 415 L239 444 L264 367"/>
+    <path d="M218 163 L290 233 L225 300 L178 263"/>
+    <path d="M218 163 L326 206 L290 233"/>
+    <path d="M212 215 L290 233"/>
+    <path d="M212 215 L225 300"/>
+    <path d="M178 263 L225 300 L152 355 L141 318"/>
+    <path d="M141 318 L152 355 L123 389"/>
+    <path d="M123 389 L175 415 L152 355"/>
+    <path d="M152 355 L225 300 L175 415"/>
+    <path d="M175 415 L264 367 L225 300"/>
+    <path d="M225 300 L290 233 L264 367"/>
+    <path d="M264 367 L336 417 L370 316"/>
+    <path d="M264 367 L370 316 L290 233"/>
+
+    <!-- Right-side mesh -->
+    <path d="M326 206 L391 168 L400 245 L370 316"/>
+    <path d="M326 206 L400 245"/>
+    <path d="M326 206 L370 316"/>
+    <path d="M290 233 L326 206 L370 316"/>
+    <path d="M290 233 L370 316"/>
+    <path d="M391 168 L400 245 L444 312 L467 390 L336 417"/>
+    <path d="M400 245 L370 316 L444 312"/>
+    <path d="M370 316 L444 312 L467 390"/>
+    <path d="M370 316 L467 390"/>
+    <path d="M370 316 L336 417"/>
+    <path d="M336 417 L467 390"/>
+
+    <!-- Fine facial facets -->
+    <path stroke-width="1.25" d="M166 131 L127 147 L218 163" opacity=".85"/>
+    <path stroke-width="1.2" d="M127 112 L127 147" opacity=".7"/>
+    <path stroke-width="1.2" d="M215 111 L218 163" opacity=".7"/>
+    <path stroke-width="1.15" d="M218 163 L259 134 L315 126" opacity=".72"/>
+    <path stroke-width="1.15" d="M218 163 L259 143 L290 233" opacity=".66"/>
+  </g>
+
+  <!-- Eye framing -->
+  <g fill="none" stroke="url(#neon)" stroke-linecap="round" opacity=".7">
+    <path stroke-width="1.15" d="M215 130 Q237 119 260 131"/>
+    <path stroke-width="1.05" d="M216 142 Q238 151 260 137"/>
+  </g>
+  <circle cx="237" cy="135" r="12.5" fill="url(#eye)" filter="url(#eyeGlow)"/>
+
+  <!-- Nodes -->
+  <g fill="#f7ffff" stroke="url(#neon)" stroke-width="2.5" filter="url(#nodeGlow)">
+    <circle cx="127" cy="112" r="4.5"/>
+    <circle cx="187" cy="87" r="4"/>
+    <circle cx="256" cy="69" r="4.5"/>
+    <circle cx="341" cy="95" r="4.3"/>
+    <circle cx="315" cy="126" r="4.2"/>
+    <circle cx="391" cy="168" r="4.6"/>
+    <circle cx="400" cy="245" r="4.7"/>
+    <circle cx="370" cy="316" r="5.8"/>
+    <circle cx="444" cy="312" r="4.4"/>
+    <circle cx="467" cy="390" r="4.7"/>
+    <circle cx="336" cy="417" r="4.8"/>
+    <circle cx="264" cy="367" r="5.6"/>
+    <circle cx="175" cy="415" r="5.2"/>
+    <circle cx="123" cy="389" r="3.9"/>
+    <circle cx="141" cy="318" r="4.1"/>
+    <circle cx="152" cy="355" r="3.3"/>
+    <circle cx="178" cy="263" r="4.1"/>
+    <circle cx="212" cy="215" r="4.1"/>
+    <circle cx="225" cy="300" r="5.2"/>
+    <circle cx="218" cy="163" r="4.2"/>
+    <circle cx="290" cy="233" r="4.9"/>
+    <circle cx="326" cy="206" r="4.6"/>
+    <circle cx="215" cy="111" r="3.7"/>
+    <circle cx="166" cy="131" r="3.3"/>
+    <circle cx="140" cy="180" r="3.1"/>
+  </g>
+
 </svg>

@@ -16,6 +16,7 @@ import {
 import { getPageRavenNetwork } from "./raven-networks";
 
 type Language = "sv" | "en";
+type Theme = "light" | "dark";
 type LanguageContextValue = {
   lang: Language;
   setLang: (language: Language) => void;
@@ -44,6 +45,7 @@ export function useLanguage() {
 
 export function SiteShell({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState<Language>("sv");
+  const [theme, setTheme] = useState<Theme>("dark");
   const pathname = usePathname();
   const isProcessRoute = pathname === "/process" || pathname.startsWith("/process/");
 
@@ -55,8 +57,26 @@ export function SiteShell({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
+    const initialTheme = document.documentElement.dataset.theme;
+    if (initialTheme === "light" || initialTheme === "dark") {
+      queueMicrotask(() => setTheme(initialTheme));
+    }
+  }, []);
+
+  useEffect(() => {
     document.documentElement.lang = lang;
   }, [lang]);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    document.documentElement.style.colorScheme = theme;
+  }, [theme]);
+
+  function updateTheme(nextTheme: Theme) {
+    setTheme(nextTheme);
+    window.localStorage.setItem("birdbrain-theme", nextTheme);
+    document.documentElement.dataset.theme = nextTheme;
+  }
 
   const value = useMemo(
     () => ({
@@ -77,7 +97,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
         <a className="skip-link" href="#main-content">
           {lang === "sv" ? "Hoppa till innehåll" : "Skip to content"}
         </a>
-        <SiteHeader />
+        <SiteHeader theme={theme} setTheme={updateTheme} />
         <div className="site-main-content" id="main-content">{children}</div>
         <SiteFooter />
       </div>
@@ -85,7 +105,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
   );
 }
 
-function SiteHeader() {
+function SiteHeader({ theme, setTheme }: { theme: Theme; setTheme: (theme: Theme) => void }) {
   const pathname = usePathname();
   const { lang, setLang } = useLanguage();
   const [open, setOpen] = useState(false);
@@ -133,7 +153,7 @@ function SiteHeader() {
             Navigation / 01–08
           </span>
           <div className="mobile-nav-path" aria-hidden="true">
-            <svg viewBox="0 0 48 480" preserveAspectRatio="none" focusable="false">
+            <svg viewBox="0 0 48 420" preserveAspectRatio="none" focusable="false">
               <defs>
                 <linearGradient id="mobile-nav-gradient" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0" stopColor="#20d8ff" />
@@ -143,7 +163,7 @@ function SiteHeader() {
               </defs>
               <polyline
                 pathLength={1}
-                points="31,30 13,90 32,150 14,210 31,270 13,330 31,390 14,450"
+                points="31,30 13,90 32,150 14,210 31,270 13,330 31,390"
               />
             </svg>
           </div>
@@ -162,16 +182,22 @@ function SiteHeader() {
             );
           })}
           <div className="mobile-nav-footer">
-            <div className="mobile-language">
-              <LanguageToggle lang={lang} setLang={setLang} />
+            <div className="mobile-preferences">
+              <ThemeToggle theme={theme} setTheme={setTheme} lang={lang} />
+              <div className="mobile-language">
+                <LanguageToggle lang={lang} setLang={setLang} />
+              </div>
             </div>
             <a className="mobile-nav-email" href="mailto:Hello@birdbrain.it">
               Hello@birdbrain.it
             </a>
           </div>
         </nav>
-        <div className="desktop-language">
-          <LanguageToggle lang={lang} setLang={setLang} />
+        <div className="header-preferences">
+          <ThemeToggle theme={theme} setTheme={setTheme} lang={lang} />
+          <div className="desktop-language">
+            <LanguageToggle lang={lang} setLang={setLang} />
+          </div>
         </div>
         <button
           className={`menu-button ${open ? "is-open" : ""}`}
@@ -188,6 +214,41 @@ function SiteHeader() {
         </button>
       </div>
     </header>
+  );
+}
+
+function ThemeToggle({
+  theme,
+  setTheme,
+  lang,
+}: {
+  theme: Theme;
+  setTheme: (theme: Theme) => void;
+  lang: Language;
+}) {
+  return (
+    <div className="theme-toggle" aria-label={lang === "sv" ? "Färgtema" : "Color theme"}>
+      <button
+        type="button"
+        className={theme === "light" ? "active" : ""}
+        onClick={() => setTheme("light")}
+        aria-label={lang === "sv" ? "Använd ljust läge" : "Use light mode"}
+        aria-pressed={theme === "light"}
+        title={lang === "sv" ? "Ljust läge" : "Light mode"}
+      >
+        <span className="theme-icon theme-icon-sun" aria-hidden="true">☼</span>
+      </button>
+      <button
+        type="button"
+        className={theme === "dark" ? "active" : ""}
+        onClick={() => setTheme("dark")}
+        aria-label={lang === "sv" ? "Använd mörkt läge" : "Use dark mode"}
+        aria-pressed={theme === "dark"}
+        title={lang === "sv" ? "Mörkt läge" : "Dark mode"}
+      >
+        <span className="theme-icon theme-icon-moon" aria-hidden="true">◔</span>
+      </button>
+    </div>
   );
 }
 
@@ -681,47 +742,126 @@ export function ProjectCard({
 export function ContactForm() {
   const { lang } = useLanguage();
   const sv = lang === "sv";
-  const [sent, setSent] = useState(false);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  const [submitState, setSubmitState] = useState<
+    "idle" | "sending" | "success" | "error"
+  >("idle");
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const name = String(data.get("name") ?? "");
-    const email = String(data.get("email") ?? "");
-    const message = String(data.get("message") ?? "");
-    const subject = encodeURIComponent(`Projektförfrågan från ${name}`);
-    const body = encodeURIComponent(`${message}\n\nNamn: ${name}\nE-post: ${email}`);
-    setSent(true);
-    window.location.href = `mailto:Hello@birdbrain.it?subject=${subject}&body=${body}`;
+
+    const form = event.currentTarget;
+    const data = new FormData(form);
+
+    setSubmitState("sending");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: String(data.get("name") ?? ""),
+          email: String(data.get("email") ?? ""),
+          message: String(data.get("message") ?? ""),
+          website: String(data.get("website") ?? ""),
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Contact request failed.");
+      }
+
+      form.reset();
+      setSubmitState("success");
+    } catch (error) {
+      console.error("Contact submission failed:", error);
+      setSubmitState("error");
+    }
   }
 
   return (
     <form className="contact-form" onSubmit={handleSubmit}>
       <label>
         {sv ? "Namn" : "Name"}
-        <input name="name" type="text" placeholder={sv ? "Ditt namn" : "Your name"} required />
+        <input
+          name="name"
+          type="text"
+          placeholder={sv ? "Ditt namn" : "Your name"}
+          autoComplete="name"
+          minLength={2}
+          maxLength={100}
+          required
+        />
       </label>
+
       <label>
         {sv ? "E-post" : "Email"}
-        <input name="email" type="email" placeholder="du@exempel.se" required />
+        <input
+          name="email"
+          type="email"
+          placeholder="du@exempel.se"
+          autoComplete="email"
+          maxLength={254}
+          required
+        />
       </label>
+
       <label>
         {sv ? "Berätta om ditt projekt" : "Tell me about your project"}
         <textarea
           name="message"
           rows={5}
-          placeholder={sv ? "Vad vill du bygga?" : "What would you like to build?"}
+          placeholder={
+            sv
+              ? "Vad vill du bygga?"
+              : "What would you like to build?"
+          }
+          minLength={10}
+          maxLength={5000}
           required
         />
       </label>
-      <button className="button button-primary button-full" type="submit">
-        {sv ? "Skicka meddelande" : "Send message"} <Arrow />
+
+      {/* Honeypot for simple spam protection */}
+      <label className="contact-honeypot" aria-hidden="true">
+        Website
+        <input
+          name="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </label>
+
+      <button
+        className="button button-primary button-full"
+        type="submit"
+        disabled={submitState === "sending"}
+      >
+        {submitState === "sending" ? (
+          sv ? "Skickar..." : "Sending..."
+        ) : (
+          <>
+            {sv ? "Skicka meddelande" : "Send message"} <Arrow />
+          </>
+        )}
       </button>
-      {sent && (
+
+      {submitState === "success" && (
         <p className="form-note" role="status">
           {sv
-            ? "Ditt e-postprogram öppnas med meddelandet ifyllt."
-            : "Your email app is opening with the message filled in."}
+            ? "Tack! Ditt meddelande har skickats."
+            : "Thank you! Your message has been sent."}
+        </p>
+      )}
+
+      {submitState === "error" && (
+        <p className="form-note form-note-error" role="alert">
+          {sv
+            ? "Meddelandet kunde inte skickas. Försök igen eller mejla mig direkt."
+            : "The message could not be sent. Try again or email me directly."}
         </p>
       )}
     </form>

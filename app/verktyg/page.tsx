@@ -1,92 +1,125 @@
 "use client";
 
-import { Arrow, Eyebrow, Raven, useLanguage } from "../components/site-shell";
+import { useEffect, useState, type CSSProperties } from "react";
+import { useLanguage } from "../components/site-shell";
 
-function PlannerIllustration() {
+type Tool = {
+  id: "planner" | "audit";
+  href: string;
+  eyebrow: { sv: string; en: string };
+  title: { sv: string; en: string };
+  description: { sv: string; en: string };
+  action: { sv: string; en: string };
+};
+
+const tools: Tool[] = [
+  {
+    id: "planner",
+    href: "https://planner.birdbrain.it",
+    eyebrow: { sv: "Planera smart", en: "Plan smarter" },
+    title: { sv: "Webbplatsplaneraren", en: "Website planner" },
+    description: {
+      sv: "Forma idén, välj omfattning och få en tydlig projektbrief med en realistisk prisbild.",
+      en: "Shape the idea, choose the scope and get a clear project brief with a realistic price range.",
+    },
+    action: { sv: "Öppna planeraren", en: "Open the planner" },
+  },
+  {
+    id: "audit",
+    href: "https://audit.birdbrain.it",
+    eyebrow: { sv: "Analysera & förbättra", en: "Analyse & improve" },
+    title: { sv: "Webbplatsanalysen", en: "Website audit" },
+    description: {
+      sv: "Analysera din nuvarande webbplats och se vad som bromsar den, vad som fungerar och vad du bör förbättra först.",
+      en: "Analyse your current website and see what slows it down, what works and what to improve first.",
+    },
+    action: { sv: "Starta analysen", en: "Start the audit" },
+  },
+];
+
+const auditTicks = Array.from({ length: 19 }, (_, index) => index);
+
+function AuditSpeedometer({ sv }: { sv: boolean }) {
+  const [score, setScore] = useState<number | null>(null);
+
+  useEffect(() => {
+    const makeScore = () => Math.floor(Math.random() * 100) + 1;
+    let nextScore = makeScore();
+
+    try {
+      const previousScore = Number.parseInt(
+        window.sessionStorage.getItem("birdbrain-audit-demo-score") ?? "",
+        10,
+      );
+
+      while (nextScore === previousScore) {
+        nextScore = makeScore();
+      }
+
+      window.sessionStorage.setItem("birdbrain-audit-demo-score", String(nextScore));
+    } catch {
+      // The random score still works when browser storage is unavailable.
+    }
+
+    setScore(nextScore);
+  }, []);
+
+  const meterStyle = { "--audit-score": score ?? 50 } as CSSProperties;
+
   return (
-    <svg
-      className="tools-card-illustration planner-illustration"
-      viewBox="0 0 360 240"
-      fill="none"
-      aria-hidden="true"
+    <div
+      className="audit-meter"
+      style={meterStyle}
+      role="img"
+      aria-label={
+        score === null
+          ? sv ? "Exempelresultat laddas" : "Loading example score"
+          : sv ? `Exempelresultat ${score} av 100` : `Example score ${score} out of 100`
+      }
     >
-      <defs>
-        <linearGradient id="planner-stroke" x1="36" y1="22" x2="327" y2="218" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#29dcff" />
-          <stop offset="0.55" stopColor="#6e7aff" />
-          <stop offset="1" stopColor="#f250df" />
-        </linearGradient>
-        <filter id="planner-glow" x="-30%" y="-30%" width="160%" height="160%">
-          <feGaussianBlur stdDeviation="3" result="blur" />
-          <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
-        </filter>
-      </defs>
-      <g stroke="url(#planner-stroke)" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M50 24h168l28 27v169H50z" opacity=".72" />
-        <path d="M218 24v29h28" opacity=".72" />
-        <path d="M72 62h79M72 78h58M72 103h52M72 181h54" opacity=".52" />
-        <rect x="151" y="73" width="42" height="42" rx="4" />
-        <path d="m162 93 8 8 14-18" filter="url(#planner-glow)" />
-        <rect x="151" y="126" width="42" height="42" rx="4" />
-        <path d="m162 146 8 8 14-18" filter="url(#planner-glow)" />
-        <rect x="151" y="179" width="42" height="42" rx="4" />
-        <path d="m162 199 8 8 14-18" filter="url(#planner-glow)" />
-        <path d="M193 94h54l19-25h22M193 147h70l17 22h19M193 200h51l22 17h31" strokeDasharray="3 5" opacity=".8" />
-      </g>
-      <g fill="#07101c" stroke="url(#planner-stroke)" filter="url(#planner-glow)">
-        <circle cx="303" cy="69" r="14" />
-        <circle cx="314" cy="169" r="14" />
-        <circle cx="312" cy="217" r="14" />
-      </g>
-    </svg>
+      <div className="audit-meter-dial" aria-hidden="true">
+        <span className="audit-meter-arc" />
+        <span className="audit-meter-ticks">
+          {auditTicks.map((tick) => (
+            <i
+              className={tick % 3 === 0 ? "audit-meter-tick is-major" : "audit-meter-tick"}
+              key={tick}
+              style={{ "--audit-tick": tick } as CSSProperties}
+            />
+          ))}
+        </span>
+        <span className="audit-meter-needle" />
+        <span className="audit-meter-hub" />
+      </div>
+      <div className="audit-meter-reading" aria-live="polite">
+        <strong>{score ?? "–"}</strong>
+        <span>{sv ? "AV 100" : "OF 100"}</span>
+      </div>
+    </div>
   );
 }
 
-function AuditIllustration() {
-  return (
-    <svg
-      className="tools-card-illustration audit-illustration"
-      viewBox="0 0 360 240"
-      fill="none"
-      aria-hidden="true"
-    >
-      <defs>
-        <linearGradient id="audit-stroke" x1="28" y1="40" x2="330" y2="225" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#28d9ff" />
-          <stop offset="0.5" stopColor="#7671ff" />
-          <stop offset="1" stopColor="#f153df" />
-        </linearGradient>
-        <filter id="audit-glow" x="-30%" y="-30%" width="160%" height="160%">
-          <feGaussianBlur stdDeviation="3" result="blur" />
-          <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
-        </filter>
-      </defs>
-      <g stroke="url(#audit-stroke)" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M49 194a100 100 0 1 1 195 0" strokeWidth="2" filter="url(#audit-glow)" />
-        <path d="M68 180a80 80 0 0 1 157 0" opacity=".4" />
-        <path d="M54 194h187" opacity=".45" />
-        <path d="m147 174 65-68-49 80" strokeWidth="2" filter="url(#audit-glow)" />
-        <circle cx="147" cy="183" r="15" fill="#07101c" />
-        <path d="M62 160l15 5M75 126l14 9M99 98l10 13M130 82l4 16M166 82l-4 16M198 96l-10 13M224 124l-14 9" opacity=".8" />
-        <path d="M244 110h43l15-22h27M231 151h69l14 17h22M244 194h51l17 19h22" strokeDasharray="3 5" opacity=".72" />
-      </g>
-      <g fill="#07101c" stroke="url(#audit-stroke)" filter="url(#audit-glow)">
-        <circle cx="334" cy="88" r="13" />
-        <circle cx="339" cy="168" r="13" />
-        <circle cx="338" cy="213" r="13" />
-      </g>
-    </svg>
-  );
-}
+function ToolGraphic({ type, sv }: { type: Tool["id"]; sv: boolean }) {
+  if (type === "planner") {
+    return (
+      <div className="tool-directory-graphic tool-directory-plan-graphic" aria-hidden="true">
+        <span className="tool-directory-document">
+          <i />
+          <i />
+          <i />
+        </span>
+        <span className="tool-directory-node tool-directory-node-a" />
+        <span className="tool-directory-node tool-directory-node-b" />
+        <span className="tool-directory-node tool-directory-node-c" />
+      </div>
+    );
+  }
 
-function TrustIcon({ type }: { type: "shield" | "bolt" | "raven" }) {
-  if (type === "shield") {
-    return <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 5 6v5c0 4.6 2.8 8 7 10 4.2-2 7-5.4 7-10V6l-7-3Z" /><path d="m9 12 2 2 4-4" /></svg>;
-  }
-  if (type === "bolt") {
-    return <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m13.5 2-8 12h6l-1 8 8-12h-6z" /></svg>;
-  }
-  return <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 19c3-1 4-3.2 4.2-6.5L6 9.5l3.7.3C10.8 6.2 14 4 18.5 4c-1 1-1.8 2.2-2.3 3.6L20 9l-4.2 1.5c-.1 4.8-2.2 7.7-6.3 8.5H4Z" /><circle cx="14.2" cy="7.3" r=".7" fill="currentColor" stroke="none" /></svg>;
+  return (
+    <div className="tool-directory-graphic tool-directory-audit-graphic">
+      <AuditSpeedometer sv={sv} />
+    </div>
+  );
 }
 
 export default function ToolsPage() {
@@ -94,66 +127,51 @@ export default function ToolsPage() {
   const sv = lang === "sv";
 
   return (
-    <main className="page-shell inner-page tools-page">
-      <section className="tools-hero">
-        <div className="tools-hero-copy">
-          <Eyebrow>{sv ? "Gratis verktyg" : "Free tools"}</Eyebrow>
-          <h1>
-            {sv ? "Smarta verktyg för" : "Smarter tools for"}{" "}<br />
-            <span>{sv ? "bättre webbprojekt" : "better web projects"}</span>
+    <main className="tool-directory-page">
+      <section className="tool-directory-hero page-shell" aria-labelledby="tools-title">
+        <div className="tool-directory-intro">
+          <p className="tool-directory-kicker"><span />{sv ? "Kostnadsfria webbverktyg" : "Free website tools"}</p>
+          <h1 id="tools-title">
+            {sv ? "Från första idé till " : "From first idea to "}
+            <span>{sv ? "en bättre webbplats." : "a better website."}</span>
           </h1>
-          <p>
+          <p className="tool-directory-lead">
             {sv
-              ? "Planera en ny webbplats eller analysera den du redan har — helt kostnadsfritt."
-              : "Plan a new website or assess the one you already have — completely free."}
+              ? "Två enkla verktyg för att planera nästa steg — oavsett om du börjar från noll eller vill förbättra något som redan finns."
+              : "Two simple tools for planning the next step — whether you are starting from zero or improving something that already exists."}
           </p>
         </div>
-        <div className="tools-raven" aria-hidden="true">
-          <Raven compact variant="home" priority />
-        </div>
+
       </section>
 
-      <section className="tools-grid" aria-label={sv ? "Kostnadsfria verktyg" : "Free tools"}>
-        <article className="tools-card tools-card-planner">
-          <div className="tools-card-copy">
-            <p className="tools-card-kicker">{sv ? "Tillgänglig nu" : "Available now"}</p>
-            <h2>{sv ? "Webbplatsplaneraren" : "Website planner"}</h2>
-            <p>
-              {sv
-                ? "Få en tydlig projektbrief och en uppskattad prisbild på några minuter."
-                : "Create a clear project brief and estimated budget range in just a few minutes."}
-            </p>
-            <a className="button button-outline tools-card-action" href="https://planner.birdbrain.it">
-              {sv ? "Börja planera" : "Start planning"} <Arrow />
-            </a>
-          </div>
-          <PlannerIllustration />
-        </article>
-
-        <article className="tools-card tools-card-audit">
-          <div className="tools-card-copy">
-            <p className="tools-card-kicker">{sv ? "Tillgänglig nu" : "Available now"}</p>
-            <h2>{sv ? "Webbplatsanalys" : "Website audit"}</h2>
-            <p>
-              {sv
-                ? "Kontrollera prestanda, SEO, tillgänglighet och teknik — med tydliga råd om vad du bör förbättra först."
-                : "Check performance, SEO, accessibility and technical quality — with clear advice on what to improve first."}
-            </p>
-            <a
-              className="button button-outline tools-card-action"
-              href="https://birdbrain-website-audit.korpenxd.chatgpt.site"
-            >
-              {sv ? "Analysera webbplats" : "Audit website"} <Arrow />
-            </a>
-          </div>
-          <AuditIllustration />
-        </article>
+      <section className="tool-directory-grid page-shell" aria-label={sv ? "Tillgängliga verktyg" : "Available tools"}>
+        {tools.map((tool) => (
+          <article
+            className={`tool-directory-card tool-directory-card-${tool.id}`}
+            key={tool.id}
+          >
+            <div className="tool-directory-card-copy">
+              <p className="tool-directory-card-kicker"><span />{sv ? tool.eyebrow.sv : tool.eyebrow.en}</p>
+              <h2>{sv ? tool.title.sv : tool.title.en}</h2>
+              <p>{sv ? tool.description.sv : tool.description.en}</p>
+              <a
+                className="tool-directory-action"
+                href={tool.href}
+                aria-label={`${sv ? tool.action.sv : tool.action.en}: ${sv ? tool.title.sv : tool.title.en}`}
+              >
+                {sv ? tool.action.sv : tool.action.en}
+                <i aria-hidden="true">→</i>
+              </a>
+            </div>
+            <ToolGraphic type={tool.id} sv={sv} />
+          </article>
+        ))}
       </section>
 
-      <section className="tools-trust-strip" aria-label={sv ? "Om verktygen" : "About the tools"}>
-        <div><TrustIcon type="shield" /><span>{sv ? "Ingen registrering krävs" : "No registration required"}</span></div>
-        <div><TrustIcon type="bolt" /><span>{sv ? "Resultat direkt" : "Instant results"}</span></div>
-        <div><TrustIcon type="raven" /><span>{sv ? "Byggt av Birdbrain IT" : "Built by Birdbrain IT"}</span></div>
+      <section className="tool-directory-note page-shell" aria-label={sv ? "Om verktygen" : "About the tools"}>
+        <span><i className="tool-directory-shield" aria-hidden="true" />{sv ? "Ingen registrering" : "No registration"}</span>
+        <span><i className="tool-directory-bolt" aria-hidden="true" />{sv ? "Resultat direkt" : "Instant results"}</span>
+        <span><i aria-hidden="true">✦</i>{sv ? "Byggt av Birdbrain IT" : "Built by Birdbrain IT"}</span>
       </section>
     </main>
   );

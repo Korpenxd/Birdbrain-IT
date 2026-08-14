@@ -3,6 +3,18 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { SiteShell } from "./components/site-shell";
 import "./globals.css";
 
+const themeBootstrap = `
+  (() => {
+    try {
+      const saved = localStorage.getItem("birdbrain-theme");
+      const preferred = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      document.documentElement.dataset.theme = saved === "light" || saved === "dark" ? saved : preferred;
+    } catch {
+      document.documentElement.dataset.theme = "dark";
+    }
+  })();
+`;
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -29,19 +41,17 @@ export const metadata: Metadata = {
     locale: "sv_SE",
   },
   icons: {
-    icon: [
-      { url: "/favicon.ico" },
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-    ],
-    shortcut: "/favicon.ico",
-    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
   },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="sv">
+    <html lang="sv" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeBootstrap }} />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <SiteShell>{children}</SiteShell>
       </body>

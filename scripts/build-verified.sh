@@ -25,6 +25,4 @@ timeout \
   "${SITES_BUILD_TIMEOUT:-3m}" \
   "${vinext}" build
 
-node "${script_dir}/normalize-worker-config.mjs"
-
 "${script_dir}/validate-artifact.sh"
