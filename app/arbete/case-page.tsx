@@ -65,7 +65,7 @@ const caseStudies = {
     image: "/images/pixelmani.webp",
     imageAlt: { sv: "Pixelmanis fotografiska portfolio", en: "Pixelmani photography portfolio" },
     caption: { sv: "Bilddriven portfolio med redaktionell rytm", en: "Image-led portfolio with an editorial rhythm" },
-    externalUrl: "https://pixelmani-5sm4.vercel.app/",
+    externalUrl: "https://pixelmani.vercel.app/",
     facts: [
       { label: { sv: "Roll", en: "Role" }, value: { sv: "Design & utveckling", en: "Design & development" } },
       { label: { sv: "Fokus", en: "Focus" }, value: { sv: "Fotografi & innehåll", en: "Photography & content" } },
@@ -93,7 +93,7 @@ const caseStudies = {
     image: "/images/pixelmagi.webp",
     imageAlt: { sv: "Pixelmagis portfolio för bröllopsfotografi", en: "Pixelmagi wedding photography portfolio" },
     caption: { sv: "Bröllopsberättelser med varm, redaktionell form", en: "Wedding stories with a warm editorial treatment" },
-    externalUrl: "https://pixelmagi-v2-fv56lsfwr-korpenxds-projects.vercel.app/",
+    externalUrl: "https://pixelmagi.vercel.app/",
     facts: [
       { label: { sv: "Plats", en: "Location" }, value: { sv: "Alingsås", en: "Alingsås" } },
       { label: { sv: "Leverans", en: "Delivery" }, value: { sv: "Design & webb", en: "Design & web" } },
