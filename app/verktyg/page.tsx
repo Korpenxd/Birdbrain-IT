@@ -301,6 +301,21 @@ function ToolGraphic({ type, sv }: { type: Tool["id"]; sv: boolean }) {
   );
 }
 
+function ToolAction({ tool, sv }: { tool: Tool; sv: boolean }) {
+  return (
+    <a
+      className="tool-directory-action"
+      href={tool.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`${sv ? tool.action.sv : tool.action.en}: ${sv ? tool.title.sv : tool.title.en}`}
+    >
+      {sv ? tool.action.sv : tool.action.en}
+      <i aria-hidden="true">→</i>
+    </a>
+  );
+}
+
 export default function ToolsPage() {
   const { lang } = useLanguage();
   const sv = lang === "sv";
@@ -333,18 +348,16 @@ export default function ToolsPage() {
               <p className="tool-directory-card-kicker"><span />{sv ? tool.eyebrow.sv : tool.eyebrow.en}</p>
               <h2>{sv ? tool.title.sv : tool.title.en}</h2>
               <p>{sv ? tool.description.sv : tool.description.en}</p>
-              <a
-                className="tool-directory-action"
-                href={tool.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${sv ? tool.action.sv : tool.action.en}: ${sv ? tool.title.sv : tool.title.en}`}
-              >
-                {sv ? tool.action.sv : tool.action.en}
-                <i aria-hidden="true">→</i>
-              </a>
+              {tool.id === "planner" && <ToolAction tool={tool} sv={sv} />}
             </div>
-            <ToolGraphic type={tool.id} sv={sv} />
+            {tool.id === "audit" ? (
+              <div className="tool-directory-audit-composition">
+                <ToolGraphic type={tool.id} sv={sv} />
+                <ToolAction tool={tool} sv={sv} />
+              </div>
+            ) : (
+              <ToolGraphic type={tool.id} sv={sv} />
+            )}
           </article>
         ))}
       </section>
