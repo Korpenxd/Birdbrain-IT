@@ -38,14 +38,35 @@ const tools: Tool[] = [
   },
 ];
 
-const auditTicks = Array.from({ length: 19 }, (_, index) => index);
-
 const auditCategories = [
   { id: "performance", icon: Gauge, delta: 6, sv: "Prestanda", en: "Performance" },
   { id: "security", icon: ShieldCheck, delta: -2, sv: "Säkerhet", en: "Security" },
   { id: "seo", icon: Search, delta: -7, sv: "SEO", en: "SEO" },
   { id: "accessibility", icon: Accessibility, delta: -4, sv: "Tillgänglighet", en: "Accessibility" },
 ] as const;
+
+const GAUGE_CENTER = { x: 140, y: 126 };
+const GAUGE_RADIUS = 89;
+const GAUGE_START_ANGLE = 170;
+const GAUGE_SWEEP_ANGLE = 175;
+const gaugeSegments = Array.from({ length: 13 }, (_, index) => index);
+
+function pointOnGauge(angle: number, radius = GAUGE_RADIUS) {
+  const radians = (angle * Math.PI) / 180;
+
+  return {
+    x: Number((GAUGE_CENTER.x + radius * Math.cos(radians)).toFixed(3)),
+    y: Number((GAUGE_CENTER.y + radius * Math.sin(radians)).toFixed(3)),
+  };
+}
+
+function gaugeArcPath(radius: number, startAngle = GAUGE_START_ANGLE, sweepAngle = GAUGE_SWEEP_ANGLE) {
+  const start = pointOnGauge(startAngle, radius);
+  const end = pointOnGauge(startAngle + sweepAngle, radius);
+  const largeArc = sweepAngle > 180 ? 1 : 0;
+
+  return `M ${start.x} ${start.y} A ${radius} ${radius} 0 ${largeArc} 1 ${end.x} ${end.y}`;
+}
 
 function AuditSpeedometer({ sv }: { sv: boolean }) {
   const [score, setScore] = useState<number | null>(null);
@@ -54,25 +75,29 @@ function AuditSpeedometer({ sv }: { sv: boolean }) {
   const meterRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const makeScore = () => Math.floor(Math.random() * 100) + 1;
-    let nextScore = makeScore();
+    const frameId = window.requestAnimationFrame(() => {
+      const makeScore = () => Math.floor(Math.random() * 100) + 1;
+      let nextScore = makeScore();
 
-    try {
-      const previousScore = Number.parseInt(
-        window.sessionStorage.getItem("birdbrain-audit-demo-score") ?? "",
-        10,
-      );
+      try {
+        const previousScore = Number.parseInt(
+          window.sessionStorage.getItem("birdbrain-audit-demo-score") ?? "",
+          10,
+        );
 
-      while (nextScore === previousScore) {
-        nextScore = makeScore();
+        while (nextScore === previousScore) {
+          nextScore = makeScore();
+        }
+
+        window.sessionStorage.setItem("birdbrain-audit-demo-score", String(nextScore));
+      } catch {
+        // The random score still works when browser storage is unavailable.
       }
 
-      window.sessionStorage.setItem("birdbrain-audit-demo-score", String(nextScore));
-    } catch {
-      // The random score still works when browser storage is unavailable.
-    }
+      setScore(nextScore);
+    });
 
-    setScore(nextScore);
+    return () => window.cancelAnimationFrame(frameId);
   }, []);
 
   useEffect(() => {
@@ -80,8 +105,8 @@ function AuditSpeedometer({ sv }: { sv: boolean }) {
     if (!meter) return;
 
     if (!("IntersectionObserver" in window)) {
-      setIsInView(true);
-      return;
+      const timeoutId = window.setTimeout(() => setIsInView(true), 0);
+      return () => window.clearTimeout(timeoutId);
     }
 
     const observer = new IntersectionObserver(
@@ -101,8 +126,8 @@ function AuditSpeedometer({ sv }: { sv: boolean }) {
     if (!isInView || score === null) return;
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setDisplayedScore(score);
-      return;
+      const frameId = window.requestAnimationFrame(() => setDisplayedScore(score));
+      return () => window.cancelAnimationFrame(frameId);
     }
 
     let frameId = 0;
@@ -138,6 +163,15 @@ function AuditSpeedometer({ sv }: { sv: boolean }) {
 
     return { ...category, value, displayedValue };
   });
+  const visibleScore = isInView ? score ?? 0 : 0;
+  const needleAngle = GAUGE_START_ANGLE + (visibleScore / 100) * GAUGE_SWEEP_ANGLE;
+  const needleRotation = needleAngle - 270;
+  const activeArcStyle = {
+    "--audit-arc-offset": 100 - visibleScore,
+  } as CSSProperties;
+  const needleStyle = {
+    "--audit-needle-rotation": `${needleRotation}deg`,
+  } as CSSProperties;
 
   return (
     <div
@@ -152,22 +186,59 @@ function AuditSpeedometer({ sv }: { sv: boolean }) {
       }
     >
       <div className="audit-meter-dial" aria-hidden="true">
-        <span className="audit-meter-arc" />
-        <span className="audit-meter-ticks">
-          {auditTicks.map((tick) => (
-            <i
-              className={tick % 3 === 0 ? "audit-meter-tick is-major" : "audit-meter-tick"}
-              key={tick}
-              style={{ "--audit-tick": tick } as CSSProperties}
-            />
-          ))}
-        </span>
-        <span className="audit-meter-needle" />
-        <span className="audit-meter-hub" />
-        <span className="audit-meter-reading">
-          <strong>{score === null ? "–" : displayedScore}</strong>
-          <span>/100</span>
-        </span>
+        <svg className="audit-gauge" viewBox="0 0 280 178" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <linearGradient id="audit-gauge-gradient" x1="52" y1="125" x2="226" y2="72" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stopColor="#269eff" />
+              <stop offset="48%" stopColor="#8065ff" />
+              <stop offset="100%" stopColor="#f651d5" />
+            </linearGradient>
+            <filter id="audit-gauge-glow" x="-25%" y="-35%" width="150%" height="160%">
+              <feGaussianBlur stdDeviation="4" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+            <filter id="audit-needle-glow" x="-80%" y="-70%" width="260%" height="240%">
+              <feGaussianBlur stdDeviation="2.5" result="needleBlur" />
+              <feMerge>
+                <feMergeNode in="needleBlur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+          <path className="audit-gauge-track" d={gaugeArcPath(GAUGE_RADIUS)} />
+          <path className="audit-gauge-inner-track" d={gaugeArcPath(72)} />
+          <path className="audit-gauge-active-glow" d={gaugeArcPath(GAUGE_RADIUS)} pathLength="100" style={activeArcStyle} />
+          <path className="audit-gauge-active" d={gaugeArcPath(GAUGE_RADIUS)} pathLength="100" style={activeArcStyle} />
+          <g className="audit-gauge-segments">
+            {gaugeSegments.map((segment) => {
+              const angle = GAUGE_START_ANGLE + (segment / (gaugeSegments.length - 1)) * GAUGE_SWEEP_ANGLE;
+              const outerPoint = pointOnGauge(angle, 86);
+              const innerPoint = pointOnGauge(angle, segment % 3 === 0 ? 67 : 73);
+
+              return (
+                <line
+                  key={segment}
+                  x1={outerPoint.x}
+                  y1={outerPoint.y}
+                  x2={innerPoint.x}
+                  y2={innerPoint.y}
+                />
+              );
+            })}
+          </g>
+          <circle className="audit-gauge-construction-ring" cx={GAUGE_CENTER.x} cy={GAUGE_CENTER.y} r="58" />
+          <g className="audit-gauge-needle" style={needleStyle}>
+            <path d="M 140 112 L 144 58 L 140 42 L 136 58 Z" filter="url(#audit-needle-glow)" />
+          </g>
+          <circle className="audit-gauge-score-ring" cx={GAUGE_CENTER.x} cy={GAUGE_CENTER.y} r="35" />
+          <g className="audit-gauge-score">
+            <text x={GAUGE_CENTER.x} y="122">{score === null ? "–" : displayedScore}</text>
+            <text x={GAUGE_CENTER.x} y="139">/100</text>
+          </g>
+        </svg>
       </div>
       <div className="audit-categories" aria-hidden="true">
         {categoryResults.map((category) => {

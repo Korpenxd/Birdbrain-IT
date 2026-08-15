@@ -9132,3 +9132,167 @@ html[data-theme="light"] .tool-directory-feature-feather { color: #c43bc8; }
     transition: none;
   }
 }
+
+/* Precision SVG audit gauge. */
+.audit-meter {
+  grid-template-rows: 178px auto;
+  gap: 7px;
+}
+
+.audit-meter-dial {
+  width: min(100%, 286px);
+  height: 178px;
+  overflow: visible;
+  border-radius: 0;
+  background: none;
+  filter: none;
+}
+
+.audit-meter-dial::before { content: none; }
+
+.audit-gauge {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.audit-gauge-track,
+.audit-gauge-inner-track,
+.audit-gauge-active,
+.audit-gauge-active-glow {
+  fill: none;
+  stroke-linecap: butt;
+}
+
+.audit-gauge-track {
+  stroke: rgba(132, 102, 210, 0.18);
+  stroke-width: 14;
+}
+
+.audit-gauge-inner-track {
+  stroke: rgba(154, 101, 211, 0.22);
+  stroke-width: 1.25;
+}
+
+.audit-gauge-active-glow,
+.audit-gauge-active {
+  stroke-dasharray: 100;
+  stroke-dashoffset: var(--audit-arc-offset);
+  transition: stroke-dashoffset 1200ms cubic-bezier(0.22, 1, 0.36, 1) 500ms;
+}
+
+.audit-gauge-active-glow {
+  stroke: url(#audit-gauge-gradient);
+  stroke-width: 10;
+  opacity: 0.4;
+  filter: url(#audit-gauge-glow);
+}
+
+.audit-gauge-active {
+  stroke: url(#audit-gauge-gradient);
+  stroke-width: 3.3;
+  filter: url(#audit-gauge-glow);
+}
+
+.audit-gauge-segments line {
+  stroke: rgba(220, 172, 255, 0.38);
+  stroke-width: 1;
+}
+
+.audit-gauge-construction-ring {
+  fill: none;
+  stroke: rgba(121, 91, 225, 0.2);
+  stroke-width: 1;
+}
+
+.audit-gauge-needle {
+  transform: rotate(var(--audit-needle-rotation));
+  transform-origin: 140px 126px;
+  transition: transform 1200ms cubic-bezier(0.22, 1, 0.36, 1) 500ms;
+}
+
+.audit-gauge-needle path {
+  fill: #eeeaff;
+  filter: drop-shadow(0 0 3px rgba(235, 202, 255, 0.95));
+}
+
+.audit-gauge-score-ring {
+  fill: rgba(10, 9, 30, 0.94);
+  stroke: #8f62f4;
+  stroke-width: 2;
+  filter: drop-shadow(0 0 7px rgba(145, 93, 241, 0.47));
+}
+
+.audit-gauge-score text {
+  fill: #f7f4ff;
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+  font-weight: 720;
+  text-anchor: middle;
+}
+
+.audit-gauge-score text:first-child {
+  font-size: 29px;
+  letter-spacing: -1.8px;
+}
+
+.audit-gauge-score text:last-child {
+  fill: #d8cff3;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.7px;
+}
+
+.audit-categories {
+  width: min(100%, 288px);
+  gap: 6px;
+}
+
+.audit-category {
+  grid-template-columns: 15px minmax(65px, auto) minmax(44px, 1fr) 23px;
+  gap: 7px;
+  color: #d9d7eb;
+  font-size: 0.59rem;
+}
+
+.audit-category > svg {
+  width: 14px;
+  height: 14px;
+  color: #f1edff;
+  filter: drop-shadow(0 0 4px rgba(176, 144, 255, 0.38));
+}
+
+.audit-category-track {
+  height: 6px;
+  background: rgba(87, 58, 164, 0.22);
+}
+
+.audit-category-fill {
+  background: linear-gradient(90deg, #2d9eff, #8166ff 53%, #e856da);
+  box-shadow: 0 0 8px rgba(190, 79, 227, 0.45);
+}
+
+.audit-category > strong { color: #f2eff8; font-size: 0.56rem; }
+
+html[data-theme="light"] .audit-gauge-track { stroke: rgba(122, 98, 204, 0.16); }
+html[data-theme="light"] .audit-gauge-inner-track,
+html[data-theme="light"] .audit-gauge-construction-ring { stroke: rgba(109, 85, 203, 0.27); }
+html[data-theme="light"] .audit-gauge-score-ring { fill: rgba(251, 251, 255, 0.95); }
+html[data-theme="light"] .audit-gauge-score text { fill: #231259; }
+html[data-theme="light"] .audit-gauge-score text:last-child { fill: #6958a4; }
+html[data-theme="light"] .audit-category { color: #4d5b74; }
+html[data-theme="light"] .audit-category > svg { color: #465a87; }
+html[data-theme="light"] .audit-category > strong { color: #26314a; }
+
+@media (max-width: 560px) {
+  .audit-meter { grid-template-rows: 176px auto; }
+  .audit-meter-dial { width: min(100%, 280px); height: 176px; }
+  .audit-categories { width: min(100%, 270px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .audit-gauge-active-glow,
+  .audit-gauge-active,
+  .audit-gauge-needle { transition: none; }
+}
