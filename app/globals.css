@@ -9808,15 +9808,20 @@ html[data-theme="light"] .planner-builder-nodes circle { fill: #f8fbff; }
 }
 
 .planner-layer-motion {
-  transition: opacity 100ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition:
+    transform 960ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 620ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.planner-layer-top,
-.planner-layer-finished { opacity: 0; }
+.planner-layer-top { opacity: 0.68; transform: translateY(26%); }
 .planner-layer-middle { opacity: 1; }
+.planner-layer-finished { opacity: 0.72; transform: translateY(-27%); }
 .planner-layers.is-active .planner-layer-top,
 .planner-layers.is-active .planner-layer-middle,
-.planner-layers.is-active .planner-layer-finished { opacity: 1; }
+.planner-layers.is-active .planner-layer-finished {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 .planner-layer-surface {
   fill: rgba(9, 15, 40, 0.91);
