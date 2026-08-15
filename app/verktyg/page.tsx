@@ -348,16 +348,9 @@ export default function ToolsPage() {
               <p className="tool-directory-card-kicker"><span />{sv ? tool.eyebrow.sv : tool.eyebrow.en}</p>
               <h2>{sv ? tool.title.sv : tool.title.en}</h2>
               <p>{sv ? tool.description.sv : tool.description.en}</p>
-              {tool.id === "planner" && <ToolAction tool={tool} sv={sv} />}
+              <ToolAction tool={tool} sv={sv} />
             </div>
-            {tool.id === "audit" ? (
-              <div className="tool-directory-audit-composition">
-                <ToolGraphic type={tool.id} sv={sv} />
-                <ToolAction tool={tool} sv={sv} />
-              </div>
-            ) : (
-              <ToolGraphic type={tool.id} sv={sv} />
-            )}
+            <ToolGraphic type={tool.id} sv={sv} />
           </article>
         ))}
       </section>

@@ -9430,3 +9430,66 @@ html[data-theme="light"] .audit-category > strong { color: #26314a; }
     width: min(100%, 230px);
   }
 }
+
+/* Each tool card has a dedicated content half and illustration half. */
+.tool-directory-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  min-height: 390px;
+}
+
+.tool-directory-card-copy {
+  width: auto;
+  min-height: 0;
+  padding: clamp(30px, 3vw, 40px);
+  border-right: 1px solid rgba(var(--tool-accent), 0.14);
+}
+
+.tool-directory-card-copy .tool-directory-action {
+  margin-top: auto;
+}
+
+.tool-directory-graphic,
+.tool-directory-card-audit .tool-directory-graphic {
+  position: relative;
+  inset: auto;
+  align-self: stretch;
+  width: auto;
+  min-width: 0;
+  height: auto;
+  margin: 18px 24px 18px 12px;
+  transform: none;
+}
+
+.tool-directory-card-audit .tool-directory-audit-graphic {
+  display: grid;
+  place-items: center;
+}
+
+@media (max-width: 560px) {
+  .tool-directory-card {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+  }
+
+  .tool-directory-card-copy {
+    min-height: 0;
+    padding: 28px 30px 24px;
+    border-right: 0;
+    border-bottom: 1px solid rgba(var(--tool-accent), 0.14);
+  }
+
+  .tool-directory-card-copy .tool-directory-action {
+    width: min(100%, 230px);
+    margin-top: 26px;
+    align-self: flex-start;
+  }
+
+  .tool-directory-graphic,
+  .tool-directory-card-audit .tool-directory-graphic {
+    width: min(100%, 292px);
+    height: 292px;
+    min-height: 292px;
+    margin: 14px auto 24px;
+  }
+}
