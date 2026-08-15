@@ -9438,11 +9438,14 @@ html[data-theme="light"] .audit-category > strong { color: #26314a; }
   min-height: 390px;
 }
 
+.tool-directory-card::before {
+  background: radial-gradient(circle at 84% 15%, rgba(var(--tool-accent), 0.12), transparent 25%);
+}
+
 .tool-directory-card-copy {
   width: auto;
   min-height: 0;
   padding: clamp(30px, 3vw, 40px);
-  border-right: 1px solid rgba(var(--tool-accent), 0.14);
 }
 
 .tool-directory-card-copy .tool-directory-action {
@@ -9466,6 +9469,11 @@ html[data-theme="light"] .audit-category > strong { color: #26314a; }
   place-items: center;
 }
 
+.tool-directory-card-audit :is(.audit-meter-dial, .audit-categories) {
+  justify-self: center;
+  width: min(100%, 286px);
+}
+
 @media (max-width: 560px) {
   .tool-directory-card {
     grid-template-columns: minmax(0, 1fr);
@@ -9473,10 +9481,8 @@ html[data-theme="light"] .audit-category > strong { color: #26314a; }
   }
 
   .tool-directory-card-copy {
-    min-height: 0;
+    min-height: 260px;
     padding: 28px 30px 24px;
-    border-right: 0;
-    border-bottom: 1px solid rgba(var(--tool-accent), 0.14);
   }
 
   .tool-directory-card-copy .tool-directory-action {
@@ -9487,9 +9493,13 @@ html[data-theme="light"] .audit-category > strong { color: #26314a; }
 
   .tool-directory-graphic,
   .tool-directory-card-audit .tool-directory-graphic {
-    width: min(100%, 292px);
+    width: min(calc(100% - 32px), 292px);
     height: 292px;
     min-height: 292px;
     margin: 14px auto 24px;
+  }
+
+  .site-footer-location-copy {
+    display: none;
   }
 }

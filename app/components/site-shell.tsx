@@ -283,7 +283,9 @@ function SiteFooter() {
       </Link>
       <p>
         © {new Date().getFullYear()} Birdbrain IT.{" "}
-        {lang === "sv" ? "Byggt med omtanke i Alingsås." : "Thoughtfully built in Alingsås."}
+        <span className="site-footer-location-copy">
+          {lang === "sv" ? "Byggt med omtanke i Alingsås." : "Thoughtfully built in Alingsås."}
+        </span>
       </p>
       <a href="mailto:Hello@birdbrain.it">Hello@birdbrain.it</a>
     </footer>
