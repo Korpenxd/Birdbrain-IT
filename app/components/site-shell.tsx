@@ -268,8 +268,8 @@ function LanguageToggle({
       title={lang === "sv" ? "Byt till engelska" : "Switch to Swedish"}
     >
       <span className="language-toggle-thumb" aria-hidden="true" />
-      <span className="language-option" aria-hidden="true">SV</span>
-      <span className="language-option" aria-hidden="true">EN</span>
+      <span className={`language-option${lang === "sv" ? " is-selected" : ""}`} aria-hidden="true">SV</span>
+      <span className={`language-option${lang === "en" ? " is-selected" : ""}`} aria-hidden="true">EN</span>
     </button>
   );
 }
