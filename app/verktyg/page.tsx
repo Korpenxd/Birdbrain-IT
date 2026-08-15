@@ -265,86 +265,92 @@ function AuditSpeedometer({ sv }: { sv: boolean }) {
   );
 }
 
+function PlannerLayerGraphic() {
+  const graphicRef = useRef<HTMLDivElement>(null);
+  const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    const graphic = graphicRef.current;
+    if (!graphic) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || typeof IntersectionObserver === "undefined") {
+      const frameId = window.requestAnimationFrame(() => setIsActive(true));
+      return () => window.cancelAnimationFrame(frameId);
+    }
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      setIsActive(true);
+      observer.disconnect();
+    }, { threshold: 0.35 });
+
+    observer.observe(graphic);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={graphicRef} className={`tool-directory-graphic tool-directory-plan-graphic planner-layers${isActive ? " is-active" : ""}`} aria-hidden="true">
+      <svg className="planner-layers-svg" viewBox="0 0 360 300" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <linearGradient id="planner-layer-cyan" x1="32" y1="24" x2="245" y2="270" gradientUnits="userSpaceOnUse"><stop stopColor="#28c7ff" /><stop offset="1" stopColor="#5a72ff" /></linearGradient>
+          <linearGradient id="planner-layer-violet" x1="38" y1="104" x2="239" y2="169" gradientUnits="userSpaceOnUse"><stop stopColor="#7264ff" /><stop offset="1" stopColor="#d854e6" /></linearGradient>
+          <linearGradient id="planner-layer-finish" x1="33" y1="185" x2="250" y2="270" gradientUnits="userSpaceOnUse"><stop stopColor="#25c2ff" /><stop offset="0.56" stopColor="#8069ff" /><stop offset="1" stopColor="#ec55d9" /></linearGradient>
+          <linearGradient id="planner-layer-hero" x1="60" y1="202" x2="155" y2="234" gradientUnits="userSpaceOnUse"><stop stopColor="#257fe9" stopOpacity="0.55" /><stop offset="1" stopColor="#e44edb" stopOpacity="0.38" /></linearGradient>
+          <filter id="planner-layer-glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="2.5" result="blur" /><feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge></filter>
+        </defs>
+
+        <ellipse className="planner-layers-ambient" cx="152" cy="151" rx="135" ry="124" />
+        <g className="planner-layer-motion planner-layer-top">
+          <polygon className="planner-layer-surface planner-layer-top-surface" points="55,25 220,25 239,84 37,84" />
+          <path className="planner-layer-header" d="M55 35 H223 M64 41 H81 M87 41 H103 M185 41 H215" />
+          <path className="planner-layer-grid" d="M61 47 H224 M55 60 H229 M48 72 H234 M82 35 L72 84 M112 35 L106 84 M142 35 L140 84 M172 35 L174 84 M202 35 L208 84" />
+          <rect className="planner-layer-wireframe-block" x="76" y="50" width="116" height="23" rx="3" />
+          <path className="planner-layer-wireframe-lines" d="M85 57 H137 M85 63 H157 M85 69 H122" />
+        </g>
+
+        <g className="planner-layer-motion planner-layer-middle">
+          <polygon className="planner-layer-surface planner-layer-middle-surface" points="54,105 221,105 239,166 37,166" />
+          <path className="planner-layer-header" d="M54 116 H224 M63 111 H76 M81 111 H93" />
+          <rect className="planner-layer-media" x="69" y="122" width="65" height="20" rx="3" />
+          <path className="planner-layer-copy" d="M146 125 H201 M146 131 H208 M146 137 H183" />
+          <g className="planner-layer-component-cards"><rect x="63" y="147" width="43" height="11" rx="2" /><rect x="114" y="147" width="43" height="11" rx="2" /><rect x="165" y="147" width="43" height="11" rx="2" /></g>
+        </g>
+
+        <g className="planner-progress-markers"><path d="M138 88 v9 M134 93 l4 4 4-4 M138 170 v9 M134 175 l4 4 4-4" /></g>
+
+        <g className="planner-layer-motion planner-layer-finished">
+          <polygon className="planner-layer-surface planner-layer-finished-surface" points="50,185 224,185 247,269 28,269" />
+          <path className="planner-layer-finished-bar" d="M53 197 H230" />
+          <circle cx="64" cy="191" r="2.2" /><circle cx="72" cy="191" r="2.2" /><circle cx="80" cy="191" r="2.2" />
+          <rect className="planner-layer-finished-hero" x="56" y="203" width="88" height="30" rx="3" />
+          <path className="planner-layer-hero-art" d="M62 228 C75 214 86 230 98 218 S119 226 137 210" />
+          <path className="planner-layer-finished-copy" d="M157 207 H208 M157 214 H219 M157 221 H197" />
+          <rect className="planner-layer-finished-cta" x="157" y="226" width="34" height="5" rx="2.5" />
+          <g className="planner-layer-finished-cards"><rect x="56" y="241" width="48" height="13" rx="2" /><rect x="113" y="241" width="48" height="13" rx="2" /><rect x="170" y="241" width="48" height="13" rx="2" /></g>
+          <path className="planner-layer-wave" d="M45 261 C75 249 95 271 122 258 S170 250 201 261 S224 263 235 257" />
+        </g>
+
+        <g className="planner-layer-connectors">
+          <path className="planner-connector-layout" d="M239 61 H276" /><path className="planner-connector-components" d="M239 137 H276" /><path className="planner-connector-palette" d="M246 228 C262 228 264 237 276 237" />
+          <circle cx="239" cy="61" r="3" /><circle cx="239" cy="137" r="3" /><circle cx="246" cy="228" r="3" />
+        </g>
+
+        <g className="planner-config-module planner-config-layout">
+          <rect x="277" y="42" width="56" height="38" rx="8" /><path d="M289 52 H321 M289 61 H321 M289 70 H321 M299 48 V74 M310 48 V74" />
+        </g>
+        <g className="planner-config-module planner-config-components">
+          <rect x="277" y="118" width="56" height="38" rx="8" /><rect x="288" y="128" width="14" height="14" rx="2" /><path d="M307 128 H323 M307 135 H323 M307 142 H317" />
+        </g>
+        <g className="planner-config-module planner-config-palette">
+          <rect x="277" y="218" width="56" height="38" rx="8" /><circle cx="295" cy="237" r="10" /><circle cx="313" cy="237" r="4" /><circle cx="324" cy="237" r="4" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
 function ToolGraphic({ type, sv }: { type: Tool["id"]; sv: boolean }) {
-  if (type === "planner") {
-    return (
-      <div className="tool-directory-graphic tool-directory-plan-graphic" aria-hidden="true">
-        <svg className="planner-builder-svg" viewBox="0 0 360 300" preserveAspectRatio="xMidYMid meet">
-          <defs>
-            <linearGradient id="planner-builder-frame" x1="92" y1="54" x2="274" y2="248" gradientUnits="userSpaceOnUse">
-              <stop stopColor="#2fbfff" />
-              <stop offset="0.52" stopColor="#7470ff" />
-              <stop offset="1" stopColor="#e651da" />
-            </linearGradient>
-            <linearGradient id="planner-builder-panel" x1="110" y1="56" x2="254" y2="242" gradientUnits="userSpaceOnUse">
-              <stop stopColor="rgba(31, 76, 151, 0.94)" />
-              <stop offset="1" stopColor="rgba(9, 14, 36, 0.96)" />
-            </linearGradient>
-            <linearGradient id="planner-builder-hero" x1="122" y1="95" x2="244" y2="143" gradientUnits="userSpaceOnUse">
-              <stop stopColor="#249fff" stopOpacity="0.34" />
-              <stop offset="1" stopColor="#c750e3" stopOpacity="0.16" />
-            </linearGradient>
-            <filter id="planner-builder-glow" x="-35%" y="-35%" width="170%" height="170%">
-              <feGaussianBlur stdDeviation="3.2" result="blur" />
-              <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
-            </filter>
-          </defs>
-
-          <ellipse className="planner-builder-ambient" cx="180" cy="157" rx="137" ry="120" />
-          <g className="planner-builder-connections">
-            <path d="M 196 100 C 219 91, 241 82, 263 81" />
-            <path d="M 196 142 C 222 142, 237 162, 258 162" />
-            <path d="M 196 188 C 226 207, 254 229, 282 230" />
-          </g>
-          <g className="planner-builder-nodes">
-            <circle cx="196" cy="100" r="3.5" /><circle cx="263" cy="81" r="3.5" />
-            <circle cx="196" cy="142" r="3.5" /><circle cx="258" cy="162" r="3.5" />
-            <circle cx="196" cy="188" r="3.5" /><circle cx="282" cy="230" r="3.5" />
-          </g>
-
-          <g className="planner-builder-module planner-builder-palette" transform="translate(238 -20)">
-            <rect x="25" y="70" width="67" height="62" rx="11" />
-            <path d="M 42 87 h32 M 42 95 h21" />
-            <circle cx="44" cy="112" r="6" /><circle cx="59" cy="112" r="6" /><circle cx="74" cy="112" r="6" />
-          </g>
-
-          <g className="planner-builder-window" transform="translate(-62 0)">
-            <rect className="planner-builder-window-glow" x="102" y="39" width="156" height="216" rx="15" />
-            <rect className="planner-builder-window-frame" x="102" y="39" width="156" height="216" rx="15" />
-            <rect className="planner-builder-window-surface" x="109" y="47" width="142" height="200" rx="10" />
-            <path className="planner-builder-window-bar" d="M 110 71 H 250" />
-            <circle cx="122" cy="59" r="2.7" /><circle cx="132" cy="59" r="2.7" /><circle cx="142" cy="59" r="2.7" />
-            <path className="planner-builder-nav" d="M 181 59 H 202 M 210 59 H 224 M 232 59 H 242" />
-            <rect className="planner-builder-hero-block" x="121" y="87" width="118" height="54" rx="7" />
-            <path className="planner-builder-copy-lines" d="M 133 102 H 177 M 133 112 H 195 M 133 122 H 166" />
-            <rect className="planner-builder-hero-chip" x="133" y="128" width="31" height="5" rx="2.5" />
-            <g className="planner-builder-layout">
-              <rect x="121" y="153" width="52" height="74" rx="5" />
-              <rect x="181" y="153" width="58" height="33" rx="5" />
-              <rect x="181" y="194" width="58" height="33" rx="5" />
-              <path d="M 130 170 H 163 M 130 178 H 156 M 191 164 H 228 M 191 205 H 219" />
-              <path className="planner-builder-layout-chart" d="M 130 211 L 140 202 L 149 208 L 162 191" />
-            </g>
-          </g>
-
-          <g className="planner-builder-module planner-builder-layout-module" transform="translate(220 -62)">
-            <rect x="38" y="193" width="67" height="62" rx="11" />
-            <path d="M 52 208 H 91 M 52 219 H 69 M 75 219 H 91 M 52 230 H 63 M 69 230 H 91" />
-            <path className="planner-builder-layout-accent" d="M 52 241 H 83" />
-          </g>
-
-          <g className="planner-builder-module planner-builder-components" transform="translate(0 72)">
-            <rect x="282" y="127" width="53" height="62" rx="11" />
-            <rect x="296" y="141" width="11" height="11" rx="2" />
-            <rect x="312" y="141" width="11" height="11" rx="2" />
-            <rect x="296" y="158" width="27" height="5" rx="2.5" />
-            <rect x="296" y="170" width="19" height="5" rx="2.5" />
-          </g>
-          <circle className="planner-builder-signal" cx="335" cy="187" r="4" />
-        </svg>
-      </div>
-    );
-  }
+  if (type === "planner") return <PlannerLayerGraphic />;
 
   return (
     <div className="tool-directory-graphic tool-directory-audit-graphic">
