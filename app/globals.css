@@ -9135,12 +9135,18 @@ html[data-theme="light"] .tool-directory-feature-feather { color: #c43bc8; }
 
 /* Precision SVG audit gauge. */
 .audit-meter {
+  top: 0;
+  right: auto;
+  bottom: 0;
+  left: 50%;
+  width: min(100%, 288px);
   grid-template-rows: 178px auto;
   gap: 7px;
+  transform: translateX(-50%);
 }
 
 .audit-meter-dial {
-  width: min(100%, 286px);
+  width: min(calc(100% - 2px), 286px);
   height: 178px;
   overflow: visible;
   border-radius: 0;
@@ -9245,7 +9251,7 @@ html[data-theme="light"] .tool-directory-feature-feather { color: #c43bc8; }
 }
 
 .audit-categories {
-  width: min(100%, 288px);
+  width: 100%;
   gap: 6px;
 }
 
@@ -9286,9 +9292,8 @@ html[data-theme="light"] .audit-category > svg { color: #465a87; }
 html[data-theme="light"] .audit-category > strong { color: #26314a; }
 
 @media (max-width: 560px) {
-  .audit-meter { grid-template-rows: 176px auto; }
-  .audit-meter-dial { width: min(100%, 280px); height: 176px; }
-  .audit-categories { width: min(100%, 270px); }
+  .audit-meter { width: min(100%, 280px); grid-template-rows: 176px auto; }
+  .audit-meter-dial { width: min(calc(100% - 2px), 280px); height: 176px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
