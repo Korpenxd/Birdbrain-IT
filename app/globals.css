@@ -4861,7 +4861,7 @@ html[data-theme="light"] .tool-directory-note .tool-directory-shield::before { b
   filter: drop-shadow(0 0 10px color-mix(in srgb, currentColor 58%, transparent));
 }
 
-.step-index {
+.process-list li > .step-index {
   position: absolute;
   z-index: 2;
   top: 22px;
