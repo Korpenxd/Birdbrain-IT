@@ -47,8 +47,10 @@ const auditCategories = [
 
 const GAUGE_CENTER = { x: 140, y: 126 };
 const GAUGE_RADIUS = 89;
-const GAUGE_START_ANGLE = 170;
-const GAUGE_SWEEP_ANGLE = 175;
+// SVG coordinates increase downward, so 180° → 360° renders the top semicircle.
+// This maps the visible gauge range from 0° at the left endpoint to 180° at the right.
+const GAUGE_START_ANGLE = 180;
+const GAUGE_SWEEP_ANGLE = 180;
 const gaugeSegments = Array.from({ length: 13 }, (_, index) => index);
 
 function pointOnGauge(angle: number, radius = GAUGE_RADIUS) {
