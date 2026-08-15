@@ -41,6 +41,7 @@ const auditTicks = Array.from({ length: 19 }, (_, index) => index);
 
 function AuditSpeedometer({ sv }: { sv: boolean }) {
   const [score, setScore] = useState<number | null>(null);
+  const [displayedScore, setDisplayedScore] = useState(0);
   const [isInView, setIsInView] = useState(false);
   const meterRef = useRef<HTMLDivElement>(null);
 
@@ -88,6 +89,38 @@ function AuditSpeedometer({ sv }: { sv: boolean }) {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (!isInView || score === null) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setDisplayedScore(score);
+      return;
+    }
+
+    let frameId = 0;
+    const delayId = window.setTimeout(() => {
+      const startedAt = window.performance.now();
+      const duration = 1200;
+
+      const countUp = (timestamp: number) => {
+        const progress = Math.min((timestamp - startedAt) / duration, 1);
+        const easedProgress = 1 - Math.pow(1 - progress, 3);
+        setDisplayedScore(Math.round(score * easedProgress));
+
+        if (progress < 1) {
+          frameId = window.requestAnimationFrame(countUp);
+        }
+      };
+
+      frameId = window.requestAnimationFrame(countUp);
+    }, 500);
+
+    return () => {
+      window.clearTimeout(delayId);
+      window.cancelAnimationFrame(frameId);
+    };
+  }, [isInView, score]);
+
   const meterStyle = { "--audit-score": isInView ? score ?? 0 : 0 } as CSSProperties;
 
   return (
@@ -116,8 +149,8 @@ function AuditSpeedometer({ sv }: { sv: boolean }) {
         <span className="audit-meter-needle" />
         <span className="audit-meter-hub" />
       </div>
-      <div className="audit-meter-reading" aria-live="polite">
-        <strong>{score ?? "–"}</strong>
+      <div className="audit-meter-reading" aria-hidden="true">
+        <strong>{score === null ? "–" : displayedScore}</strong>
         <span>{sv ? "AV 100" : "OF 100"}</span>
       </div>
     </div>
