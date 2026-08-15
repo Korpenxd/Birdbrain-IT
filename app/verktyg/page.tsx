@@ -292,23 +292,23 @@ function ToolGraphic({ type, sv }: { type: Tool["id"]; sv: boolean }) {
 
           <ellipse className="planner-builder-ambient" cx="180" cy="157" rx="137" ry="120" />
           <g className="planner-builder-connections">
-            <path d="M 91 101 C 104 101, 105 101, 112 101" />
-            <path d="M 104 224 C 112 218, 112 210, 120 205" />
-            <path d="M 258 158 C 270 158, 274 158, 282 158" />
+            <path d="M 196 100 C 219 91, 241 82, 263 81" />
+            <path d="M 196 142 C 222 142, 237 162, 258 162" />
+            <path d="M 196 188 C 226 207, 254 229, 282 230" />
           </g>
           <g className="planner-builder-nodes">
-            <circle cx="92" cy="101" r="3.5" /><circle cx="111" cy="101" r="3.5" />
-            <circle cx="104" cy="224" r="3.5" /><circle cx="120" cy="205" r="3.5" />
-            <circle cx="258" cy="158" r="3.5" /><circle cx="282" cy="158" r="3.5" />
+            <circle cx="196" cy="100" r="3.5" /><circle cx="263" cy="81" r="3.5" />
+            <circle cx="196" cy="142" r="3.5" /><circle cx="258" cy="162" r="3.5" />
+            <circle cx="196" cy="188" r="3.5" /><circle cx="282" cy="230" r="3.5" />
           </g>
 
-          <g className="planner-builder-module planner-builder-palette">
+          <g className="planner-builder-module planner-builder-palette" transform="translate(238 -20)">
             <rect x="25" y="70" width="67" height="62" rx="11" />
             <path d="M 42 87 h32 M 42 95 h21" />
             <circle cx="44" cy="112" r="6" /><circle cx="59" cy="112" r="6" /><circle cx="74" cy="112" r="6" />
           </g>
 
-          <g className="planner-builder-window">
+          <g className="planner-builder-window" transform="translate(-62 0)">
             <rect className="planner-builder-window-glow" x="102" y="39" width="156" height="216" rx="15" />
             <rect className="planner-builder-window-frame" x="102" y="39" width="156" height="216" rx="15" />
             <rect className="planner-builder-window-surface" x="109" y="47" width="142" height="200" rx="10" />
@@ -327,20 +327,20 @@ function ToolGraphic({ type, sv }: { type: Tool["id"]; sv: boolean }) {
             </g>
           </g>
 
-          <g className="planner-builder-module planner-builder-layout-module">
+          <g className="planner-builder-module planner-builder-layout-module" transform="translate(220 -62)">
             <rect x="38" y="193" width="67" height="62" rx="11" />
             <path d="M 52 208 H 91 M 52 219 H 69 M 75 219 H 91 M 52 230 H 63 M 69 230 H 91" />
             <path className="planner-builder-layout-accent" d="M 52 241 H 83" />
           </g>
 
-          <g className="planner-builder-module planner-builder-components">
+          <g className="planner-builder-module planner-builder-components" transform="translate(0 72)">
             <rect x="282" y="127" width="53" height="62" rx="11" />
             <rect x="296" y="141" width="11" height="11" rx="2" />
             <rect x="312" y="141" width="11" height="11" rx="2" />
             <rect x="296" y="158" width="27" height="5" rx="2.5" />
             <rect x="296" y="170" width="19" height="5" rx="2.5" />
           </g>
-          <circle className="planner-builder-signal" cx="335" cy="108" r="4" />
+          <circle className="planner-builder-signal" cx="335" cy="187" r="4" />
         </svg>
       </div>
     );
