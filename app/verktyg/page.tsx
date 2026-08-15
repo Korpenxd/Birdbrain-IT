@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { useLanguage } from "../components/site-shell";
 
 type Tool = {
@@ -41,6 +41,8 @@ const auditTicks = Array.from({ length: 19 }, (_, index) => index);
 
 function AuditSpeedometer({ sv }: { sv: boolean }) {
   const [score, setScore] = useState<number | null>(null);
+  const [isInView, setIsInView] = useState(false);
+  const meterRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const makeScore = () => Math.floor(Math.random() * 100) + 1;
@@ -64,11 +66,34 @@ function AuditSpeedometer({ sv }: { sv: boolean }) {
     setScore(nextScore);
   }, []);
 
-  const meterStyle = { "--audit-score": score ?? 50 } as CSSProperties;
+  useEffect(() => {
+    const meter = meterRef.current;
+    if (!meter) return;
+
+    if (!("IntersectionObserver" in window)) {
+      setIsInView(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        setIsInView(true);
+        observer.disconnect();
+      },
+      { threshold: 0.4 },
+    );
+
+    observer.observe(meter);
+    return () => observer.disconnect();
+  }, []);
+
+  const meterStyle = { "--audit-score": isInView ? score ?? 0 : 0 } as CSSProperties;
 
   return (
     <div
       className="audit-meter"
+      ref={meterRef}
       style={meterStyle}
       role="img"
       aria-label={
