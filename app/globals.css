@@ -9808,17 +9808,16 @@ html[data-theme="light"] .planner-builder-nodes circle { fill: #f8fbff; }
 }
 
 .planner-layer-motion {
-  transition: transform 960ms cubic-bezier(0.22, 1, 0.36, 1), opacity 700ms ease;
+  transition: opacity 180ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.planner-layer-top { opacity: 0.68; transform: translateY(26%); }
-.planner-layer-middle { opacity: 0.84; }
-.planner-layer-finished { opacity: 0.72; transform: translateY(-27%); }
+.planner-layer-top,
+.planner-layer-finished { opacity: 0; }
+.planner-layer-middle { opacity: 1; }
 .planner-layers.is-active .planner-layer-top,
 .planner-layers.is-active .planner-layer-middle,
-.planner-layers.is-active .planner-layer-finished { opacity: 1; transform: translateY(0); }
-.planner-layers.is-active .planner-layer-middle { transition-delay: 70ms; }
-.planner-layers.is-active .planner-layer-finished { transition-delay: 135ms; }
+.planner-layers.is-active .planner-layer-finished { opacity: 1; }
+.planner-layers.is-active .planner-layer-finished { transition-delay: 80ms; }
 
 .planner-layer-surface {
   fill: rgba(9, 15, 40, 0.91);
