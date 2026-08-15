@@ -9808,7 +9808,7 @@ html[data-theme="light"] .planner-builder-nodes circle { fill: #f8fbff; }
 }
 
 .planner-layer-motion {
-  transition: opacity 180ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 100ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .planner-layer-top,
@@ -9817,7 +9817,6 @@ html[data-theme="light"] .planner-builder-nodes circle { fill: #f8fbff; }
 .planner-layers.is-active .planner-layer-top,
 .planner-layers.is-active .planner-layer-middle,
 .planner-layers.is-active .planner-layer-finished { opacity: 1; }
-.planner-layers.is-active .planner-layer-finished { transition-delay: 80ms; }
 
 .planner-layer-surface {
   fill: rgba(9, 15, 40, 0.91);
