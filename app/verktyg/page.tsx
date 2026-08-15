@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { Accessibility, Feather, Gauge, Search, ShieldCheck, Zap } from "lucide-react";
 import { useLanguage } from "../components/site-shell";
 
 type Tool = {
@@ -38,6 +39,13 @@ const tools: Tool[] = [
 ];
 
 const auditTicks = Array.from({ length: 19 }, (_, index) => index);
+
+const auditCategories = [
+  { id: "performance", icon: Gauge, delta: 6, sv: "Prestanda", en: "Performance" },
+  { id: "security", icon: ShieldCheck, delta: -2, sv: "Säkerhet", en: "Security" },
+  { id: "seo", icon: Search, delta: -7, sv: "SEO", en: "SEO" },
+  { id: "accessibility", icon: Accessibility, delta: -4, sv: "Tillgänglighet", en: "Accessibility" },
+] as const;
 
 function AuditSpeedometer({ sv }: { sv: boolean }) {
   const [score, setScore] = useState<number | null>(null);
@@ -122,10 +130,18 @@ function AuditSpeedometer({ sv }: { sv: boolean }) {
   }, [isInView, score]);
 
   const meterStyle = { "--audit-score": isInView ? score ?? 0 : 0 } as CSSProperties;
+  const categoryResults = auditCategories.map((category) => {
+    const value = score === null ? 0 : Math.min(100, Math.max(1, score + category.delta));
+    const displayedValue = score === null || score === 0
+      ? 0
+      : Math.round(value * (displayedScore / score));
+
+    return { ...category, value, displayedValue };
+  });
 
   return (
     <div
-      className="audit-meter"
+      className={`audit-meter${isInView ? " is-visible" : ""}`}
       ref={meterRef}
       style={meterStyle}
       role="img"
@@ -148,10 +164,29 @@ function AuditSpeedometer({ sv }: { sv: boolean }) {
         </span>
         <span className="audit-meter-needle" />
         <span className="audit-meter-hub" />
+        <span className="audit-meter-reading">
+          <strong>{score === null ? "–" : displayedScore}</strong>
+          <span>/100</span>
+        </span>
       </div>
-      <div className="audit-meter-reading" aria-hidden="true">
-        <strong>{score === null ? "–" : displayedScore}</strong>
-        <span>{sv ? "AV 100" : "OF 100"}</span>
+      <div className="audit-categories" aria-hidden="true">
+        {categoryResults.map((category) => {
+          const CategoryIcon = category.icon;
+
+          return (
+            <span className="audit-category" key={category.id}>
+              <CategoryIcon />
+              <span>{sv ? category.sv : category.en}</span>
+              <i className="audit-category-track">
+                <i
+                  className="audit-category-fill"
+                  style={{ "--audit-category-score": category.value } as CSSProperties}
+                />
+              </i>
+              <strong>{category.displayedValue}</strong>
+            </span>
+          );
+        })}
       </div>
     </div>
   );
@@ -161,14 +196,29 @@ function ToolGraphic({ type, sv }: { type: Tool["id"]; sv: boolean }) {
   if (type === "planner") {
     return (
       <div className="tool-directory-graphic tool-directory-plan-graphic" aria-hidden="true">
-        <span className="tool-directory-document">
-          <i />
-          <i />
-          <i />
+        <span className="planner-analytics-grid" />
+        <span className="planner-axis planner-axis-x" />
+        <span className="planner-axis planner-axis-y" />
+        <span className="planner-path planner-path-a" />
+        <span className="planner-path planner-path-b" />
+        <span className="planner-path planner-path-c" />
+        <span className="planner-analysis-module planner-analysis-module-a">
+          <i className="planner-line-chart"><i /><i /><i /><i /></i>
+          <i className="planner-data-dots" />
         </span>
-        <span className="tool-directory-node tool-directory-node-a" />
-        <span className="tool-directory-node tool-directory-node-b" />
-        <span className="tool-directory-node tool-directory-node-c" />
+        <span className="planner-analysis-module planner-analysis-module-b">
+          <i className="planner-ring-chart" />
+          <i className="planner-data-dots" />
+        </span>
+        <span className="planner-analysis-module planner-analysis-module-c">
+          <i className="planner-bar-chart"><i /><i /><i /><i /></i>
+          <i className="planner-target" />
+        </span>
+        <span className="planner-brief-document">
+          <i className="planner-brief-avatar" />
+          <i className="planner-brief-lines" />
+          <i className="planner-brief-mini-chart" />
+        </span>
       </div>
     );
   }
@@ -229,9 +279,9 @@ export default function ToolsPage() {
       </section>
 
       <section className="tool-directory-note page-shell" aria-label={sv ? "Om verktygen" : "About the tools"}>
-        <span><i className="tool-directory-shield" aria-hidden="true" />{sv ? "Ingen registrering" : "No registration"}</span>
-        <span><i className="tool-directory-bolt" aria-hidden="true" />{sv ? "Resultat direkt" : "Instant results"}</span>
-        <span><i aria-hidden="true">✦</i>{sv ? "Byggt av Birdbrain IT" : "Built by Birdbrain IT"}</span>
+        <span><ShieldCheck className="tool-directory-feature-icon tool-directory-feature-shield" aria-hidden="true" />{sv ? "Ingen registrering krävs" : "No registration required"}</span>
+        <span><Zap className="tool-directory-feature-icon tool-directory-feature-bolt" aria-hidden="true" />{sv ? "Resultat direkt" : "Instant results"}</span>
+        <span><Feather className="tool-directory-feature-icon tool-directory-feature-feather" aria-hidden="true" />{sv ? "Byggt av Birdbrain IT" : "Built by Birdbrain IT"}</span>
       </section>
     </main>
   );
