@@ -7243,21 +7243,37 @@ html[data-theme="light"] .audit-meter-hub {
 @media (max-width: 560px) {
   .tool-directory-card,
   .tool-directory-card-copy {
-    min-height: 540px;
+    min-height: 570px;
   }
 
   .tool-directory-graphic,
   .tool-directory-audit-graphic {
     right: auto;
-    bottom: 50px;
+    bottom: 112px;
     left: 50%;
     width: min(68%, 250px);
+    transform: translateX(-50%);
+  }
+
+  .tool-directory-action {
+    position: absolute;
+    z-index: 4;
+    bottom: 26px;
+    left: 50%;
+    width: min(calc(100% - 48px), 230px);
+    min-width: 0;
+    justify-content: center;
     transform: translateX(-50%);
   }
 
   .tool-directory-plan-graphic .tool-directory-document { right: 26%; }
   .tool-directory-plan-graphic .tool-directory-node { right: 10%; }
   .audit-meter { inset: 3% 0 0; }
+}
+
+.tool-directory-note .tool-directory-bolt,
+.tool-directory-note .tool-directory-bolt::after {
+  animation: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
