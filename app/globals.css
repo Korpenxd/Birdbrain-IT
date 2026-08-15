@@ -3310,14 +3310,18 @@ img {
     border-radius: 50%;
     background: var(--nav-node);
     box-shadow:
-      0 0 7px color-mix(in srgb, var(--nav-node) 82%, transparent),
-      0 0 16px color-mix(in srgb, var(--nav-node) 48%, transparent);
+      0 0 8px color-mix(in srgb, var(--nav-node) 94%, transparent),
+      0 0 20px color-mix(in srgb, var(--nav-node) 66%, transparent),
+      0 0 34px color-mix(in srgb, var(--nav-node) 30%, transparent);
     content: "";
+    filter: brightness(1.2);
+    opacity: 0.96;
     transform: translate(-50%, -50%);
+    will-change: transform;
   }
 
   .main-nav.is-open > a::before {
-    animation: mobile-nav-firefly var(--firefly-duration, 4.8s) ease-in-out infinite;
+    animation: mobile-nav-firefly var(--firefly-duration, 4.8s) linear infinite;
     animation-delay: var(--firefly-delay, 0s);
   }
 
@@ -3770,29 +3774,22 @@ img {
 
 @keyframes mobile-nav-firefly {
   0%, 100% {
-    opacity: 0.72;
-    filter: brightness(0.95);
-    box-shadow:
-      0 0 6px color-mix(in srgb, var(--nav-node) 72%, transparent),
-      0 0 14px color-mix(in srgb, var(--nav-node) 38%, transparent);
-    transform: translate(-50%, -50%) scale(0.9);
+    transform: translate(-50%, -50%);
   }
-  38% {
-    opacity: 1;
-    filter: brightness(1.42);
-    box-shadow:
-      0 0 9px color-mix(in srgb, var(--nav-node) 94%, transparent),
-      0 0 23px color-mix(in srgb, var(--nav-node) 68%, transparent),
-      0 0 38px color-mix(in srgb, var(--nav-node) 32%, transparent);
-    transform: translate(calc(-50% + var(--firefly-x, 3px)), calc(-50% + var(--firefly-y, -2px))) scale(1.1);
+  18% {
+    transform: translate(calc(-50% + var(--firefly-x, 3px)), calc(-50% + var(--firefly-y, -2px)));
   }
-  68% {
-    opacity: 0.82;
-    filter: brightness(1.12);
-    box-shadow:
-      0 0 7px color-mix(in srgb, var(--nav-node) 80%, transparent),
-      0 0 18px color-mix(in srgb, var(--nav-node) 48%, transparent);
-    transform: translate(calc(-50% + 1px), calc(-50% + 2px)) scale(0.98);
+  37% {
+    transform: translate(calc(-50% - 2px), calc(-50% - 4px));
+  }
+  58% {
+    transform: translate(calc(-50% + 3px), calc(-50% + 1px));
+  }
+  77% {
+    transform: translate(calc(-50% - 3px), calc(-50% + 3px));
+  }
+  90% {
+    transform: translate(calc(-50% + 1px), calc(-50% - 2px));
   }
 }
 
