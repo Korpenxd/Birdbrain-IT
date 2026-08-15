@@ -313,16 +313,16 @@ function PlannerLayerGraphic() {
           <polygon className="planner-layer-surface planner-layer-top-surface" points="55,25 220,25 239,84 37,84" />
           <path className="planner-layer-header" d="M55 35 H223 M64 41 H81 M87 41 H103 M185 41 H215" />
           <path className="planner-layer-grid" d="M61 47 H224 M55 60 H229 M48 72 H234 M82 35 L72 84 M112 35 L106 84 M142 35 L140 84 M172 35 L174 84 M202 35 L208 84" />
-          <rect className="planner-layer-wireframe-block" x="76" y="50" width="116" height="23" rx="3" />
-          <path className="planner-layer-wireframe-lines" d="M85 57 H137 M85 63 H157 M85 69 H122" />
+          <polygon className="planner-layer-wireframe-block" points="76,50 192,50 198,73 70,73" />
+          <path className="planner-layer-wireframe-lines" d="M84 56 H139 M83 62 L158 62 M81 68 H125" />
         </g>
 
         <g className="planner-layer-motion planner-layer-middle">
           <polygon className="planner-layer-surface planner-layer-middle-surface" points="54,105 221,105 239,166 37,166" />
           <path className="planner-layer-header" d="M54 116 H224 M63 111 H76 M81 111 H93" />
-          <rect className="planner-layer-media" x="69" y="122" width="65" height="20" rx="3" />
-          <path className="planner-layer-copy" d="M146 125 H201 M146 131 H208 M146 137 H183" />
-          <g className="planner-layer-component-cards"><rect x="63" y="147" width="43" height="11" rx="2" /><rect x="114" y="147" width="43" height="11" rx="2" /><rect x="165" y="147" width="43" height="11" rx="2" /></g>
+          <polygon className="planner-layer-media" points="69,122 134,122 140,142 64,142" />
+          <path className="planner-layer-copy" d="M146 125 H201 M146 131 L208 131 M146 137 H183" />
+          <g className="planner-layer-component-cards"><polygon points="63,147 105,147 108,158 60,158" /><polygon points="114,147 156,147 159,158 111,158" /><polygon points="165,147 207,147 210,158 162,158" /></g>
         </g>
 
         <g className="planner-progress-markers"><path d="M138 88 v9 M134 93 l4 4 4-4 M138 170 v9 M134 175 l4 4 4-4" /></g>
@@ -331,11 +331,11 @@ function PlannerLayerGraphic() {
           <polygon className="planner-layer-surface planner-layer-finished-surface" points="50,185 224,185 247,269 28,269" />
           <path className="planner-layer-finished-bar" d="M53 197 H230" />
           <circle cx="64" cy="191" r="2.2" /><circle cx="72" cy="191" r="2.2" /><circle cx="80" cy="191" r="2.2" />
-          <rect className="planner-layer-finished-hero" x="56" y="203" width="88" height="30" rx="3" />
-          <path className="planner-layer-hero-art" d="M62 228 C75 214 86 230 98 218 S119 226 137 210" />
-          <path className="planner-layer-finished-copy" d="M157 207 H208 M157 214 H219 M157 221 H197" />
-          <rect className="planner-layer-finished-cta" x="157" y="226" width="34" height="5" rx="2.5" />
-          <g className="planner-layer-finished-cards"><rect x="56" y="241" width="48" height="13" rx="2" /><rect x="113" y="241" width="48" height="13" rx="2" /><rect x="170" y="241" width="48" height="13" rx="2" /></g>
+          <polygon className="planner-layer-finished-hero" points="56,203 144,203 152,233 50,233" />
+          <path className="planner-layer-hero-art" d="M57 228 C73 214 87 230 100 218 S124 226 145 210" />
+          <path className="planner-layer-finished-copy" d="M157 207 H208 M157 214 L219 214 M157 221 H197" />
+          <polygon className="planner-layer-finished-cta" points="157,226 191,226 192,231 158,231" />
+          <g className="planner-layer-finished-cards"><polygon points="56,241 104,241 108,254 53,254" /><polygon points="113,241 161,241 165,254 110,254" /><polygon points="170,241 218,241 222,254 167,254" /></g>
           <path className="planner-layer-wave" d="M45 261 C75 249 95 271 122 258 S170 250 201 261 S224 263 235 257" />
         </g>
 
