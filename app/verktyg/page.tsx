@@ -269,29 +269,79 @@ function ToolGraphic({ type, sv }: { type: Tool["id"]; sv: boolean }) {
   if (type === "planner") {
     return (
       <div className="tool-directory-graphic tool-directory-plan-graphic" aria-hidden="true">
-        <span className="planner-analytics-grid" />
-        <span className="planner-axis planner-axis-x" />
-        <span className="planner-axis planner-axis-y" />
-        <span className="planner-path planner-path-a" />
-        <span className="planner-path planner-path-b" />
-        <span className="planner-path planner-path-c" />
-        <span className="planner-analysis-module planner-analysis-module-a">
-          <i className="planner-line-chart"><i /><i /><i /><i /></i>
-          <i className="planner-data-dots" />
-        </span>
-        <span className="planner-analysis-module planner-analysis-module-b">
-          <i className="planner-ring-chart" />
-          <i className="planner-data-dots" />
-        </span>
-        <span className="planner-analysis-module planner-analysis-module-c">
-          <i className="planner-bar-chart"><i /><i /><i /><i /></i>
-          <i className="planner-target" />
-        </span>
-        <span className="planner-brief-document">
-          <i className="planner-brief-avatar" />
-          <i className="planner-brief-lines" />
-          <i className="planner-brief-mini-chart" />
-        </span>
+        <svg className="planner-builder-svg" viewBox="0 0 360 300" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <linearGradient id="planner-builder-frame" x1="92" y1="54" x2="274" y2="248" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#2fbfff" />
+              <stop offset="0.52" stopColor="#7470ff" />
+              <stop offset="1" stopColor="#e651da" />
+            </linearGradient>
+            <linearGradient id="planner-builder-panel" x1="110" y1="56" x2="254" y2="242" gradientUnits="userSpaceOnUse">
+              <stop stopColor="rgba(31, 76, 151, 0.94)" />
+              <stop offset="1" stopColor="rgba(9, 14, 36, 0.96)" />
+            </linearGradient>
+            <linearGradient id="planner-builder-hero" x1="122" y1="95" x2="244" y2="143" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#249fff" stopOpacity="0.34" />
+              <stop offset="1" stopColor="#c750e3" stopOpacity="0.16" />
+            </linearGradient>
+            <filter id="planner-builder-glow" x="-35%" y="-35%" width="170%" height="170%">
+              <feGaussianBlur stdDeviation="3.2" result="blur" />
+              <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+            </filter>
+          </defs>
+
+          <ellipse className="planner-builder-ambient" cx="180" cy="157" rx="137" ry="120" />
+          <g className="planner-builder-connections">
+            <path d="M 91 101 C 104 101, 105 101, 112 101" />
+            <path d="M 104 224 C 112 218, 112 210, 120 205" />
+            <path d="M 258 158 C 270 158, 274 158, 282 158" />
+          </g>
+          <g className="planner-builder-nodes">
+            <circle cx="92" cy="101" r="3.5" /><circle cx="111" cy="101" r="3.5" />
+            <circle cx="104" cy="224" r="3.5" /><circle cx="120" cy="205" r="3.5" />
+            <circle cx="258" cy="158" r="3.5" /><circle cx="282" cy="158" r="3.5" />
+          </g>
+
+          <g className="planner-builder-module planner-builder-palette">
+            <rect x="25" y="70" width="67" height="62" rx="11" />
+            <path d="M 42 87 h32 M 42 95 h21" />
+            <circle cx="44" cy="112" r="6" /><circle cx="59" cy="112" r="6" /><circle cx="74" cy="112" r="6" />
+          </g>
+
+          <g className="planner-builder-window">
+            <rect className="planner-builder-window-glow" x="102" y="39" width="156" height="216" rx="15" />
+            <rect className="planner-builder-window-frame" x="102" y="39" width="156" height="216" rx="15" />
+            <rect className="planner-builder-window-surface" x="109" y="47" width="142" height="200" rx="10" />
+            <path className="planner-builder-window-bar" d="M 110 71 H 250" />
+            <circle cx="122" cy="59" r="2.7" /><circle cx="132" cy="59" r="2.7" /><circle cx="142" cy="59" r="2.7" />
+            <path className="planner-builder-nav" d="M 181 59 H 202 M 210 59 H 224 M 232 59 H 242" />
+            <rect className="planner-builder-hero-block" x="121" y="87" width="118" height="54" rx="7" />
+            <path className="planner-builder-copy-lines" d="M 133 102 H 177 M 133 112 H 195 M 133 122 H 166" />
+            <rect className="planner-builder-hero-chip" x="133" y="128" width="31" height="5" rx="2.5" />
+            <g className="planner-builder-layout">
+              <rect x="121" y="153" width="52" height="74" rx="5" />
+              <rect x="181" y="153" width="58" height="33" rx="5" />
+              <rect x="181" y="194" width="58" height="33" rx="5" />
+              <path d="M 130 170 H 163 M 130 178 H 156 M 191 164 H 228 M 191 205 H 219" />
+              <path className="planner-builder-layout-chart" d="M 130 211 L 140 202 L 149 208 L 162 191" />
+            </g>
+          </g>
+
+          <g className="planner-builder-module planner-builder-layout-module">
+            <rect x="38" y="193" width="67" height="62" rx="11" />
+            <path d="M 52 208 H 91 M 52 219 H 69 M 75 219 H 91 M 52 230 H 63 M 69 230 H 91" />
+            <path className="planner-builder-layout-accent" d="M 52 241 H 83" />
+          </g>
+
+          <g className="planner-builder-module planner-builder-components">
+            <rect x="282" y="127" width="53" height="62" rx="11" />
+            <rect x="296" y="141" width="11" height="11" rx="2" />
+            <rect x="312" y="141" width="11" height="11" rx="2" />
+            <rect x="296" y="158" width="27" height="5" rx="2.5" />
+            <rect x="296" y="170" width="19" height="5" rx="2.5" />
+          </g>
+          <circle className="planner-builder-signal" cx="335" cy="108" r="4" />
+        </svg>
       </div>
     );
   }

@@ -9645,3 +9645,137 @@ html[data-theme="light"] .audit-category > strong { color: #26314a; }
     width: min(100%, 230px);
   }
 }
+
+/* Responsive website-builder illustration for the planner card. */
+.tool-directory-visual .tool-directory-plan-graphic {
+  display: grid;
+  width: min(100%, 340px);
+  aspect-ratio: 6 / 5;
+  overflow: visible;
+  place-items: center;
+}
+
+.tool-directory-card-planner .tool-directory-visual {
+  padding-inline: 20px;
+}
+
+.planner-builder-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 340px;
+  overflow: visible;
+}
+
+.planner-builder-ambient {
+  fill: rgba(69, 89, 245, 0.08);
+  filter: blur(10px);
+}
+
+.planner-builder-connections path {
+  fill: none;
+  stroke: rgba(122, 108, 255, 0.78);
+  stroke-dasharray: 3 5;
+  stroke-linecap: round;
+  stroke-width: 1.25;
+}
+
+.planner-builder-nodes circle {
+  fill: #151335;
+  stroke: #7d6cff;
+  stroke-width: 1.4;
+  filter: drop-shadow(0 0 4px rgba(140, 105, 255, 0.9));
+}
+
+.planner-builder-module > rect:first-child {
+  fill: rgba(11, 19, 49, 0.94);
+  stroke: currentColor;
+  stroke-width: 1.25;
+}
+
+.planner-builder-module path,
+.planner-builder-module circle,
+.planner-builder-module rect:not(:first-child) {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.35;
+}
+
+.planner-builder-palette { color: #32c8ff; }
+.planner-builder-palette circle:nth-of-type(1) { fill: #30c9ff; stroke: none; }
+.planner-builder-palette circle:nth-of-type(2) { fill: #7968ff; stroke: none; }
+.planner-builder-palette circle:nth-of-type(3) { fill: #eb55d9; stroke: none; }
+.planner-builder-layout-module { color: #e758d9; }
+.planner-builder-components { color: #876fff; }
+.planner-builder-layout-accent { stroke: #37b9ff !important; }
+
+.planner-builder-window-glow {
+  fill: none;
+  stroke: rgba(108, 102, 255, 0.35);
+  stroke-width: 5;
+  filter: url(#planner-builder-glow);
+}
+
+.planner-builder-window-frame {
+  fill: none;
+  stroke: url(#planner-builder-frame);
+  stroke-width: 1.65;
+}
+
+.planner-builder-window-surface { fill: url(#planner-builder-panel); }
+.planner-builder-window-bar { stroke: rgba(114, 155, 255, 0.54); stroke-width: 1; }
+.planner-builder-window circle { fill: #5299ff; }
+.planner-builder-window circle:nth-of-type(2) { fill: #8d6dff; }
+.planner-builder-window circle:nth-of-type(3) { fill: #eb5bdc; }
+.planner-builder-nav { fill: none; stroke: rgba(198, 207, 255, 0.62); stroke-linecap: round; stroke-width: 1.1; }
+.planner-builder-hero-block { fill: url(#planner-builder-hero); stroke: rgba(89, 172, 255, 0.7); stroke-width: 1; }
+.planner-builder-copy-lines { fill: none; stroke: rgba(224, 233, 255, 0.83); stroke-linecap: round; stroke-width: 2.1; }
+.planner-builder-hero-chip { fill: #57aaff; filter: drop-shadow(0 0 4px rgba(65, 162, 255, 0.75)); }
+.planner-builder-layout rect { fill: rgba(12, 26, 62, 0.74); stroke: rgba(117, 112, 255, 0.69); stroke-width: 1; }
+.planner-builder-layout path { fill: none; stroke: rgba(186, 193, 255, 0.64); stroke-linecap: round; stroke-width: 1.25; }
+.planner-builder-layout .planner-builder-layout-chart { stroke: #3cbcff; stroke-width: 1.5; filter: drop-shadow(0 0 3px rgba(55, 190, 255, 0.85)); }
+
+.planner-builder-signal {
+  fill: #f161d9;
+  filter: drop-shadow(0 0 6px rgba(241, 97, 217, 0.9));
+  animation: planner-builder-signal-pulse 3.6s ease-in-out infinite;
+}
+
+.planner-builder-components,
+.planner-builder-palette {
+  animation: planner-builder-module-breathe 5.5s ease-in-out infinite alternate;
+}
+
+.planner-builder-palette { animation-delay: -2.2s; }
+
+@keyframes planner-builder-signal-pulse {
+  0%, 100% { opacity: 0.58; transform: scale(0.85); transform-origin: 335px 108px; }
+  50% { opacity: 1; transform: scale(1.16); transform-origin: 335px 108px; }
+}
+
+@keyframes planner-builder-module-breathe {
+  from { opacity: 0.82; }
+  to { opacity: 1; }
+}
+
+html[data-theme="light"] .planner-builder-ambient { fill: rgba(73, 108, 242, 0.09); }
+html[data-theme="light"] .planner-builder-module > rect:first-child { fill: rgba(255, 255, 255, 0.75); }
+html[data-theme="light"] .planner-builder-window-surface { fill: url(#planner-builder-panel); opacity: 0.88; }
+html[data-theme="light"] .planner-builder-layout rect { fill: rgba(255, 255, 255, 0.56); }
+html[data-theme="light"] .planner-builder-nodes circle { fill: #f8fbff; }
+
+@media (max-width: 640px) {
+  .tool-directory-visual .tool-directory-plan-graphic {
+    width: min(100%, 300px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .planner-builder-signal,
+  .planner-builder-components,
+  .planner-builder-palette {
+    animation: none;
+  }
+}
