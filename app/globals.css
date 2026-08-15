@@ -9572,6 +9572,14 @@ html[data-theme="light"] .audit-category > strong { color: #26314a; }
   width: min(100%, 286px);
 }
 
+.tool-directory-card-audit .tool-directory-visual {
+  padding-inline: 24px;
+}
+
+.tool-directory-card-audit .tool-directory-audit-graphic {
+  justify-self: center;
+}
+
 @media (max-width: 1180px) {
   .tool-directory-grid {
     grid-template-columns: minmax(0, 1fr);
@@ -9623,6 +9631,7 @@ html[data-theme="light"] .audit-category > strong { color: #26314a; }
   .tool-directory-cta {
     min-height: 74px;
     padding: 0 30px 28px;
+    justify-content: center;
   }
 
   .tool-directory-cta .tool-directory-action {
