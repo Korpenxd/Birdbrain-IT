@@ -7932,6 +7932,14 @@ html[data-theme="light"] textarea:focus-visible {
   }
 }
 
+/* Keep the mobile tool artwork above the actions in both themes. */
+@media (max-width: 560px) {
+  html[data-theme="light"] .tool-directory-graphic,
+  html[data-theme="light"] .tool-directory-audit-graphic {
+    bottom: 148px;
+  }
+}
+
 /* Insight article mockups. */
 .insight-article {
   --article-accent: #55a9ff;
