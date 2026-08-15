@@ -4674,7 +4674,7 @@ html[data-theme="light"] .tool-directory-note .tool-directory-shield::before { b
 .process-step-heading {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
   margin-bottom: 26px;
 }
 
@@ -4865,8 +4865,8 @@ html[data-theme="light"] .tool-directory-note .tool-directory-shield::before { b
   position: absolute;
   z-index: 2;
   top: 22px;
-  right: auto;
-  left: 22px;
+  right: 22px;
+  left: auto;
   display: grid;
   width: 42px;
   height: 30px;
