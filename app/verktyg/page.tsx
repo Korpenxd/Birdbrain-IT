@@ -157,6 +157,8 @@ export default function ToolsPage() {
               <a
                 className="tool-directory-action"
                 href={tool.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label={`${sv ? tool.action.sv : tool.action.en}: ${sv ? tool.title.sv : tool.title.en}`}
               >
                 {sv ? tool.action.sv : tool.action.en}
