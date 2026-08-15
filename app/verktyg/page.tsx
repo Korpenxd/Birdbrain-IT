@@ -104,7 +104,7 @@ function AuditSpeedometer({ sv }: { sv: boolean }) {
     const meter = meterRef.current;
     if (!meter) return;
 
-    if (!("IntersectionObserver" in window)) {
+    if (typeof IntersectionObserver === "undefined") {
       const timeoutId = window.setTimeout(() => setIsInView(true), 0);
       return () => window.clearTimeout(timeoutId);
     }
@@ -348,9 +348,13 @@ export default function ToolsPage() {
               <p className="tool-directory-card-kicker"><span />{sv ? tool.eyebrow.sv : tool.eyebrow.en}</p>
               <h2>{sv ? tool.title.sv : tool.title.en}</h2>
               <p>{sv ? tool.description.sv : tool.description.en}</p>
+            </div>
+            <div className="tool-directory-visual">
+              <ToolGraphic type={tool.id} sv={sv} />
+            </div>
+            <div className="tool-directory-cta">
               <ToolAction tool={tool} sv={sv} />
             </div>
-            <ToolGraphic type={tool.id} sv={sv} />
           </article>
         ))}
       </section>
