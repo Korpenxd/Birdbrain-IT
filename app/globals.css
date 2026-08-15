@@ -237,6 +237,11 @@ img {
   filter: drop-shadow(0 0 5px rgba(222, 49, 224, 0.42));
 }
 
+.language-toggle.is-sv .language-option.is-selected {
+  color: #42c8ff;
+  filter: drop-shadow(0 0 5px rgba(32, 216, 255, 0.46));
+}
+
 .menu-button {
   display: none;
 }
@@ -4292,6 +4297,10 @@ html[data-theme="light"] .language-option { color: #758198; }
 html[data-theme="light"] .language-option.is-selected {
   color: #6c40db;
   filter: none;
+}
+
+html[data-theme="light"] .language-toggle.is-sv .language-option.is-selected {
+  color: #258eff;
 }
 
 html[data-theme="light"] .mini-service-icon {
