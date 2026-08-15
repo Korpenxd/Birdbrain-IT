@@ -273,19 +273,28 @@ function PlannerLayerGraphic() {
     const graphic = graphicRef.current;
     if (!graphic) return;
 
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || typeof IntersectionObserver === "undefined") {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       const frameId = window.requestAnimationFrame(() => setIsActive(true));
       return () => window.cancelAnimationFrame(frameId);
     }
 
+    if (typeof IntersectionObserver === "undefined") {
+      const timeoutId = window.setTimeout(() => setIsActive(true), 0);
+      return () => window.clearTimeout(timeoutId);
+    }
+
+    let timeoutId: number | undefined;
     const observer = new IntersectionObserver(([entry]) => {
       if (!entry.isIntersecting) return;
-      setIsActive(true);
+      timeoutId = window.setTimeout(() => setIsActive(true), 500);
       observer.disconnect();
-    }, { threshold: 0.35 });
+    }, { threshold: 0.4 });
 
     observer.observe(graphic);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      if (timeoutId !== undefined) window.clearTimeout(timeoutId);
+    };
   }, []);
 
   return (
