@@ -336,7 +336,6 @@ function PlannerLayerGraphic() {
           <path className="planner-layer-finished-copy" d="M157 207 H208 M157 214 L219 214 M157 221 H197" />
           <polygon className="planner-layer-finished-cta" points="157,226 191,226 192,231 158,231" />
           <g className="planner-layer-finished-cards"><polygon points="56,241 104,241 108,254 53,254" /><polygon points="113,241 161,241 165,254 110,254" /><polygon points="170,241 218,241 222,254 167,254" /></g>
-          <path className="planner-layer-wave" d="M45 261 C75 249 95 271 122 258 S170 250 201 261 S224 263 235 257" />
         </g>
 
         <g className="planner-layer-connectors">

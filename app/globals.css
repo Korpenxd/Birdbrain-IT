@@ -9850,7 +9850,6 @@ html[data-theme="light"] .planner-builder-nodes circle { fill: #f8fbff; }
 .planner-layer-finished-copy { fill: none; stroke: rgba(232, 228, 255, 0.8); stroke-linecap: round; stroke-width: 1.3; }
 .planner-layer-finished-cta { fill: #d95bdd; filter: drop-shadow(0 0 3px rgba(217, 91, 221, 0.72)); }
 .planner-layer-finished-cards polygon { fill: rgba(44, 54, 147, 0.31); stroke: rgba(121, 151, 255, 0.72); stroke-width: 0.9; }
-.planner-layer-wave { fill: none; stroke: url(#planner-layer-finish); stroke-linecap: round; stroke-width: 1.25; }
 
 .planner-progress-markers { opacity: 0; transition: opacity 300ms ease 820ms; }
 .planner-layers.is-active .planner-progress-markers { opacity: 0.8; }
