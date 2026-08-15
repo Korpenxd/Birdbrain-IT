@@ -7249,7 +7249,7 @@ html[data-theme="light"] .audit-meter-hub {
   .tool-directory-graphic,
   .tool-directory-audit-graphic {
     right: auto;
-    bottom: 112px;
+    bottom: 148px;
     left: 50%;
     width: min(68%, 250px);
     transform: translateX(-50%);
