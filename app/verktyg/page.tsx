@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 import { Accessibility, Feather, Gauge, Search, ShieldCheck, Zap } from "lucide-react";
 import { useLanguage } from "../components/site-shell";
 
@@ -70,11 +70,21 @@ function gaugeArcPath(radius: number, startAngle = GAUGE_START_ANGLE, sweepAngle
   return `M ${start.x} ${start.y} A ${radius} ${radius} 0 ${largeArc} 1 ${end.x} ${end.y}`;
 }
 
-function AuditSpeedometer({ sv }: { sv: boolean }) {
+function AuditSpeedometer({ sv, startAnimation }: { sv: boolean; startAnimation: boolean }) {
   const [score, setScore] = useState<number | null>(null);
   const [displayedScore, setDisplayedScore] = useState(0);
-  const [isInView, setIsInView] = useState(false);
+  const [hasEnteredViewport, setHasEnteredViewport] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const meterRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updatePreference = () => setPrefersReducedMotion(mediaQuery.matches);
+
+    updatePreference();
+    mediaQuery.addEventListener("change", updatePreference);
+    return () => mediaQuery.removeEventListener("change", updatePreference);
+  }, []);
 
   useEffect(() => {
     const frameId = window.requestAnimationFrame(() => {
@@ -106,15 +116,20 @@ function AuditSpeedometer({ sv }: { sv: boolean }) {
     const meter = meterRef.current;
     if (!meter) return;
 
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const frameId = window.requestAnimationFrame(() => setHasEnteredViewport(true));
+      return () => window.cancelAnimationFrame(frameId);
+    }
+
     if (typeof IntersectionObserver === "undefined") {
-      const timeoutId = window.setTimeout(() => setIsInView(true), 0);
+      const timeoutId = window.setTimeout(() => setHasEnteredViewport(true), 0);
       return () => window.clearTimeout(timeoutId);
     }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
-        setIsInView(true);
+        setHasEnteredViewport(true);
         observer.disconnect();
       },
       { threshold: 0.4 },
@@ -124,10 +139,12 @@ function AuditSpeedometer({ sv }: { sv: boolean }) {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    if (!isInView || score === null) return;
+  const isActive = prefersReducedMotion || (startAnimation && hasEnteredViewport);
 
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  useEffect(() => {
+    if (!isActive || score === null) return;
+
+    if (prefersReducedMotion) {
       const frameId = window.requestAnimationFrame(() => setDisplayedScore(score));
       return () => window.cancelAnimationFrame(frameId);
     }
@@ -154,9 +171,9 @@ function AuditSpeedometer({ sv }: { sv: boolean }) {
       window.clearTimeout(delayId);
       window.cancelAnimationFrame(frameId);
     };
-  }, [isInView, score]);
+  }, [isActive, prefersReducedMotion, score]);
 
-  const meterStyle = { "--audit-score": isInView ? score ?? 0 : 0 } as CSSProperties;
+  const meterStyle = { "--audit-score": isActive ? score ?? 0 : 0 } as CSSProperties;
   const categoryResults = auditCategories.map((category) => {
     const value = score === null ? 0 : Math.min(100, Math.max(1, score + category.delta));
     const displayedValue = score === null || score === 0
@@ -165,7 +182,7 @@ function AuditSpeedometer({ sv }: { sv: boolean }) {
 
     return { ...category, value, displayedValue };
   });
-  const visibleScore = isInView ? score ?? 0 : 0;
+  const visibleScore = isActive ? score ?? 0 : 0;
   const needleAngle = GAUGE_START_ANGLE + (visibleScore / 100) * GAUGE_SWEEP_ANGLE;
   const needleRotation = needleAngle - 270;
   const activeArcStyle = {
@@ -177,7 +194,7 @@ function AuditSpeedometer({ sv }: { sv: boolean }) {
 
   return (
     <div
-      className={`audit-meter${isInView ? " is-visible" : ""}`}
+      className={`audit-meter${isActive ? " is-visible" : ""}`}
       ref={meterRef}
       style={meterStyle}
       role="img"
@@ -265,16 +282,26 @@ function AuditSpeedometer({ sv }: { sv: boolean }) {
   );
 }
 
-function PlannerLayerGraphic() {
+function PlannerLayerGraphic({ onAnimationComplete }: { onAnimationComplete: () => void }) {
   const graphicRef = useRef<HTMLDivElement>(null);
   const [isActive, setIsActive] = useState(false);
+  const hasReportedCompletion = useRef(false);
+  const reportCompletion = useCallback(() => {
+    if (hasReportedCompletion.current) return;
+
+    hasReportedCompletion.current = true;
+    onAnimationComplete();
+  }, [onAnimationComplete]);
 
   useEffect(() => {
     const graphic = graphicRef.current;
     if (!graphic) return;
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      const frameId = window.requestAnimationFrame(() => setIsActive(true));
+      const frameId = window.requestAnimationFrame(() => {
+        setIsActive(true);
+        reportCompletion();
+      });
       return () => window.cancelAnimationFrame(frameId);
     }
 
@@ -295,7 +322,7 @@ function PlannerLayerGraphic() {
       observer.disconnect();
       if (timeoutId !== undefined) window.clearTimeout(timeoutId);
     };
-  }, []);
+  }, [reportCompletion]);
 
   return (
     <div ref={graphicRef} className={`tool-directory-graphic tool-directory-plan-graphic planner-layers${isActive ? " is-active" : ""}`} aria-hidden="true">
@@ -349,7 +376,7 @@ function PlannerLayerGraphic() {
         <g className="planner-config-module planner-config-components">
           <rect x="277" y="118" width="56" height="38" rx="8" /><rect x="288" y="128" width="14" height="14" rx="2" /><path d="M307 128 H323 M307 135 H323 M307 142 H317" />
         </g>
-        <g className="planner-config-module planner-config-palette">
+        <g className="planner-config-module planner-config-palette" onAnimationEnd={reportCompletion}>
           <rect x="277" y="218" width="56" height="38" rx="8" /><circle cx="295" cy="237" r="10" /><circle cx="313" cy="237" r="4" /><circle cx="324" cy="237" r="4" />
         </g>
       </svg>
@@ -357,12 +384,22 @@ function PlannerLayerGraphic() {
   );
 }
 
-function ToolGraphic({ type, sv }: { type: Tool["id"]; sv: boolean }) {
-  if (type === "planner") return <PlannerLayerGraphic />;
+function ToolGraphic({
+  type,
+  sv,
+  onPlannerAnimationComplete,
+  startAuditAnimation,
+}: {
+  type: Tool["id"];
+  sv: boolean;
+  onPlannerAnimationComplete: () => void;
+  startAuditAnimation: boolean;
+}) {
+  if (type === "planner") return <PlannerLayerGraphic onAnimationComplete={onPlannerAnimationComplete} />;
 
   return (
     <div className="tool-directory-graphic tool-directory-audit-graphic">
-      <AuditSpeedometer sv={sv} />
+      <AuditSpeedometer sv={sv} startAnimation={startAuditAnimation} />
     </div>
   );
 }
@@ -385,6 +422,8 @@ function ToolAction({ tool, sv }: { tool: Tool; sv: boolean }) {
 export default function ToolsPage() {
   const { lang } = useLanguage();
   const sv = lang === "sv";
+  const [plannerAnimationComplete, setPlannerAnimationComplete] = useState(false);
+  const handlePlannerAnimationComplete = useCallback(() => setPlannerAnimationComplete(true), []);
 
   return (
     <main className="tool-directory-page">
@@ -416,7 +455,12 @@ export default function ToolsPage() {
               <p>{sv ? tool.description.sv : tool.description.en}</p>
             </div>
             <div className="tool-directory-visual">
-              <ToolGraphic type={tool.id} sv={sv} />
+              <ToolGraphic
+                type={tool.id}
+                sv={sv}
+                onPlannerAnimationComplete={handlePlannerAnimationComplete}
+                startAuditAnimation={plannerAnimationComplete}
+              />
             </div>
             <div className="tool-directory-cta">
               <ToolAction tool={tool} sv={sv} />
