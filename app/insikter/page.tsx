@@ -1,6 +1,6 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 
 import { Arrow, CtaStrip, Eyebrow, Raven, useLanguage } from "../components/site-shell";
@@ -30,16 +30,17 @@ export default function InsightsPage() {
       </section>
 
       <section className="article-list">
-        {insightArticles.map((article) => (
+        {insightArticles.map((article, index) => (
           <article key={article.title.sv}>
-            <img
+            <Image
               src={article.image}
               alt=""
-              width="1500"
-              height="920"
-              loading="lazy"
-              decoding="async"
-              fetchPriority="low"
+              width={1500}
+              height={920}
+              sizes="(max-width: 640px) min(516px, calc(100vw - 50px)), (max-width: 900px) 150px, 190px"
+              preload={index === 0}
+              loading={index === 0 ? "eager" : undefined}
+              fetchPriority={index === 0 ? "high" : undefined}
             />
             <div>
               <p className="article-category">{sv ? article.category.sv : article.category.en}</p>
