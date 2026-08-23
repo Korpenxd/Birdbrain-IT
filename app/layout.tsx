@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SiteShell } from "./components/site-shell";
+import { absoluteUrl, DEFAULT_DESCRIPTION, JsonLd, SITE_NAME, SITE_ORIGIN } from "./lib/seo";
 import "./globals.css";
 
 const themeBootstrap = `
@@ -26,19 +27,25 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://birdbrain.it"),
+  metadataBase: new URL(SITE_ORIGIN),
   title: {
-    default: "Birdbrain IT — Webbutveckling i Alingsås",
-    template: "%s — Birdbrain IT",
+    default: "Webbutveckling i Alingsås | Birdbrain IT",
+    template: "%s | Birdbrain IT",
   },
-  description:
-    "Webbplatser, webbappar och skräddarsydda digitala lösningar för individer och småföretag.",
+  description: DEFAULT_DESCRIPTION,
+  alternates: { canonical: SITE_ORIGIN },
   openGraph: {
-    title: "Birdbrain IT",
-    description:
-      "Digitala lösningar som gör idéer verkliga. Personlig webbutveckling från Alingsås.",
+    title: "Webbutveckling i Alingsås | Birdbrain IT",
+    description: DEFAULT_DESCRIPTION,
+    url: SITE_ORIGIN,
+    siteName: SITE_NAME,
     type: "website",
     locale: "sv_SE",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Webbutveckling i Alingsås | Birdbrain IT",
+    description: DEFAULT_DESCRIPTION,
   },
   icons: {
     icon: "/favicon.svg",
@@ -53,6 +60,34 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <script dangerouslySetInnerHTML={{ __html: themeBootstrap }} />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "WebSite",
+                "@id": `${SITE_ORIGIN}/#website`,
+                name: SITE_NAME,
+                url: SITE_ORIGIN,
+                inLanguage: "sv-SE",
+                publisher: { "@id": `${SITE_ORIGIN}/#organization` },
+              },
+              {
+                "@type": "Organization",
+                "@id": `${SITE_ORIGIN}/#organization`,
+                name: SITE_NAME,
+                url: SITE_ORIGIN,
+                logo: absoluteUrl("/favicon.svg"),
+                email: "Hello@birdbrain.it",
+                founder: {
+                  "@type": "Person",
+                  name: "Adam Ström",
+                  url: absoluteUrl("/om-mig"),
+                },
+              },
+            ],
+          }}
+        />
         <SiteShell>{children}</SiteShell>
       </body>
     </html>

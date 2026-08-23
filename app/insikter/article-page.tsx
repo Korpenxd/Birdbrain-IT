@@ -24,7 +24,7 @@ export function InsightArticlePage({ article }: { article: InsightArticle }) {
           <h1>{sv ? article.title.sv : article.title.en}</h1>
           <p className="insight-article-intro">{sv ? article.intro.sv : article.intro.en}</p>
           <div className="insight-article-meta">
-            <time>{sv ? article.date.sv : article.date.en}</time>
+            <time dateTime={article.publishedAt}>{sv ? article.date.sv : article.date.en}</time>
             <span aria-hidden="true" />
             <p>{sv ? article.readingTime.sv : article.readingTime.en}</p>
           </div>

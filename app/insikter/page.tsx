@@ -49,7 +49,7 @@ export default function InsightsPage() {
               <h2>{sv ? article.title.sv : article.title.en}</h2>
               <p>{sv ? article.excerpt.sv : article.excerpt.en}</p>
             </div>
-            <time>{sv ? article.date.sv : article.date.en}</time>
+            <time dateTime={article.publishedAt}>{sv ? article.date.sv : article.date.en}</time>
             <Link className="text-link" href={`/insikter/${article.slug}`}>
               {sv ? "Läs artikel" : "Read article"} <Arrow />
             </Link>

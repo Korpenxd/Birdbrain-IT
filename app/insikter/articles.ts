@@ -17,6 +17,7 @@ export type InsightArticle = {
   category: LocalizedText;
   title: LocalizedText;
   excerpt: LocalizedText;
+  publishedAt: string;
   date: LocalizedText;
   readingTime: LocalizedText;
   image: string;
@@ -41,6 +42,7 @@ export const insightArticles: InsightArticle[] = [
       sv: "En checklista som hjälper mig att starta rätt från början.",
       en: "A practical checklist that helps every project start on solid ground.",
     },
+    publishedAt: "2026-05-12",
     date: { sv: "12 maj 2026", en: "May 12, 2026" },
     readingTime: { sv: "6 min läsning", en: "6 min read" },
     image: "/images/pixelmani.webp",
@@ -128,6 +130,7 @@ export const insightArticles: InsightArticle[] = [
       sv: "Om värdet av fokus, hierarki och att ta bort istället för att lägga till.",
       en: "On focus, hierarchy and the value of removing instead of adding.",
     },
+    publishedAt: "2026-04-02",
     date: { sv: "2 apr. 2026", en: "April 2, 2026" },
     readingTime: { sv: "5 min läsning", en: "5 min read" },
     image: "/images/pixelmagi.webp",
@@ -205,6 +208,7 @@ export const insightArticles: InsightArticle[] = [
       sv: "Mina tankar om frihet, ansvar och att bygga något eget.",
       en: "Thoughts on freedom, responsibility and building something of your own.",
     },
+    publishedAt: "2026-03-18",
     date: { sv: "18 mars 2026", en: "March 18, 2026" },
     readingTime: { sv: "7 min läsning", en: "7 min read" },
     image: "/images/btc-backtest-hub.webp",
