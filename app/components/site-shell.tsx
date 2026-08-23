@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MoonStar, SunMedium } from "lucide-react";
@@ -730,6 +731,7 @@ export function ProjectCard({
   title,
   description,
   wide = false,
+  featuredAtMedium = false,
   children,
 }: {
   accent: "blue" | "purple" | "pink";
@@ -739,9 +741,15 @@ export function ProjectCard({
   title: string;
   description: string;
   wide?: boolean;
+  featuredAtMedium?: boolean;
   children?: ReactNode;
 }) {
   const { lang } = useLanguage();
+  const imageSizes = wide
+    ? "(max-width: 640px) min(540px, calc(100vw - 26px)), (max-width: 900px) min(437px, calc(58vw - 19px)), (max-width: 1484px) min(866px, calc(61vw - 39px)), 866px"
+    : featuredAtMedium
+      ? "(max-width: 640px) min(540px, calc(100vw - 26px)), (max-width: 900px) min(441px, calc(58vw - 19px)), (max-width: 1200px) calc(58vw - 37px), min(19vw, 270px)"
+      : "(max-width: 640px) min(540px, calc(100vw - 26px)), (max-width: 900px) min(441px, calc(58vw - 19px)), (max-width: 1200px) calc(29vw - 26px), min(19vw, 270px)";
   const projectLink = (
     <>
       {lang === "sv" ? "Visa case" : "View case"} <Arrow />
@@ -765,14 +773,12 @@ export function ProjectCard({
         )}
       </div>
       <div className="project-image">
-        <img
+        <Image
           src={image}
           alt=""
-          width="1500"
-          height="920"
-          loading="lazy"
-          decoding="async"
-          fetchPriority="low"
+          width={1500}
+          height={920}
+          sizes={imageSizes}
         />
       </div>
     </article>

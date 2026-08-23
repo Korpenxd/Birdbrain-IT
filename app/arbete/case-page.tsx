@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 
@@ -136,7 +137,13 @@ export function CaseStudyPage({ projectKey }: { projectKey: keyof typeof caseStu
           </div>
 
           <figure className="case-study-visual">
-            <img src={project.image} alt={localize(project.imageAlt)} width="1500" height="920" />
+            <Image
+              src={project.image}
+              alt={localize(project.imageAlt)}
+              width={1500}
+              height={920}
+              sizes="(max-width: 640px) min(540px, calc(100vw - 26px)), (max-width: 900px) min(760px, calc(100vw - 32px)), min(58vw, 840px)"
+            />
             {project.style === "product" ? (
               <div className="case-product-metrics" aria-label={sv ? "Exempelresultat" : "Example results"}>
                 <span><small>{sv ? "Avkastning" : "Return"}</small><strong>+184.6%</strong></span>

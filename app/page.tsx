@@ -88,6 +88,7 @@ export default function Home() {
 
         <div className="project-grid">
           <ProjectCard
+            featuredAtMedium
             accent="blue"
             href="/arbete/btc-backtest-hub"
             image="/images/btc-backtest-hub.webp"
