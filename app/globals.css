@@ -4820,23 +4820,6 @@ html[data-theme="light"] .tool-directory-note .tool-directory-shield::before { b
     site-star-twinkle 4.8s ease-in-out infinite;
 }
 
-@media (max-width: 640px) {
-  .site-canvas.is-process-route > .raven-page-environment .raven-page-stars {
-    opacity: 0.5;
-    filter: none;
-    animation: raven-page-stars 20s linear infinite;
-  }
-
-  .site-canvas.is-process-route > .raven-page-environment .raven-page-architecture {
-    opacity: 0.56;
-    animation: none;
-  }
-
-  .site-canvas.is-process-route > .raven-page-environment .raven-page-signal-two {
-    display: none;
-  }
-}
-
 .portrait-frame img {
   object-position: 50% 28%;
 }
@@ -8845,39 +8828,6 @@ html[data-theme="light"] .planner-layer-connectors circle { fill: #f8fbff; }
 }
 
 @media (max-width: 900px), (hover: none) and (pointer: coarse) {
-  .site-canvas > .raven-page-environment .raven-page-stars,
-  .site-canvas > .raven-page-environment .raven-page-architecture,
-  .site-canvas > .raven-page-environment .raven-page-floor,
-  .site-canvas > .raven-page-environment .raven-page-signal,
-  .site-canvas.is-process-route > .raven-page-environment .raven-page-stars,
-  .site-canvas.is-process-route > .raven-page-environment .raven-page-architecture {
-    animation: none !important;
-  }
-
-  .site-canvas > .raven-page-environment .raven-page-stars {
-    background-position: 17px 21px, 94px 62px, 163px 3px;
-    filter: none;
-    opacity: 0.46;
-  }
-
-  html[data-theme="light"] .site-canvas > .raven-page-environment .raven-page-stars {
-    filter: none;
-    opacity: 0.42;
-  }
-
-  .site-canvas > .raven-page-environment .raven-page-architecture {
-    opacity: 0.52;
-    transform: none;
-  }
-
-  .site-canvas > .raven-page-environment .raven-page-floor {
-    background-position: 0 0;
-  }
-
-  .site-canvas > .raven-page-environment .raven-page-signal {
-    display: none;
-  }
-
   .site-header,
   html[data-theme="light"] .site-header,
   html[data-theme="light"] .site-header:not(.menu-open) {
