@@ -50,6 +50,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>("dark");
   const pathname = usePathname();
   const isProcessRoute = pathname === "/process" || pathname.startsWith("/process/");
+  const siteCanvasRef = useAnimationPauseClass<HTMLDivElement>({ observeViewport: false });
 
   useEffect(() => {
     const saved = window.localStorage.getItem("birdbrain-language");
@@ -94,7 +95,10 @@ export function SiteShell({ children }: { children: ReactNode }) {
 
   return (
     <LanguageContext.Provider value={value}>
-      <div className={`site-canvas${isProcessRoute ? " is-process-route" : ""}`}>
+      <div
+        className={`site-canvas${isProcessRoute ? " is-process-route" : ""}`}
+        ref={siteCanvasRef}
+      >
         <RavenPageEnvironment variant="process" />
         <a className="skip-link" href="#main-content">
           {lang === "sv" ? "Hoppa till innehåll" : "Skip to content"}
@@ -539,20 +543,58 @@ export function RavenPageEnvironment({ variant }: { variant: RavenVariant }) {
   );
 }
 
-function ProcessGears({ priority }: { priority: boolean }) {
-  const gearsRef = useRef<HTMLSpanElement>(null);
+type AnimationPauseOptions = {
+  observeViewport?: boolean;
+  rootMargin?: string;
+};
+
+function useAnimationPauseClass<T extends HTMLElement>({
+  observeViewport = true,
+  rootMargin = "120px",
+}: AnimationPauseOptions = {}) {
+  const elementRef = useRef<T>(null);
 
   useEffect(() => {
-    const gears = gearsRef.current;
-    if (!gears || typeof IntersectionObserver === "undefined") return;
+    const element = elementRef.current;
+    if (!element) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => gears.classList.toggle("is-paused", !entry.isIntersecting),
-      { rootMargin: "120px" },
-    );
-    observer.observe(gears);
-    return () => observer.disconnect();
-  }, []);
+    let isIntersecting = true;
+    const updatePauseState = () => {
+      element.classList.toggle(
+        "is-animation-paused",
+        document.visibilityState === "hidden" || !isIntersecting,
+      );
+    };
+
+    const handleVisibilityChange = () => updatePauseState();
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    let observer: IntersectionObserver | undefined;
+    if (observeViewport && typeof IntersectionObserver !== "undefined") {
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          isIntersecting = entry.isIntersecting;
+          updatePauseState();
+        },
+        { rootMargin, threshold: 0.01 },
+      );
+      observer.observe(element);
+    }
+
+    updatePauseState();
+
+    return () => {
+      observer?.disconnect();
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      element.classList.remove("is-animation-paused");
+    };
+  }, [observeViewport, rootMargin]);
+
+  return elementRef;
+}
+
+function ProcessGears({ priority }: { priority: boolean }) {
+  const gearsRef = useAnimationPauseClass<HTMLSpanElement>();
 
   const loading = priority ? "eager" : "lazy";
   const fetchPriority = priority ? "high" : "auto";
@@ -598,10 +640,12 @@ export function Raven({
 }) {
   const sceneClass = hero ? "hero-raven" : compact ? "raven-art raven-art-compact" : "raven-art";
   const usesOriginalRaven = asset === "/images/ruven.svg";
+  const sceneRef = useAnimationPauseClass<HTMLDivElement>();
 
   return (
     <div
       className={`${sceneClass} raven-scene raven-variant-${variant}${usesOriginalRaven ? "" : " raven-custom-asset"}`}
+      ref={sceneRef}
       role={label ? "img" : undefined}
       aria-label={label}
       aria-hidden={label ? undefined : true}
