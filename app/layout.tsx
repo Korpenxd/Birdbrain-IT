@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SiteShell } from "./components/site-shell";
-import { absoluteUrl, DEFAULT_DESCRIPTION, JsonLd, SITE_NAME, SITE_ORIGIN } from "./lib/seo";
+import { absoluteUrl, DEFAULT_DESCRIPTION, DEFAULT_SOCIAL_IMAGE, JsonLd, SITE_NAME, SITE_ORIGIN } from "./lib/seo";
 import "./globals.css";
 
 const themeBootstrap = `
@@ -41,11 +41,13 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     type: "website",
     locale: "sv_SE",
+    images: [DEFAULT_SOCIAL_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: "Webbutveckling i Alingsås | Birdbrain IT",
     description: DEFAULT_DESCRIPTION,
+    images: [DEFAULT_SOCIAL_IMAGE],
   },
   icons: {
     icon: "/favicon.svg",
