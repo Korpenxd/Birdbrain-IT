@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import { CtaStrip, useLanguage } from "../components/site-shell";
+import { Arrow, CtaStrip, useLanguage } from "../components/site-shell";
 import { insightArticles, type InsightArticle } from "./articles";
 
 export function InsightArticlePage({ article }: { article: InsightArticle }) {
@@ -69,6 +69,15 @@ export function InsightArticlePage({ article }: { article: InsightArticle }) {
                     <li key={bullet.sv}>{sv ? bullet.sv : bullet.en}</li>
                   ))}
                 </ul>
+              ) : null}
+              {section.links ? (
+                <nav className="insight-context-links" aria-label={sv ? "Relaterat på Birdbrain IT" : "Related on Birdbrain IT"}>
+                  {section.links.map((link) => (
+                    <Link className="text-link" href={link.href} key={link.href}>
+                      {sv ? link.label.sv : link.label.en} <Arrow />
+                    </Link>
+                  ))}
+                </nav>
               ) : null}
             </section>
           ))}

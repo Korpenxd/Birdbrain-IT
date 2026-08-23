@@ -8,6 +8,7 @@ export type InsightSection = {
   title: LocalizedText;
   paragraphs: LocalizedText[];
   bullets?: LocalizedText[];
+  links?: Array<{ href: string; label: LocalizedText }>;
 };
 
 export type InsightArticle = {
@@ -94,6 +95,9 @@ export const insightArticles: InsightArticle[] = [
           { sv: "Så få beroenden som möjligt", en: "As few dependencies as possible" },
           { sv: "En naturlig väg att bygga vidare", en: "A natural path for future growth" },
         ],
+        links: [
+          { href: "/verktyg", label: { sv: "Prova Webbplatsplaneraren", en: "Try the Website Planner" } },
+        ],
       },
       {
         id: "resultatet",
@@ -113,6 +117,9 @@ export const insightArticles: InsightArticle[] = [
             sv: "Tid, budget, befintliga system, innehåll och interna arbetssätt är inte tråkiga detaljer. De är en del av designmaterialet. När ramarna är synliga från början går det att göra smartare prioriteringar utan sena överraskningar.",
             en: "Time, budget, existing systems, content and internal workflows are not boring details. They are part of the design material. When constraints are visible from the start, better priorities can be made without late surprises.",
           },
+        ],
+        links: [
+          { href: "/process", label: { sv: "Läs om hur ett webbprojekt går till", en: "See how a web project works" } },
         ],
       },
     ],
@@ -157,6 +164,9 @@ export const insightArticles: InsightArticle[] = [
             en: "Visual effects can create personality, but they need to support the content. I start with one question: what should the visitor understand first? Once the answer is clear, colour, motion and form can reinforce it.",
           },
         ],
+        links: [
+          { href: "/tjanster", label: { sv: "Läs om webbdesign och webbutveckling", en: "Explore web design and development services" } },
+        ],
       },
       {
         id: "hierarki",
@@ -191,6 +201,9 @@ export const insightArticles: InsightArticle[] = [
             sv: "Personlighet kan leva i typografi, rytm, ton och några väl valda detaljer. När grunden är tydlig får de detaljerna större effekt. Enkelheten blir scenen, inte slutmålet.",
             en: "Personality can live in typography, rhythm, tone and a few deliberate details. When the foundation is clear, those details have more impact. Simplicity becomes the stage, not the end goal.",
           },
+        ],
+        links: [
+          { href: "/arbete/pixelmagi", label: { sv: "Se Pixelmagi som exempel på bilddriven webbdesign", en: "See Pixelmagi as an example of image-led web design" } },
         ],
       },
     ],
@@ -245,6 +258,9 @@ export const insightArticles: InsightArticle[] = [
             en: "A client should never have to interpret silence. Short, clear updates make the work feel safer and produce better feedback. They also reduce the risk of two people carrying different pictures of the same project.",
           },
         ],
+        links: [
+          { href: "/process", label: { sv: "Läs om min arbetsprocess", en: "Explore my working process" } },
+        ],
       },
       {
         id: "vardet",
@@ -259,6 +275,9 @@ export const insightArticles: InsightArticle[] = [
           { sv: "Beskriv resultatet med vanligt språk", en: "Describe the result in plain language" },
           { sv: "Var tydlig med vad som inte ingår", en: "Be clear about what is not included" },
           { sv: "Knyt beslut till kundens mål", en: "Connect decisions to the client’s goals" },
+        ],
+        links: [
+          { href: "/tjanster", label: { sv: "Se vilka webblösningar jag arbetar med", en: "See the web solutions I work with" } },
         ],
       },
       {

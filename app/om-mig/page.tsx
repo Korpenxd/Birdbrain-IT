@@ -58,8 +58,8 @@ export default function AboutPage() {
         </p>
         <p>
           {sv
-            ? "För mig handlar det inte bara om att skriva kod. Det handlar om att förstå dina mål, dina användare och skapa något som faktiskt gör skillnad."
-            : "For me, it’s not just about writing code. It’s about understanding your goals and users, then creating something that genuinely makes a difference."}
+            ? "För mig handlar det inte bara om att skriva kod. Det handlar om att förstå dina mål och användare och skapa något som faktiskt gör skillnad. Du har direktkontakt med mig genom hela projektet – från första samtalet till leverans."
+            : "For me, it’s not just about writing code. It’s about understanding your goals and users, then creating something that genuinely makes a difference. You work directly with me throughout the project — from our first conversation to delivery."}
         </p>
       </section>
 

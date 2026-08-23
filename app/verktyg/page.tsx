@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 import { Accessibility, Feather, Gauge, Search, ShieldCheck, Zap } from "lucide-react";
-import { useLanguage } from "../components/site-shell";
+import { CtaStrip, useLanguage } from "../components/site-shell";
 
 type Tool = {
   id: "planner" | "audit";
@@ -474,6 +474,15 @@ export default function ToolsPage() {
         <span><Zap className="tool-directory-feature-icon tool-directory-feature-bolt" aria-hidden="true" />{sv ? "Resultat direkt" : "Instant results"}</span>
         <span><Feather className="tool-directory-feature-icon tool-directory-feature-feather" aria-hidden="true" />{sv ? "Byggt av Birdbrain IT" : "Built by Birdbrain IT"}</span>
       </section>
+      <div className="page-shell tool-directory-contact">
+        <CtaStrip
+          title={{ sv: "Vill du ha hjälp med nästa steg?", en: "Want help with the next step?" }}
+          text={{
+            sv: "Ta med planen eller analysen till ett samtal så går vi igenom vad som är viktigast att göra först.",
+            en: "Bring your plan or analysis to a conversation and we’ll identify what matters most to tackle first.",
+          }}
+        />
+      </div>
     </main>
   );
 }

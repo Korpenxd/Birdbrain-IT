@@ -35,7 +35,8 @@ export default function WorkPage() {
         />
       </section>
 
-      <section className="work-list">
+      <section className="work-list" aria-labelledby="work-list-title">
+        <h2 className="visually-hidden" id="work-list-title">{sv ? "Utvalda webbprojekt" : "Selected web projects"}</h2>
         <div id="btc">
           <ProjectCard
             wide

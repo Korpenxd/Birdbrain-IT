@@ -14,10 +14,7 @@ export default function InsightsPage() {
       <section className="inner-hero with-art raven-return-section">
         <div>
           <Eyebrow>{sv ? "Insikter" : "Insights"}</Eyebrow>
-          <h1>
-            {sv ? "Tankar, tips och " : "Thoughts, tips and "}
-            <span>{sv ? "lärdomar" : "lessons"}</span>
-          </h1>
+          <h1>{sv ? "Tankar, tips och lärdomar" : "Thoughts, tips and lessons"}</h1>
           <p>
             {sv
               ? "Jag delar med mig av insikter om utveckling, design och entreprenörskap."

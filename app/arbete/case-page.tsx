@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 
-import { CtaStrip, Eyebrow, useLanguage } from "../components/site-shell";
+import { Arrow, CtaStrip, Eyebrow, useLanguage } from "../components/site-shell";
 
 type LocalizedText = { sv: string; en: string };
 
@@ -170,6 +170,12 @@ export function CaseStudyPage({ projectKey }: { projectKey: keyof typeof caseStu
             </article>
           ))}
         </section>
+
+        <div className="case-service-link">
+          <Link className="text-link" href="/tjanster">
+            {sv ? "Läs om webbutveckling och webbdesign" : "Explore web development and design services"} <Arrow />
+          </Link>
+        </div>
 
         <nav className="case-next" aria-label={sv ? "Nästa case" : "Next case"}>
           <span>{sv ? "Nästa case" : "Next case"}</span>

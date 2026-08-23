@@ -52,7 +52,7 @@ export default function ContactPage() {
         <div className="contact-hero-grid">
           <div>
             <Eyebrow>{sv ? "Kontakt" : "Contact"}</Eyebrow>
-            <h1>{sv ? "Låt oss bygga något bra " : "Let’s build something good "}<span>{sv ? "tillsammans" : "together"}</span></h1>
+            <h1>{sv ? "Låt oss bygga något bra tillsammans" : "Let’s build something good together"}</h1>
             <p>{sv ? "Berätta om ditt projekt eller en idé så hör jag av mig så snart jag kan." : "Tell me about your project or idea and I’ll get back to you as soon as I can."}</p>
           </div>
           <Raven

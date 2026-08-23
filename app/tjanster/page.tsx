@@ -1,14 +1,16 @@
 "use client";
 
-import { CtaStrip, Eyebrow, Raven, useLanguage } from "../components/site-shell";
+import Link from "next/link";
+
+import { Arrow, CtaStrip, Eyebrow, Raven, useLanguage } from "../components/site-shell";
 import { Braces, LayoutTemplate, MessagesSquare, ShoppingCart, WandSparkles, Waypoints } from "lucide-react";
 
 const services = [
   {
     icon: LayoutTemplate,
     iconTone: "blue",
-    sv: ["Webbplatser", "Snygga, snabba och responsiva webbplatser som är enkla att uppdatera och anpassade för dina behov."],
-    en: ["Websites", "Polished, fast and responsive websites that are easy to update and tailored to your needs."],
+    sv: ["Webbplatser", "Nya företagswebbplatser och genomtänkta förbättringar av det som redan finns – snabba, responsiva och enkla att uppdatera."],
+    en: ["Websites", "New business websites and thoughtful improvements to existing sites — fast, responsive and easy to update."],
   },
   {
     icon: Braces,
@@ -50,15 +52,11 @@ export default function ServicesPage() {
       <section className="inner-hero with-art raven-return-section mobile-raven-spacing emote-raven-spacing">
         <div>
           <Eyebrow>{sv ? "Tjänster" : "Services"}</Eyebrow>
-          <h1>
-            {sv ? "Det jag " : "How I can "}
-            <span>{sv ? "hjälper dig" : "help you"}</span>
-            {sv ? " med" : ""}
-          </h1>
+          <h1>{sv ? "Webbutveckling och webbdesign som hjälper dig framåt" : "Web development and design that move you forward"}</h1>
           <p>
             {sv
-              ? "Skräddarsydda lösningar som löser problem på riktigt och skapar värde för dig och dina användare."
-              : "Tailored solutions that solve real problems and create value for you and your users."}
+              ? "Jag hjälper småföretag i Alingsås med omnejd att bygga nya företagswebbplatser, förbättra befintliga webbplatser och ta fram skräddarsydda webblösningar. Teknisk SEO, prestanda och tillgänglighet finns med från början."
+              : "I help small businesses in and around Alingsås build new business websites, improve existing sites and create tailored web solutions. Technical SEO, performance and accessibility are considered from the start."}
           </p>
         </div>
         <Raven
@@ -83,6 +81,20 @@ export default function ServicesPage() {
             </article>
           );
         })}
+      </section>
+      <section className="cta-strip service-proof" aria-labelledby="service-proof-title">
+        <div>
+          <h2 id="service-proof-title">{sv ? "Se hur lösningarna tar form" : "See how the solutions take shape"}</h2>
+          <p>{sv ? "Från analysverktyg till bilddrivna webbplatser – här är två olika typer av uppdrag." : "From analytics tools to image-led websites — here are two different kinds of projects."}</p>
+        </div>
+        <nav className="service-proof-links" aria-label={sv ? "Relevanta projekt" : "Relevant projects"}>
+          <Link className="text-link" href="/arbete/btc-backtest-hub">
+            {sv ? "Se webbappen BTC Backtest Hub" : "See the BTC Backtest Hub web app"} <Arrow />
+          </Link>
+          <Link className="text-link" href="/arbete/pixelmagi">
+            {sv ? "Se webbdesignen bakom Pixelmagi" : "See the web design behind Pixelmagi"} <Arrow />
+          </Link>
+        </nav>
       </section>
       <CtaStrip />
     </main>

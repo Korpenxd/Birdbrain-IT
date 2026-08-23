@@ -1,7 +1,9 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { CtaStrip, Eyebrow, Raven, useLanguage } from "../components/site-shell";
+import Link from "next/link";
+
+import { Arrow, CtaStrip, Eyebrow, Raven, useLanguage } from "../components/site-shell";
 
 type ProcessIconType = "conversation" | "proposal" | "build" | "launch";
 
@@ -30,7 +32,7 @@ export default function ProcessPage() {
       <section className="inner-hero with-art raven-return-section">
         <div>
           <Eyebrow>Process</Eyebrow>
-          <h1>{sv ? "Så " : "How it "}<span>{sv ? "går det till" : "works"}</span></h1>
+          <h1>{sv ? "Så går det till" : "How it works"}</h1>
           <p>{sv ? "En enkel och tydlig process från första samtal till färdig lösning." : "A simple, transparent process from the first conversation to the finished product."}</p>
         </div>
         <Raven
@@ -52,6 +54,9 @@ export default function ProcessPage() {
             </li>;
           })}
         </ol>
+        <Link className="text-link process-planner-link" href="/verktyg">
+          {sv ? "Prova Webbplatsplaneraren inför första samtalet" : "Try the Website Planner before our first conversation"} <Arrow />
+        </Link>
       </section>
       <CtaStrip title={{ sv: "Vill du komma igång?", en: "Ready to get started?" }} text={{ sv: "Boka ett kostnadsfritt samtal så ser vi om vi är en bra match.", en: "Book a free conversation and let’s see if we’re a good fit." }} />
     </main>
