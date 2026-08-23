@@ -15,6 +15,7 @@ import {
   useState,
 } from "react";
 import { getPageRavenNetwork } from "./raven-networks";
+import { buildPlannerContactPrefill, validatePlannerSummaryUrl } from "../lib/planner-contact";
 
 type Language = "sv" | "en";
 type Theme = "light" | "dark";
@@ -735,12 +736,24 @@ export function ProjectCard({
 }
 
 export function ContactForm() {
-  const { lang } = useLanguage();
+  const { lang, setLang } = useLanguage();
   const sv = lang === "sv";
+  const messageRef = useRef<HTMLTextAreaElement>(null);
 
   const [submitState, setSubmitState] = useState<
     "idle" | "sending" | "success" | "error"
   >("idle");
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (!validatePlannerSummaryUrl(params.get("planner"))) return;
+    const requestedLanguage = params.get("lang");
+    if (requestedLanguage === "sv" || requestedLanguage === "en") setLang(requestedLanguage);
+
+    const textarea = messageRef.current;
+    if (!textarea || textarea.value.trim()) return;
+    textarea.value = buildPlannerContactPrefill(window.location.search);
+  }, [setLang]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -806,6 +819,7 @@ export function ContactForm() {
       <label>
         {sv ? "Berätta om ditt projekt" : "Tell me about your project"}
         <textarea
+          ref={messageRef}
           name="message"
           rows={5}
           placeholder={
