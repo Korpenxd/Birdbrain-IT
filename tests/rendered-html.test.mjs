@@ -5,8 +5,8 @@ const workerUrl = new URL("../dist/server/index.js", import.meta.url);
 workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
 const { default: worker } = await import(workerUrl.href);
 
-async function render(pathname) {
-  const response = await worker.fetch(
+async function fetchPath(pathname) {
+  return worker.fetch(
     new Request(`http://localhost${pathname}`, {
       headers: { accept: "text/html" },
     }),
@@ -20,11 +20,28 @@ async function render(pathname) {
       passThroughOnException() {},
     },
   );
+}
+
+async function render(pathname) {
+  const response = await fetchPath(pathname);
 
   assert.equal(response.status, 200, pathname);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
   return response.text();
 }
+
+test("all public routes render successfully", async () => {
+  const publicRoutes = [
+    "/", "/tjanster", "/paket", "/arbete", "/arbete/btc-backtest-hub",
+    "/arbete/pixelmagi", "/arbete/pixelmani", "/om-mig", "/process",
+    "/insikter", "/insikter/5-saker-innan-ett-nytt-projekt",
+    "/insikter/darfor-enkel-design-ar-bast", "/insikter/driva-eget-som-utvecklare",
+    "/verktyg", "/kontakt", "/kontakt?paket=webbpaket",
+    "/kontakt?paket=webbpaket-plus", "/kontakt?paket=unknown",
+  ];
+
+  for (const pathname of publicRoutes) await render(pathname);
+});
 
 function titleFrom(html) {
   return html.match(/<title>(.*?)<\/title>/s)?.[1].replaceAll("&amp;", "&") ?? "";
@@ -40,6 +57,7 @@ test("renders route-specific SEO metadata and valid structured data", async () =
   const routes = [
     ["/", "Webbutveckling i Alingsås | Birdbrain IT"],
     ["/tjanster", "Webbdesign & webbutveckling i Alingsås | Birdbrain IT"],
+    ["/paket", "Webbpaket med fast pris | Birdbrain IT"],
     ["/arbete", "Webbprojekt & tidigare arbete | Birdbrain IT"],
     ["/arbete/btc-backtest-hub", "BTC Backtest Hub – webbapp & produktdesign | Birdbrain IT"],
     ["/insikter", "Webbutveckling, design & företagande – Insikter | Birdbrain IT"],
@@ -78,4 +96,20 @@ test("renders route-specific SEO metadata and valid structured data", async () =
   assert.ok(articleSchema.some((item) => item["@type"] === "BlogPosting"));
   assert.ok(articleSchema.some((item) => item["@type"] === "BreadcrumbList"));
   assert.match(articleHtml, /<time dateTime="2026-05-12">/);
+});
+
+test("package route exposes its offer, links and SEO metadata", async () => {
+  const html = await render("/paket");
+  assert.equal((html.match(/<h1\b/g) ?? []).length, 1);
+  assert.match(html, /<link rel="canonical" href="https:\/\/birdbrain\.it\/paket"/);
+  assert.match(html, /<meta property="og:image" content="https:\/\/birdbrain\.it\/images\/birdbrain-og\.png"/);
+  assert.match(html, /16 900 kr/);
+  assert.match(html, /21 900 kr/);
+  assert.match(html, /href="\/kontakt\?paket=webbpaket"/);
+  assert.match(html, /href="\/kontakt\?paket=webbpaket-plus"/);
+  assert.match(html, /href="\/verktyg"/);
+
+  const sitemapResponse = await fetchPath("/sitemap.xml");
+  assert.equal(sitemapResponse.status, 200);
+  assert.match(await sitemapResponse.text(), /https:\/\/birdbrain\.it\/paket/);
 });

@@ -17,6 +17,7 @@ import {
 } from "react";
 import { getPageRavenNetwork } from "./raven-networks";
 import { buildPlannerContactPrefill, validatePlannerSummaryUrl } from "../lib/planner-contact";
+import { getWebsitePackage, type WebsitePackageId } from "../lib/packages";
 
 type Language = "sv" | "en";
 type Theme = "light" | "dark";
@@ -30,6 +31,7 @@ const LanguageContext = createContext<LanguageContextValue | null>(null);
 const navigation = [
   { href: "/", sv: "Hem", en: "Home" },
   { href: "/tjanster", sv: "Tjänster", en: "Services" },
+  { href: "/paket", sv: "Paket", en: "Packages" },
   { href: "/arbete", sv: "Arbete", en: "Work" },
   { href: "/om-mig", sv: "Om mig", en: "About" },
   { href: "/process", sv: "Process", en: "Process" },
@@ -157,10 +159,10 @@ function SiteHeader({ theme, setTheme }: { theme: Theme; setTheme: (theme: Theme
           aria-label={lang === "sv" ? "Huvudmeny" : "Main menu"}
         >
           <span className="mobile-nav-kicker" aria-hidden="true">
-            Navigation / 01–08
+            Navigation / 01–09
           </span>
           <div className="mobile-nav-path" aria-hidden="true">
-            <svg viewBox="0 0 48 420" preserveAspectRatio="none" focusable="false">
+            <svg viewBox="0 0 48 480" preserveAspectRatio="none" focusable="false">
               <defs>
                 <linearGradient id="mobile-nav-gradient" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0" stopColor="#20d8ff" />
@@ -170,7 +172,7 @@ function SiteHeader({ theme, setTheme }: { theme: Theme; setTheme: (theme: Theme
               </defs>
               <polyline
                 pathLength={1}
-                points="31,30 13,90 32,150 14,210 31,270 13,330 31,390"
+                points="31,30 13,90 32,150 14,210 31,270 13,330 31,390 13,450"
               />
             </svg>
           </div>
@@ -789,6 +791,7 @@ export function ContactForm() {
   const { lang, setLang } = useLanguage();
   const sv = lang === "sv";
   const messageRef = useRef<HTMLTextAreaElement>(null);
+  const [selectedPackageId, setSelectedPackageId] = useState<WebsitePackageId | null>(null);
 
   const [submitState, setSubmitState] = useState<
     "idle" | "sending" | "success" | "error"
@@ -796,6 +799,9 @@ export function ContactForm() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
+    const selectedPackage = getWebsitePackage(params.get("paket"));
+    queueMicrotask(() => setSelectedPackageId(selectedPackage?.id ?? null));
+
     if (!validatePlannerSummaryUrl(params.get("planner"))) return;
     const requestedLanguage = params.get("lang");
     if (requestedLanguage === "sv" || requestedLanguage === "en") setLang(requestedLanguage);
@@ -824,6 +830,7 @@ export function ContactForm() {
           email: String(data.get("email") ?? ""),
           message: String(data.get("message") ?? ""),
           website: String(data.get("website") ?? ""),
+          packageId: selectedPackageId,
         }),
       });
 
@@ -841,6 +848,16 @@ export function ContactForm() {
 
   return (
     <form className="contact-form" onSubmit={handleSubmit}>
+      {selectedPackageId && (
+        <div className="contact-package-context" role="status">
+          <span>{sv ? "Valt paket" : "Selected package"}</span>
+          <strong>
+            {sv
+              ? getWebsitePackage(selectedPackageId)?.name.sv
+              : getWebsitePackage(selectedPackageId)?.name.en}
+          </strong>
+        </div>
+      )}
       <label>
         {sv ? "Namn" : "Name"}
         <input

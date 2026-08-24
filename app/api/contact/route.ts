@@ -1,9 +1,12 @@
 import { Resend } from "resend";
 
+import { getWebsitePackage } from "../../lib/packages";
+
 interface ContactPayload {
   name?: unknown;
   email?: unknown;
   message?: unknown;
+  packageId?: unknown;
 
   // Honeypot field. Real visitors leave this empty.
   website?: unknown;
@@ -52,6 +55,7 @@ export async function POST(request: Request) {
     const name = body.name.replace(/[\r\n]/g, " ").trim();
     const email = body.email.trim().toLowerCase();
     const message = body.message.trim();
+    const selectedPackage = getWebsitePackage(body.packageId);
 
     if (
       name.length < 2 ||
@@ -76,13 +80,16 @@ export async function POST(request: Request) {
       // Clicking Reply will reply to the visitor.
       replyTo: email,
 
-      subject: `Ny Birdbrain IT-förfrågan från ${name}`,
+      subject: selectedPackage
+        ? `Ny ${selectedPackage.name.sv}-förfrågan från ${name}`
+        : `Ny Birdbrain IT-förfrågan från ${name}`,
 
       text: [
         "Ny förfrågan via birdbrain.it",
         "",
         `Namn: ${name}`,
         `E-post: ${email}`,
+        ...(selectedPackage ? [`Gäller: ${selectedPackage.name.sv}`] : []),
         "",
         "Meddelande:",
         message,

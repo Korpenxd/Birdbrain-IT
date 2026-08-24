@@ -4,6 +4,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     "",
     "/tjanster",
+    "/paket",
     "/arbete",
     "/arbete/btc-backtest-hub",
     "/arbete/pixelmani",

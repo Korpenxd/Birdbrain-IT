@@ -189,6 +189,9 @@ export default function Home() {
           <Link className="text-link" href="/kontakt">
             {sv ? "Kontakta mig" : "Contact me"} <Arrow />
           </Link>
+          <Link className="text-link home-package-link" href="/paket">
+            {sv ? "Se webbpaket med fast pris" : "View fixed-price website packages"} <Arrow />
+          </Link>
         </div>
       </section>
 

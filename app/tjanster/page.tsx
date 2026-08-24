@@ -82,6 +82,12 @@ export default function ServicesPage() {
           );
         })}
       </section>
+      <div className="service-package-path">
+        <p>{sv ? "Behöver du en tydlig företagswebbplats?" : "Need a clear business website?"}</p>
+        <Link className="text-link" href="/paket">
+          {sv ? "Se webbpaket med fast pris" : "View fixed-price website packages"} <Arrow />
+        </Link>
+      </div>
       <section className="cta-strip service-proof" aria-labelledby="service-proof-title">
         <div>
           <h2 id="service-proof-title">{sv ? "Se hur lösningarna tar form" : "See how the solutions take shape"}</h2>
