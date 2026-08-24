@@ -926,7 +926,7 @@ export function ContactForm() {
       </button>
 
       {submitState === "success" && (
-        <p className="form-note" role="status">
+        <p className="form-note form-note-success" role="status">
           {sv
             ? "Tack! Ditt meddelande har skickats."
             : "Thank you! Your message has been sent."}

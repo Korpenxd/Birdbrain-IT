@@ -20,9 +20,16 @@ export async function POST(request: Request) {
   const contactFrom =
     process.env.CONTACT_FROM ??
     "Birdbrain IT <onboarding@resend.dev>";
+  const missingEnvironmentVariables = [
+    !apiKey ? "RESEND_API_KEY" : null,
+    !contactTo ? "CONTACT_TO" : null,
+  ].filter((name): name is string => name !== null);
 
   if (!apiKey || !contactTo) {
-    console.error("Missing RESEND_API_KEY or CONTACT_TO.");
+    console.error(
+      "Contact form is missing required environment variables:",
+      missingEnvironmentVariables,
+    );
 
     return Response.json(
       { error: "Contact form is not configured." },
@@ -30,8 +37,22 @@ export async function POST(request: Request) {
     );
   }
 
+  let body: ContactPayload;
+
   try {
-    const body = (await request.json()) as ContactPayload;
+    body = (await request.json()) as ContactPayload;
+  } catch (error) {
+    console.warn("Contact form received malformed JSON.", {
+      errorType: error instanceof Error ? error.name : typeof error,
+    });
+
+    return Response.json(
+      { error: "Invalid form data." },
+      { status: 400 },
+    );
+  }
+
+  try {
 
     // Silently accept likely bot submissions.
     if (
@@ -97,7 +118,11 @@ export async function POST(request: Request) {
     });
 
     if (error) {
-      console.error("Resend error:", error);
+      console.error("Resend rejected a contact email.", {
+        name: error.name,
+        message: error.message,
+        statusCode: error.statusCode,
+      });
 
       return Response.json(
         { error: "The email could not be sent." },
@@ -110,7 +135,10 @@ export async function POST(request: Request) {
       id: data?.id,
     });
   } catch (error) {
-    console.error("Contact form error:", error);
+    console.error("Unexpected contact form error.", {
+      name: error instanceof Error ? error.name : typeof error,
+      message: error instanceof Error ? error.message : "Unknown error",
+    });
 
     return Response.json(
       { error: "Something went wrong." },

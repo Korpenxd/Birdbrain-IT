@@ -2941,7 +2941,7 @@ img {
   opacity: 0.65;
 }
 
-.form-note-error {
+.form-note.form-note-error {
   color: #ff8fa3;
 }
 
@@ -7223,6 +7223,14 @@ html[data-theme="light"] :is(.contact-form input, .contact-form textarea)::place
 html[data-theme="light"] :is(.reply-note p, .form-note) {
   color: var(--muted);
   font-size: 0.78rem;
+}
+
+html[data-theme="light"] .contact-form .form-note.form-note-success {
+  color: #167858;
+}
+
+html[data-theme="light"] .contact-form .form-note.form-note-error {
+  color: #b42343;
 }
 
 html[data-theme="light"] .site-footer {
