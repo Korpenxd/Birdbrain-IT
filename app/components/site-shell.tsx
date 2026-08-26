@@ -16,7 +16,7 @@ import {
   useState,
 } from "react";
 import { getPageRavenNetwork } from "./raven-networks";
-import { buildPlannerContactPrefill, validatePlannerSummaryUrl } from "../lib/planner-contact";
+import { buildPlannerContactPrefill } from "../lib/planner-contact";
 import { getWebsitePackage, type WebsitePackageId } from "../lib/packages";
 
 type Language = "sv" | "en";
@@ -802,13 +802,13 @@ export function ContactForm() {
     const selectedPackage = getWebsitePackage(params.get("paket"));
     queueMicrotask(() => setSelectedPackageId(selectedPackage?.id ?? null));
 
-    if (!validatePlannerSummaryUrl(params.get("planner"))) return;
     const requestedLanguage = params.get("lang");
     if (requestedLanguage === "sv" || requestedLanguage === "en") setLang(requestedLanguage);
 
     const textarea = messageRef.current;
     if (!textarea || textarea.value.trim()) return;
-    textarea.value = buildPlannerContactPrefill(window.location.search);
+    const prefill = buildPlannerContactPrefill(window.location.search);
+    if (prefill) textarea.value = prefill;
   }, [setLang]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
