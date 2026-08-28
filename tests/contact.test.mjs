@@ -178,3 +178,32 @@ test("contact feedback has separate accessible success and error treatments", as
     /\.contact-form \.form-note\.form-note-error\s*{\s*color:\s*#b42343;/,
   );
 });
+
+test("contact message textarea auto-resizes and preserves prefill/reset behavior", async () => {
+  const component = await readFile(
+    new URL("../app/components/site-shell.tsx", import.meta.url),
+    "utf8",
+  );
+  const css = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
+
+  assert.match(
+    component,
+    /function autoResizeTextarea[\s\S]*?height = "auto";[\s\S]*?scrollHeight/,
+  );
+  assert.match(
+    component,
+    /onInput=\{\(event\) => autoResizeTextarea\(event\.currentTarget\)\}/,
+  );
+  assert.match(
+    component,
+    /if \(prefill\) textarea\.value = prefill;[\s\S]*?autoResizeTextarea\(textarea\)/,
+  );
+  assert.match(
+    component,
+    /form\.reset\(\);\s*if \(messageRef\.current\) autoResizeTextarea\(messageRef\.current\)/,
+  );
+  assert.match(
+    css,
+    /\.contact-form textarea\s*{[\s\S]*?overflow-y:\s*hidden;[\s\S]*?resize:\s*none;/,
+  );
+});

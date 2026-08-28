@@ -787,6 +787,11 @@ export function ProjectCard({
   );
 }
 
+function autoResizeTextarea(textarea: HTMLTextAreaElement) {
+  textarea.style.height = "auto";
+  textarea.style.height = `${textarea.scrollHeight}px`;
+}
+
 export function ContactForm() {
   const { lang, setLang } = useLanguage();
   const sv = lang === "sv";
@@ -806,9 +811,12 @@ export function ContactForm() {
     if (requestedLanguage === "sv" || requestedLanguage === "en") setLang(requestedLanguage);
 
     const textarea = messageRef.current;
-    if (!textarea || textarea.value.trim()) return;
-    const prefill = buildPlannerContactPrefill(window.location.search);
-    if (prefill) textarea.value = prefill;
+    if (!textarea) return;
+    if (!textarea.value.trim()) {
+      const prefill = buildPlannerContactPrefill(window.location.search);
+      if (prefill) textarea.value = prefill;
+    }
+    autoResizeTextarea(textarea);
   }, [setLang]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -839,6 +847,7 @@ export function ContactForm() {
       }
 
       form.reset();
+      if (messageRef.current) autoResizeTextarea(messageRef.current);
       setSubmitState("success");
     } catch (error) {
       console.error("Contact submission failed:", error);
@@ -888,6 +897,7 @@ export function ContactForm() {
         <textarea
           ref={messageRef}
           name="message"
+          onInput={(event) => autoResizeTextarea(event.currentTarget)}
           rows={5}
           placeholder={
             sv
